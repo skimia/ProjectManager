@@ -1,0 +1,14 @@
+skimia_angular:
+    resource: "@SkimiaAngularBundle/Resources/config/routing.yml"
+    prefix:   /
+
+
+skimia_project_manager:
+    resource: "@SkimiaProjectManagerBundle/Resources/config/routing.yml"
+    prefix:   /
+    
+skimia_project_manager_rest:
+    type: rest
+    resource: "@SkimiaProjectManagerBundle/Resources/config/routing_rest.yml"
+    prefix: /api
+

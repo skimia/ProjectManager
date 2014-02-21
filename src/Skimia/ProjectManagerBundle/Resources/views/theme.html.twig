@@ -1,0 +1,64 @@
+<!doctype html>
+<html class="no-js" lang="en" ng-app="SkimiaProjectManager">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title ng-bind="$state.current.title + ' | Skimia Project Manager'">SPM</title>
+  {% stylesheets 
+    'ccss/*.css' 
+    '@SkimiaAngularBundle/Resources/public/css/loading-bar.css'
+    '@SkimiaAngularBundle/Resources/public/css/flash-message.css'
+    filter='cssrewrite' %}
+    <link rel="stylesheet" href="{{ asset_url }}" />
+  {% endstylesheets %}
+</head>
+<body ng-controller="MainCtrl">
+  <div class="contain-to-grid sticky">
+    <nav class="top-bar" style="margin-bottom:20px;">
+      <ul class="title-area">
+        <li class="name">
+          <h1><a href="#/home">Skimia Project Manager</a></h1>
+        </li>
+      </ul>
+
+      <section class="top-bar-section">
+        <!-- Right Nav Section -->
+        <ul class="right">
+          <li class="has-dropdown active">
+            <a href="#">Connected as Admin</a>
+            <ul class="dropdown">
+              <li><a href="#">Disconnect</a></li>
+            </ul>
+          </li>
+        </ul>
+        <!-- Left Nav Section -->
+        <ul class="left">
+          <li class="has-form">
+            <a href="#/about" class="button">v {{version}}.{%verbatim%}{{getRev()}}{%endverbatim%}</a>
+          </li>
+          <li class="divider"></li>
+          <li><a href="#/announcement">Annonces</a></li>
+          <li class="divider"></li>
+          <li class="has-dropdown">
+            <a href="#/projects">Projets</a>
+            <ul class="dropdown">
+                <li ng-repeat="project in projects">
+                    {% verbatim %}<a href="#/project/{{project.id}}">{{project.name}}</a>{% endverbatim %}
+                </li>
+            </ul>
+          </li>
+          
+        </ul>
+      </section>
+    </nav>
+  </div>
+        {% verbatim %}
+        <message-center></message-center>
+        {% endverbatim %}
+  <div ui-view>
+
+  </div>
+
+  <script type="text/javascript" src="app.js" ></script>
+</body>
+</html>

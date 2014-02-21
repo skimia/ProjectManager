@@ -1,0 +1,7 @@
+parameters:
+#    skimia_project_manager.example.class: Skimia\ProjectManagerBundle\Example
+
+services:
+#    skimia_project_manager.example:
+#        class: %skimia_project_manager.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

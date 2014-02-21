@@ -1,0 +1,10 @@
+SkimiaProjectManager_SPM_Controllers.controller('MainCtrl',['$rootScope','$scope','Projects','FeedService',function($rootScope,$scope,Projects,Feed){
+    $scope.projects = Projects.query();
+    Feed.parseFeed('https://sourceforge.net/p/skimiaprojectmanager/code/feed').then(function(res){
+        $rootScope.feed = res.data.responseData.feed.entries;
+    });
+    $rootScope.getRev = function(){
+        if($rootScope.feed != undefined)
+            return $rootScope.feed[0].link.split("/")[6];
+    }
+}]);

@@ -1,0 +1,1 @@
+var SkimiaProjectManager_SPM_Services = angular.module('SkimiaProjectManager.SPM.Services',[{% for dep in deps %}'{{dep}}'{%if not loop.last %},{%endif%}{%endfor%}]);

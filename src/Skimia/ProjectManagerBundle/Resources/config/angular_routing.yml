@@ -1,0 +1,130 @@
+
+spm_homepage:
+    pattern: /home
+    controller: "SPM.Home.IndexController" 
+    view: "@SkimiaProjectManagerBundle:Home:index.html.twig"
+    title: "Accueil"
+spm_about:
+    pattern: /about
+    controller: "SPM.Home.AboutController"
+    view: "@SkimiaProjectManagerBundle:Home:about.html.twig"
+    title: "A propos"
+    #####################
+    ### ANNOUNCEMENTS ###
+    #####################
+ 
+spm_announcement_list:
+    pattern: /announcement
+    controller: "SPM.Announcement.ListController" 
+    view: "@SkimiaProjectManagerBundle:Announcement:list.html.twig"
+    title: "Annonces"
+
+spm_announcement_create:
+    pattern: /announcement/new
+    controller: "SPM.Announcement.CreateController" 
+    view: "@SkimiaProjectManagerBundle:Announcement:form.html.twig"
+    title: "Créer une Annonce"
+    
+spm_announcement_show:
+    pattern: /announcement/:Id
+    controller: "SPM.Announcement.ShowController" 
+    view: "@SkimiaProjectManagerBundle:Announcement:show.html.twig"
+    title: "Annonce"
+    
+spm_announcement_edit:
+    pattern: /announcement/:Id/edit
+    controller: "SPM.Announcement.EditController" 
+    view: "@SkimiaProjectManagerBundle:Announcement:form.html.twig"
+    title: "Editer une Annonce"
+    
+spm_announcement_delete:
+    pattern: /announcement/:Id/delete
+    controller: "SPM.Announcement.DeleteController" 
+    view: "@SkimiaProjectManagerBundle:Announcement:show.html.twig"
+    title: "Annonces"
+
+    ################
+    ### PROJETCS ###
+    ################
+    
+spm_project_list:
+    pattern: /projects
+    controller: "SPM.Project.ListController" 
+    view: "@SkimiaProjectManagerBundle:Project:list.html.twig"
+    title: "Projets"
+
+spm_project_create:
+    pattern: /project/new
+    controller: "SPM.Project.CreateController" 
+    view: "@SkimiaProjectManagerBundle:Project:form.html.twig"
+    title: "Créer un Projet"
+    
+spm_project_show:
+    pattern: /project/:Id
+    controller: "SPM.Project.ShowController" 
+    view: "@SkimiaProjectManagerBundle:Project:show.html.twig"
+    title: "Projet"
+
+spm_project_show_bundles:
+    pattern: /bundles
+    controller: "SPM.Project.BundlesController"
+    view: "@SkimiaProjectManagerBundle:Project:bundles.html.twig"
+    title: "Bundles"
+    
+spm_project_show_files:
+    pattern: /files
+    controller: "SPM.Project.FilesController"
+    view: "@SkimiaProjectManagerBundle:Project:files.html.twig"
+    title: "Fichiers"
+
+spm_project_show_issues:
+    pattern: /issues
+    controller: "SPM.Project.IssuesController"
+    view: "@SkimiaProjectManagerBundle:Project:issues.html.twig"
+    title: "Issues"
+
+spm_project_show_edit:
+    pattern: /edit
+    controller: "SPM.Project.EditController" 
+    view: "@SkimiaProjectManagerBundle:Project:edit.html.twig"
+    title: "Editer un Projet"
+
+spm_project_delete:
+    pattern: /project/:Id/delete
+    controller: "SPM.Project.DeleteController" 
+    view: "@SkimiaProjectManagerBundle:Project:show.html.twig"
+    title: "Projet"
+
+    ###############
+    ### BUNDLES ###
+    ###############
+
+spm_bundle_list:
+    pattern: /bundles
+    controller: "SPM.Bundle.ListController" 
+    view: "@SkimiaProjectManagerBundle:Bundle:list.html.twig"
+    title: "Bundles"
+
+spm_bundle_create:
+    pattern: /bundle/new
+    controller: "SPM.Bundle.CreateController"
+    view: "@SkimiaProjectManagerBundle:Bundle:form.html.twig"
+    title: "Créer un Bundle"
+    
+spm_bundle_show:
+    pattern: /bundle/:Id
+    controller: "SPM.Bundle.ShowController" 
+    view: "@SkimiaProjectManagerBundle:Bundle:show.html.twig"
+    title: "Bundle"
+
+spm_bundle_show_edit:
+    pattern: /edit
+    controller: "SPM.Bundle.EditController" 
+    view: "@SkimiaProjectManagerBundle:Bundle:edit.html.twig"
+    title: "Editer un Bundle"
+
+spm_bundle_delete:
+    pattern: /bundle/:Id/delete
+    controller: "SPM.Bundle.DeleteController" 
+    view: "@SkimiaProjectManagerBundle:Bundle:show.html.twig"
+    title: "Bundle"

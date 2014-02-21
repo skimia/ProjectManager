@@ -1,0 +1,20 @@
+skimia_angular:
+    short_name: SPM
+    
+    directory: "@SkimiaProjectManagerBundle/Resources/angular/"
+    #pour utiliser l'auto generation pour les actions REST il faut definir au moins les modules controller et service.
+    modules:
+        services:
+            #see config.yml skimia_angular > dependencies
+            dependencies:
+                - { name: ngResource }
+        controllers:
+            #see config.yml skimia_angular > dependencies
+            dependencies: ~
+        directives:
+            #see config.yml skimia_angular > dependencies
+            dependencies: ~
+    
+        
+         
+    

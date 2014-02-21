@@ -3,6 +3,12 @@ app/bootstrap*
 
 # Symfony directories
 vendor/*
+bin/*
+*/.sass-cache/*
+web/ccss/svgs/*
+web/theme/bower_components/*
+web/theme/stylesheets/*
+web/theme/js/*
 */logs/*
 */cache/*
 web/uploads/*

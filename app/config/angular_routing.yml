@@ -1,0 +1,3 @@
+spm:
+    resource: "@SkimiaProjectManagerBundle/Resources/config/angular_routing.yml"
+    prefix: "/"

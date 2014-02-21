@@ -1,0 +1,20 @@
+
+<div class="row">
+    <div class="large-12 columns">
+        <h1>Skimia Project Manager ( v {{version}}.{%verbatim%}{{getRev()}}{%endverbatim%} )</h1>
+        <div class="panel">
+          <p>By Kessler & STiiTCH</p>
+        </div>
+    	<article>
+      		{%verbatim%}
+      		<div ng-repeat="revision in feed">
+                    <div class="panel" ng-if="revision.title != ''">
+                        <h3>Revision : {{getRevision(revision.link)}}</h3>
+                        <p>{{revision.title}}</p>
+                        <p><a href="{{revision.link}}">Voir plus</a></p>
+                    </div>
+      		</div>
+                {% endverbatim %}
+      	</article>
+    </div>
+  </div>

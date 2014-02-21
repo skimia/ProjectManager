@@ -1,0 +1,21 @@
+{% verbatim %}
+<div class="row">
+    <div class="large-9 large-push-3 columns">
+    	<article>
+      		<h1>{{announcement.title}}</h1>
+      		<div class="panel">
+      			{{announcement.content}}
+      		</div>
+      	</article>
+    </div>
+    <div class="large-3 columns large-pull-9">
+      <div class="panel">
+      	<ul class="side-nav">
+          <li class="active">Operations</li>
+          <li><a href="#/announcement/{{announcement.id}}/edit">Editer</a></li>
+          <li><a href="#/announcement/{{announcement.id}}/delete">Supprimer</a></li>
+        </ul>
+      </div>
+      </div>
+  </div>
+{% endverbatim %}

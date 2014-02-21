@@ -1,0 +1,36 @@
+{% verbatim %}
+<div class="row">
+	<div class="large-12 columns">
+		<nav class="breadcrumbs">
+			<a href="#/home">Accueil</a>
+			<a href="#/projects">Projects</a>
+			<a class="current" href="#/project/{{project.id}}">{{project.name}}</a>
+		</nav>
+
+		<h1>Projet "{{project.name}}"</h1>
+		<div class="panel">
+			<dl class="tabs">
+                <dd ng-class="{ active: $state.is('spm.project.show') }"><a href="#/project/{{project.id}}">Overview</a></dd>
+				<dd><a href="http://wiki.skimia-agency.com/index.php?title={{project.name}}">Wiki</a></dd>
+				<dd ng-class="{ active: $state.includes('spm.project.show.bundles') }"><a href="#/project/{{project.id}}/bundles">Code</a></dd>
+				<dd ng-class="{ active: $state.includes('spm.project.show.issues') }"><a href="#/project/{{project.id}}/issues">Issues</a></dd>	
+				<dd ng-class="{ active: $state.includes('spm.project.show.files') }"><a href="#/project/{{project.id}}/files">Fichiers</a></dd>			
+                <dd ng-class="{ active: $state.includes('spm.project.show.edit') }"><a href="#/project/{{project.id}}/edit">Admin</a></dd>
+                <a ng-if="$state.includes('spm.project.show.edit')" href="#/project/{{project.id}}/delete" class="button alert right" style="margin:0">Supprimer</a>
+			</dl>
+		</div>
+            <div ui-view>
+	            <div class="panel">
+					<h3>Description</h3>
+					<p>{{project.description}}</p>	
+               	</div>	
+
+            	<div class="panel">
+					<h3>Contribute</h3>
+		            <p>Kessler, STiiTCH</p>
+	        	</div>
+        	</div>
+		</div>
+	</div>
+</div>
+{% endverbatim %}

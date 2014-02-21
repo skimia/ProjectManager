@@ -1,0 +1,48 @@
+  <div class="row">
+    <div class="large-12 columns">
+      <h1>Accueil</h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="large-6 columns">
+      <div class="panel">
+      <h3>Annonces</h3> 
+      {% verbatim %}
+      <h3 ng-repeat="announcement in announcements">
+        <a href="#/announcement/{{announcement.id}}">
+          <small>{{announcement.title}}</small>
+        </a>
+      </h3>
+      {% endverbatim %}
+      </div>
+    </div>
+    <div class="large-6 columns">
+      <div class="panel">
+        <h3>Projets</h3>  
+        <!--<dl class="sub-nav">
+          <dt>Filter:</dt>
+          <dd class="active"><a href="#">All</a></dd>
+          <dd><a href="#">Contrats</a></dd>
+          <dd><a href="#">Frameworks</a></dd>
+          <dd><a href="#">Sites</a></dd>
+        </dl>-->
+        {% verbatim %}
+        <ul class="side-nav">
+            <li ng-repeat="project in projects">
+                <a href="#/project/{{project.id}}">{{project.name}}</a>
+            </li>
+        </ul>
+        {% endverbatim %}
+      </div>
+      <div class="panel">
+        <h3>Bundles</h3>  
+          {% verbatim %}
+          <ul class="side-nav">
+              <li ng-repeat="bundle in bundles">
+                  <a href="#/bundle/{{bundle.id}}">{{bundle.name}}</a>
+              </li>
+          </ul>
+          {% endverbatim %}
+      </div>
+    </div>
+  </div>

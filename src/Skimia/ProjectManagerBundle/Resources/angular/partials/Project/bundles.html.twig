@@ -1,0 +1,30 @@
+{% verbatim %}
+<div class="row">
+    <div class="large-10  large-push-2 columns">
+    	<article ng-repeat="bundle in project.bundles">
+            
+      		<div class="panel">
+                    <div ng-if="bundle.projects.length != 0">
+                        <ul class="inline-list right">
+                            <li><i class="fi-share"></i></li>
+                            <li ng-repeat="project in bundle.projects">{{project.name}}</li>
+                        </ul>
+                    </div>
+                    <h3><a href="#/bundle/{{bundle.id}}">{{bundle.name}}</a></h3>
+                    <p>{{bundle.description}}</p>
+                    <ul class="inline-list">
+                        <li ng-if="bundle.entities.length != 0"><i class="fi-database small"> {{bundle.entities.length}}</i></li>
+                    </ul>
+      		</div>
+      	</article>
+    </div>
+    <div class="large-2 columns large-pull-10">
+      	<div class="panel">
+      		<ul class="side-nav">
+	      	    <li class="active">Opérations</li>
+	      	    <li><a href="#/bundle/new">Ajouter</a></li>
+      	  	</ul>
+      	</div>
+    </div>
+</div>
+{% endverbatim %}

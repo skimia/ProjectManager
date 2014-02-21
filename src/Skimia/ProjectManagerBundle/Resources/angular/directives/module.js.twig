@@ -1,0 +1,1 @@
+var SkimiaProjectManager_SPM_Directives = angular.module('SkimiaProjectManager.SPM.Directives',[{% for dep in deps %}'{{dep}}'{%if not loop.last %},{%endif%}{%endfor%}]);

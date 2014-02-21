@@ -1,0 +1,19 @@
+annoucement:
+    type: rest
+    resource: Skimia\ProjectManagerBundle\Controller\AnnouncementController
+    
+project:
+    type: rest
+    resource: Skimia\ProjectManagerBundle\Controller\ProjectController
+    
+bundle:
+    type: rest
+    resource: Skimia\ProjectManagerBundle\Controller\BundleController
+    
+entity:
+    type: rest
+    resource: Skimia\ProjectManagerBundle\Controller\EntityController
+    
+field:
+    type: rest
+    resource: Skimia\ProjectManagerBundle\Controller\FieldController
