@@ -13,7 +13,15 @@ web/theme/js/*
 */cache/*
 web/uploads/*
 web/bundles/*
+web/css/*
 
 # Configuration files
 app/config/parameters.ini
 app/config/parameters.yml
+
+commands/
+composer.lock
+composer.phar
+web/config.php
+app/SymfonyRequirements.php
+app/check.php
