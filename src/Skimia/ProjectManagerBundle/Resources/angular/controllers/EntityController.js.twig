@@ -1,0 +1,40 @@
+
+{{module_var}}.controller('{{base_name}}.ListController',['$scope','Entities',function($scope, Entities){
+	$scope.entities = Entities.query();
+}]);
+
+{{module_var}}.controller('{{base_name}}.ShowController',['$scope','$stateParams','Entities',function($scope, $stateParams, Entities){
+	$scope.entity = Entities.get({ entityId:$stateParams.Id});
+}]);
+
+{{module_var}}.controller('{{base_name}}.EditController',['$scope','$stateParams', '$state','Entities','mc-service',function($scope, $stateParams, $state, Entities,flash){
+	$scope.data = Entities.get({ entityId:$stateParams.Id});
+        $scope.submit = function(){
+            $scope.data.$save(function()
+                {
+                    $state.go('^.show',{Id:$scope.data.id},{'reload':true});
+                    flash.add('success','Message success Edit');
+                });
+        }
+}]);
+
+{{module_var}}.controller('{{base_name}}.CreateController',['$scope','$stateParams','$state','Entities','mc-service',function($scope, $stateParams, $state, Entities,flash){
+	$scope.data = {}
+        $scope.submit = function(){
+           var saved = Entities.save($scope.data,function()
+                {
+                    $state.go('^.show',{Id:saved.id});
+                    flash.add('success','Message success Create');
+                }
+            );
+        }
+}]);
+
+{{module_var}}.controller('{{base_name}}.DeleteController',['$scope','$stateParams','$state','Entities','mc-service',function($scope, $stateParams, $state, Entities,flash){
+    Entities.delete({ entityId:$stateParams.Id},function()
+                {
+                    $state.go('^.list');
+                    flash.add('success','Message success Delete');
+                });
+}]);
+

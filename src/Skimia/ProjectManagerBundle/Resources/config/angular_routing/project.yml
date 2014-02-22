@@ -1,0 +1,53 @@
+
+
+    ################
+    ### PROJETCS ###
+    ################
+    
+spm_project_list:
+    pattern: /projects
+    controller: "SPM.Project.ListController" 
+    view: "@SkimiaProjectManagerBundle:Project:list.html.twig"
+    title: "Projets"
+
+spm_project_create:
+    pattern: /project/new
+    controller: "SPM.Project.CreateController" 
+    view: "@SkimiaProjectManagerBundle:Project:form.html.twig"
+    title: "Créer un Projet"
+    
+spm_project_show:
+    pattern: /project/:Id
+    controller: "SPM.Project.ShowController" 
+    view: "@SkimiaProjectManagerBundle:Project:show.html.twig"
+    title: "Projet"
+
+spm_project_show_bundles:
+    pattern: /bundles
+    controller: "SPM.Project.BundlesController"
+    view: "@SkimiaProjectManagerBundle:Project:bundles.html.twig"
+    title: "Bundles"
+    
+spm_project_show_files:
+    pattern: /files
+    controller: "SPM.Project.FilesController"
+    view: "@SkimiaProjectManagerBundle:Project:files.html.twig"
+    title: "Fichiers"
+
+spm_project_show_issues:
+    pattern: /issues
+    controller: "SPM.Project.IssuesController"
+    view: "@SkimiaProjectManagerBundle:Project:issues.html.twig"
+    title: "Issues"
+
+spm_project_show_edit:
+    pattern: /edit
+    controller: "SPM.Project.EditController" 
+    view: "@SkimiaProjectManagerBundle:Project:edit.html.twig"
+    title: "Editer un Projet"
+
+spm_project_delete:
+    pattern: /project/:Id/delete
+    controller: "SPM.Project.DeleteController" 
+    view: "@SkimiaProjectManagerBundle:Project:show.html.twig"
+    title: "Projet"

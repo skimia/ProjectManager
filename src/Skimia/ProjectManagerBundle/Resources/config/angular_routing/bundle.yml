@@ -1,0 +1,34 @@
+
+    ###############
+    ### BUNDLES ###
+    ###############
+
+spm_bundle_list:
+    pattern: /bundles
+    controller: "SPM.Bundle.ListController" 
+    view: "@SkimiaProjectManagerBundle:Bundle:list.html.twig"
+    title: "Bundles"
+
+spm_bundle_create:
+    pattern: /bundle/new
+    controller: "SPM.Bundle.CreateController"
+    view: "@SkimiaProjectManagerBundle:Bundle:form.html.twig"
+    title: "Créer un Bundle"
+    
+spm_bundle_show:
+    pattern: /bundle/:Id
+    controller: "SPM.Bundle.ShowController" 
+    view: "@SkimiaProjectManagerBundle:Bundle:show.html.twig"
+    title: "Bundle"
+
+spm_bundle_show_edit:
+    pattern: /edit
+    controller: "SPM.Bundle.EditController" 
+    view: "@SkimiaProjectManagerBundle:Bundle:edit.html.twig"
+    title: "Editer un Bundle"
+
+spm_bundle_delete:
+    pattern: /bundle/:Id/delete
+    controller: "SPM.Bundle.DeleteController" 
+    view: "@SkimiaProjectManagerBundle:Bundle:show.html.twig"
+    title: "Bundle"
