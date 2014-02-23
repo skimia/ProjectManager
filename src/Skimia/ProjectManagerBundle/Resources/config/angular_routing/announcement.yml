@@ -15,19 +15,19 @@ spm_announcement_create:
     title: "Créer une Annonce"
     
 spm_announcement_show:
-    pattern: /announcement/:Id
+    pattern: /announcement/:announcementId
     controller: "SPM.Announcement.ShowController" 
     view: "@SkimiaProjectManagerBundle:Announcement:show.html.twig"
     title: "Annonce"
     
 spm_announcement_edit:
-    pattern: /announcement/:Id/edit
+    pattern: /announcement/:announcementId/edit
     controller: "SPM.Announcement.EditController" 
     view: "@SkimiaProjectManagerBundle:Announcement:form.html.twig"
     title: "Editer une Annonce"
     
 spm_announcement_delete:
-    pattern: /announcement/:Id/delete
+    pattern: /announcement/:announcementId/delete
     controller: "SPM.Announcement.DeleteController" 
     view: "@SkimiaProjectManagerBundle:Announcement:show.html.twig"
     title: "Annonces"

@@ -4,15 +4,15 @@
 }]);
 
 {{module_var}}.controller('{{base_name}}.ShowController',['$scope','$stateParams','Fields',function($scope, $stateParams, Fields){
-	$scope.field = Fields.get({ fieldId:$stateParams.Id});
+	$scope.field = Fields.get({ fieldId:$stateParams.fieldId});
 }]);
 
 {{module_var}}.controller('{{base_name}}.EditController',['$scope','$stateParams', '$state','Fields','mc-service',function($scope, $stateParams, $state, Fields,flash){
-	$scope.data = Fields.get({ fieldId:$stateParams.Id});
+	$scope.data = Fields.get({ fieldId:$stateParams.fieldId});
         $scope.submit = function(){
             $scope.data.$save(function()
                 {
-                    $state.go('^.show',{Id:$scope.data.id},{'reload':true});
+                    $state.go('^.show',{fieldId:$scope.data.id},{'reload':true});
                     flash.add('success','Message success Edit');
                 });
         }
@@ -23,7 +23,7 @@
         $scope.submit = function(){
            var saved = Fields.save($scope.data,function()
                 {
-                    $state.go('^.show',{Id:saved.id});
+                    $state.go('^.show',{fieldId:saved.id});
                     flash.add('success','Message success Create');
                 }
             );
@@ -31,7 +31,7 @@
 }]);
 
 {{module_var}}.controller('{{base_name}}.DeleteController',['$scope','$stateParams','$state','Fields','mc-service',function($scope, $stateParams, $state, Fields,flash){
-    Fields.delete({ fieldId:$stateParams.Id},function()
+    Fields.delete({ fieldId:$stateParams.fieldId},function()
                 {
                     $state.go('^.list');
                     flash.add('success','Message success Delete');

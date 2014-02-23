@@ -4,15 +4,15 @@
 }]);
 
 {{module_var}}.controller('{{base_name}}.ShowController',['$scope','$stateParams','Announcements',function($scope, $stateParams, Announcements){
-	$scope.announcement = Announcements.get({announcementId:$stateParams.Id});
+	$scope.announcement = Announcements.get({announcementId:$stateParams.announcementId});
 }]);
 
 {{module_var}}.controller('{{base_name}}.EditController',['$scope','$stateParams', '$state','Announcements','mc-service',function($scope, $stateParams, $state, Announcements,flash){
-	$scope.data = Announcements.get({announcementId:$stateParams.Id});
+	$scope.data = Announcements.get({announcementId:$stateParams.announcementId});
         $scope.submit = function(){
             $scope.data.$save(function()
                 {
-                    $state.go('^.show',{Id:$scope.data.id});
+                    $state.go('^.show',{announcementId:$scope.data.id});
                     flash.add('success','Votre annonce "'+$scope.data.title+'" est bien modifiée !');
                 });
         }
@@ -23,7 +23,7 @@
         $scope.submit = function(){
            var saved = Announcements.save($scope.data,function()
                 {
-                    $state.go('^.show',{Id:saved.id});
+                    $state.go('^.show',{announcementId:saved.id});
                     flash.add('success','Votre annonce "'+$scope.data.title+'" est bien postée !');
                 }
             );
@@ -31,7 +31,7 @@
 }]);
 
 {{module_var}}.controller('{{base_name}}.DeleteController',['$scope','$stateParams','$state','Announcements','mc-service',function($scope, $stateParams, $state, Announcements,flash){
-    Announcements.delete({announcementId:$stateParams.Id},function()
+    Announcements.delete({announcementId:$stateParams.announcementId},function()
                 {
                     $state.go('^.list');
                     flash.add('success','Annonce bien supprimée !');

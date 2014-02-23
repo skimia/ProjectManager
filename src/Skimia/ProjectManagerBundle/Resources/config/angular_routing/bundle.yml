@@ -16,7 +16,7 @@ spm_bundle_create:
     title: "Créer un Bundle"
     
 spm_bundle_show:
-    pattern: /bundle/:Id
+    pattern: /bundle/:bundleId
     controller: "SPM.Bundle.ShowController" 
     view: "@SkimiaProjectManagerBundle:Bundle:show.html.twig"
     title: "Bundle"
@@ -28,7 +28,7 @@ spm_bundle_show_edit:
     title: "Editer un Bundle"
 
 spm_bundle_delete:
-    pattern: /bundle/:Id/delete
+    pattern: /bundle/:bundleId/delete
     controller: "SPM.Bundle.DeleteController" 
     view: "@SkimiaProjectManagerBundle:Bundle:show.html.twig"
     title: "Bundle"

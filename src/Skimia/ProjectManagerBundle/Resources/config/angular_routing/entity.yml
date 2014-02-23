@@ -15,19 +15,19 @@ spm_entity_create:
     title: "CREATE Entity"
     
 spm_entity_show:
-    pattern: /entity/:Id
+    pattern: /entity/:entityId
     controller: "SPM.Entity.ShowController" 
     view: "@SkimiaProjectManagerBundle:Entity:show.html.twig"
     title: "SHOW Entity "
     
 spm_entity_edit:
-    pattern: /entity/:Id/edit
+    pattern: /entity/:entityId/edit
     controller: "SPM.Entity.EditController" 
     view: "@SkimiaProjectManagerBundle:Entity:form.html.twig"
     title: "EDIT Entity"
     
 spm_entity_delete:
-    pattern: /entity/:Id/delete
+    pattern: /entity/:entityId/delete
     controller: "SPM.Entity.DeleteController" 
     view: "@SkimiaProjectManagerBundle:Entity:show.html.twig"
     title: "DELETE Entity"

@@ -17,7 +17,7 @@ spm_project_create:
     title: "Créer un Projet"
     
 spm_project_show:
-    pattern: /project/:Id
+    pattern: /project/:projectId
     controller: "SPM.Project.ShowController" 
     view: "@SkimiaProjectManagerBundle:Project:show.html.twig"
     title: "Projet"
@@ -47,7 +47,7 @@ spm_project_show_edit:
     title: "Editer un Projet"
 
 spm_project_delete:
-    pattern: /project/:Id/delete
+    pattern: /project/:projectId/delete
     controller: "SPM.Project.DeleteController" 
     view: "@SkimiaProjectManagerBundle:Project:show.html.twig"
     title: "Projet"

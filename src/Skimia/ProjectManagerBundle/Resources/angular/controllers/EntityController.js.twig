@@ -4,15 +4,15 @@
 }]);
 
 {{module_var}}.controller('{{base_name}}.ShowController',['$scope','$stateParams','Entities',function($scope, $stateParams, Entities){
-	$scope.entity = Entities.get({ entityId:$stateParams.Id});
+	$scope.entity = Entities.get({ entityId:$stateParams.entityId});
 }]);
 
 {{module_var}}.controller('{{base_name}}.EditController',['$scope','$stateParams', '$state','Entities','mc-service',function($scope, $stateParams, $state, Entities,flash){
-	$scope.data = Entities.get({ entityId:$stateParams.Id});
+	$scope.data = Entities.get({ entityId:$stateParams.entityId});
         $scope.submit = function(){
             $scope.data.$save(function()
                 {
-                    $state.go('^.show',{Id:$scope.data.id},{'reload':true});
+                    $state.go('^.show',{entityId:$scope.data.id},{'reload':true});
                     flash.add('success','Message success Edit');
                 });
         }
@@ -23,7 +23,7 @@
         $scope.submit = function(){
            var saved = Entities.save($scope.data,function()
                 {
-                    $state.go('^.show',{Id:saved.id});
+                    $state.go('^.show',{entityId:saved.id});
                     flash.add('success','Message success Create');
                 }
             );
@@ -31,7 +31,7 @@
 }]);
 
 {{module_var}}.controller('{{base_name}}.DeleteController',['$scope','$stateParams','$state','Entities','mc-service',function($scope, $stateParams, $state, Entities,flash){
-    Entities.delete({ entityId:$stateParams.Id},function()
+    Entities.delete({ entityId:$stateParams.entityId},function()
                 {
                     $state.go('^.list');
                     flash.add('success','Message success Delete');

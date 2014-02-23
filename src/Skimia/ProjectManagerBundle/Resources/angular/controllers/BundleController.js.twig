@@ -3,14 +3,14 @@
 }]);
 
 {{module_var}}.controller('{{base_name}}.ShowController',['$scope','$stateParams','Bundles',function($scope, $stateParams, Bundles){
-	$scope.bundle = Bundles.get({bundleId:$stateParams.Id});
+	$scope.bundle = Bundles.get({bundleId:$stateParams.bundleId});
 }]);
 
 {{module_var}}.controller('{{base_name}}.EditController',['$scope','$stateParams', '$state','Bundles','Projects','mc-service',function($scope, $stateParams, $state, Bundles,Projects,flash){
         Projects.query({},function(data){
             $scope.projects = data;
         });
-        $scope.data = Bundles.get({bundleId:$stateParams.Id});	
+        $scope.data = Bundles.get({bundleId:$stateParams.bundleId});	
         
 
         $scope.submit = function(){
@@ -31,7 +31,7 @@
         $scope.submit = function(){
            var saved = Bundles.save($scope.data,function()
                 {
-                    $state.go('^.show',{Id:saved.id});
+                    $state.go('^.show',{bundleId:saved.id});
                     flash.add('success','Votre bundle "'+$scope.data.name+'" est bien posté !');
                 }
             );
@@ -39,7 +39,7 @@
 }]);
 
 {{module_var}}.controller('{{base_name}}.DeleteController',['$scope','$stateParams','$state','Bundles','mc-service',function($scope, $stateParams, $state, Bundles,flash){
-    Bundles.delete({bundleId:$stateParams.Id},function()
+    Bundles.delete({bundleId:$stateParams.bundleId},function()
                 {
                     $state.go('^.list');
                     flash.add('success','Bundle bien supprimé !');

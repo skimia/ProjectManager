@@ -15,19 +15,19 @@ spm_field_create:
     title: "CREATE Field"
     
 spm_field_show:
-    pattern: /field/:Id
+    pattern: /field/:fieldId
     controller: "SPM.Field.ShowController" 
     view: "@SkimiaProjectManagerBundle:Field:show.html.twig"
     title: "SHOW Field "
     
 spm_field_edit:
-    pattern: /field/:Id/edit
+    pattern: /field/:fieldId/edit
     controller: "SPM.Field.EditController" 
     view: "@SkimiaProjectManagerBundle:Field:form.html.twig"
     title: "EDIT Field"
     
 spm_field_delete:
-    pattern: /field/:Id/delete
+    pattern: /field/:fieldId/delete
     controller: "SPM.Field.DeleteController" 
     view: "@SkimiaProjectManagerBundle:Field:show.html.twig"
     title: "DELETE Field"
