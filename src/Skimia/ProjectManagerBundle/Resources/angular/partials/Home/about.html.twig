@@ -7,11 +7,12 @@
         </div>
     	<article>
       		{%verbatim%}
-      		<div ng-repeat="revision in feed">
-                    <div class="panel" ng-if="revision.title != ''">
-                        <h3>Revision : {{getRevision(revision.link)}}</h3>
-                        <p>{{revision.title}}</p>
-                        <p><a href="{{revision.link}}">Voir plus</a></p>
+      		<div ng-repeat="revision in commits">
+                    <div class="panel">
+                        <h3>{{revision.commit.message}}</h3>
+                        <h5>Commit : {{revision.sha}}</h5>
+                        <p>By {{revision.committer.login}}</p>
+                        <p><a href="{{revision.url}}">Voir plus</a></p>
                     </div>
       		</div>
                 {% endverbatim %}

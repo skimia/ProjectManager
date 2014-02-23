@@ -1,10 +1,10 @@
-SkimiaProjectManager_SPM_Controllers.controller('MainCtrl',['$rootScope','$scope','Projects','FeedService',function($rootScope,$scope,Projects,Feed){
+SkimiaProjectManager_SPM_Controllers.controller('MainCtrl',['$rootScope','$scope','Projects','$http',function($rootScope,$scope,Projects,$http){
     $scope.projects = Projects.query();
-    Feed.parseFeed('https://sourceforge.net/p/skimiaprojectmanager/code/feed').then(function(res){
-        $rootScope.feed = res.data.responseData.feed.entries;
+    $http.get('https://api.github.com/repos/skimia/ProjectManager/commits').success(function(data, status, headers, config) {
+        $rootScope.commits = data;
     });
     $rootScope.getRev = function(){
-        if($rootScope.feed != undefined)
-            return $rootScope.feed[0].link.split("/")[6];
+        if($rootScope.commits != undefined)
+            return $rootScope.commits[0].sha.substring(0,10);
     }
 }]);
