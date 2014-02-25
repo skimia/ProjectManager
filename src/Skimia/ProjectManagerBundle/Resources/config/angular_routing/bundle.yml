@@ -5,30 +5,30 @@
 
 spm_bundle_list:
     pattern: /bundles
-    controller: "SPM.Bundle.ListController" 
+    controller: "Bundle.ListController" 
     view: "@SkimiaProjectManagerBundle:Bundle:list.html.twig"
     title: "Bundles"
 
 spm_bundle_create:
     pattern: /bundle/new
-    controller: "SPM.Bundle.CreateController"
+    controller: "Bundle.CreateController"
     view: "@SkimiaProjectManagerBundle:Bundle:form.html.twig"
     title: "Créer un Bundle"
     
 spm_bundle_show:
     pattern: /bundle/:bundleId
-    controller: "SPM.Bundle.ShowController" 
+    controller: "Bundle.ShowController" 
     view: "@SkimiaProjectManagerBundle:Bundle:show.html.twig"
     title: "Bundle"
 
 spm_bundle_show_edit:
     pattern: /edit
-    controller: "SPM.Bundle.EditController" 
+    controller: "Bundle.EditController" 
     view: "@SkimiaProjectManagerBundle:Bundle:edit.html.twig"
     title: "Editer un Bundle"
 
 spm_bundle_delete:
     pattern: /bundle/:bundleId/delete
-    controller: "SPM.Bundle.DeleteController" 
+    controller: "Bundle.DeleteController" 
     view: "@SkimiaProjectManagerBundle:Bundle:show.html.twig"
     title: "Bundle"

@@ -4,30 +4,30 @@
  
 spm_entity_list:
     pattern: /entity
-    controller: "SPM.Entity.ListController" 
+    controller: "Entity.ListController" 
     view: "@SkimiaProjectManagerBundle:Entity:list.html.twig"
     title: "LIST Entity"
 
 spm_entity_create:
     pattern: /entity/new
-    controller: "SPM.Entity.CreateController" 
+    controller: "Entity.CreateController" 
     view: "@SkimiaProjectManagerBundle:Entity:form.html.twig"
     title: "CREATE Entity"
     
 spm_entity_show:
     pattern: /entity/:entityId
-    controller: "SPM.Entity.ShowController" 
+    controller: "Entity.ShowController" 
     view: "@SkimiaProjectManagerBundle:Entity:show.html.twig"
     title: "SHOW Entity "
     
 spm_entity_edit:
     pattern: /entity/:entityId/edit
-    controller: "SPM.Entity.EditController" 
+    controller: "Entity.EditController" 
     view: "@SkimiaProjectManagerBundle:Entity:form.html.twig"
     title: "EDIT Entity"
     
 spm_entity_delete:
     pattern: /entity/:entityId/delete
-    controller: "SPM.Entity.DeleteController" 
+    controller: "Entity.DeleteController" 
     view: "@SkimiaProjectManagerBundle:Entity:show.html.twig"
     title: "DELETE Entity"

@@ -1,11 +1,11 @@
 
 spm_homepage:
     pattern: /home
-    controller: "SPM.Home.IndexController" 
+    controller: "Home.IndexController" 
     view: "@SkimiaProjectManagerBundle:Home:index.html.twig"
     title: "Accueil"
 spm_about:
     pattern: /about
-    controller: "SPM.Home.AboutController"
+    controller: "Home.AboutController"
     view: "@SkimiaProjectManagerBundle:Home:about.html.twig"
     title: "A propos"
