@@ -7703,3 +7703,21 @@ th.hide-for-touch {
 .touch th.show-for-touch {
   display: table-cell !important;
 }
+
+/* line 4, ../theme/scss/app.scss */
+.content-loading {
+  width: 100%;
+  height: 100%;
+  z-index: 300;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+/* line 15, ../theme/scss/app.scss */
+.content-loading .loading-text {
+  text-align: center;
+  color: white;
+}

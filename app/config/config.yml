@@ -4,7 +4,7 @@ imports:
 
 framework:
     #esi:             ~
-    #translator:      { fallback: %locale% }
+    translator:      ~
     secret:          %secret%
     router:
         resource: "%kernel.root_dir%/config/routing.yml"
@@ -79,8 +79,11 @@ fos_rest:
     view:
         view_response_listener: 'force'
         
-        
-        
+fos_user:
+    db_driver:     orm
+    firewall_name: main
+    user_class:    Skimia\ProjectManagerBundle\Entity\User 
+    
 skimia_angular:
     app_name: "SkimiaProjectManager"
     
