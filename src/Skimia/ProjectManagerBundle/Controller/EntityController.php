@@ -49,8 +49,13 @@ class EntityController extends FOSRestController implements ClassResourceInterfa
 
     public function cpostAction(Request $request) {
         $entity = new Entity();
+        $bundle = $this->container->get('doctrine')->getRepository('SkimiaProjectManagerBundle:Bundle')->find(intval($request->request->get('bundle')));      
+        $request->request->remove('bundle');
+        
         $form = $this->createForm(new EntityType(), $entity);
         $form->bind($request);
+        $entity->setBundle($bundle); 
+        
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);

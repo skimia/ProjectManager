@@ -48,15 +48,22 @@ class FieldController extends FOSRestController implements ClassResourceInterfac
     }
 
     public function cpostAction(Request $request) {
-        $entity = new Field();
-        $form = $this->createForm(new FieldType(), $entity);
+        $field = new Field();
+        $entity = $this->container->get('doctrine')->getRepository('SkimiaProjectManagerBundle:Entity')->find(intval($request->request->get('entity'))); 
+        $request->request->remove('entity');
+        
+        $form = $this->createForm(new FieldType(), $field);
         $form->bind($request);
+        $field->setEntity($entity);
+        
+        //debug($field); die();
+        
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->persist($entity);
+            $em->persist($field);
             $em->flush();
 
-            return $entity;
+            return $field;
         }
 
         return array(

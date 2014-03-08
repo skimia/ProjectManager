@@ -17,11 +17,17 @@ class FieldType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name')
+            ->add('name', 'text', array(
+                'label' => 'Nom'
+            ))
             ->add('type')
-            ->add('dbName')
+            ->add('dbName', 'text', array(
+                'label' => 'Nom du champ (BDD)'
+            ))
             ->add('options')
-            ->add('entity')
+            ->add('entity', 'hidden', array(
+                'data_class' => 'Skimia\ProjectManagerBundle\Entity\Entity'
+            ))
         ;
         $builder->addEventSubscriber(new ResourceFormSubscriber());
     }

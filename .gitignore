@@ -28,3 +28,6 @@ app/check.php
 /nbproject/private/
 nbproject/project.xml
 nbproject/project.properties
+
+web/theme/*
+web/theme/.bowerrc

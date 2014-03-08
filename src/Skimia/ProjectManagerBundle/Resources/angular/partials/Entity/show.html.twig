@@ -1,1 +1,15 @@
-{%verbatim%}{{entities}}{%endverbatim%}
+{% verbatim %}
+<div class="row">
+    <div class="large-12 columns">
+        <div class="panel">
+           <h3>{{entity.name}}</h3>
+        </div>
+        <div class="panel">
+           <dl class="tabs">
+                <dd><a href="#/bundle/{{bundle.id}}/entity/{{entity.id}}/field/new">Ajouter un Champ</a></dd>
+           </dl>
+        </div>
+       <div ui-view></div>         
+    </div>
+</div>
+{% endverbatim %}

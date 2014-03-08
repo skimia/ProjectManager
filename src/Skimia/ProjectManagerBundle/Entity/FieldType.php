@@ -8,10 +8,10 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Entity
  *
- * @ORM\Table(name="entities")
- * @ORM\Entity(repositoryClass="Skimia\ProjectManagerBundle\Entity\EntityPMRepository")
+ * @ORM\Table(name="field_types")
+ * @ORM\Entity(repositoryClass="Skimia\ProjectManagerBundle\Entity\FieldTypeRepository")
  */
-class Entity
+class FieldType
 {
     /**
      * @var integer
@@ -39,18 +39,12 @@ class Entity
     /**
      * @var string
      *
-     * @ORM\Column(name="db_name", type="string", length=255)
+     * @ORM\Column(name="db_type", type="string", length=255)
      */
-    private $dbName;
-
-	/**
-     * @ORM\ManyToOne(targetEntity="Bundle", inversedBy="entities", cascade={"persist"})
-     * @ORM\JoinColumn(name="bundle_id", referencedColumnName="id")
-     */
-    protected $bundle;
+    private $dbType;
 
     /**
-     * @ORM\OneToMany(targetEntity="Field", mappedBy="entity")
+     * @ORM\OneToMany(targetEntity="Field", mappedBy="fieldType")
      */
     protected $fields;
 
@@ -115,49 +109,26 @@ class Entity
     }
 
     /**
-     * Set tableName
+     * Set dbType
      *
-     * @param string $tableName
-     * @return Entity
+     * @param string $dbType
+     * @return FieldType
      */
-    public function setDbName($dbName)
+    public function setDbType($dbType)
     {
-        $this->dbName = $dbName;
+        $this->dbType = $dbType;
     
         return $this;
     }
 
     /**
-     * Get tableName
+     * Get dbType
      *
      * @return string 
      */
-    public function getDbName()
+    public function getDbType()
     {
-        return $this->dbName;
-    }
-
-    /**
-     * Set bundle
-     *
-     * @param \Skimia\ProjectManagerBundle\Entity\Bundle $bundle
-     * @return Entity
-     */
-    public function setBundle(\Skimia\ProjectManagerBundle\Entity\Bundle $bundle = null)
-    {
-        $this->bundle = $bundle;
-    
-        return $this;
-    }
-
-    /**
-     * Get bundle
-     *
-     * @return \Skimia\ProjectManagerBundle\Entity\Bundle 
-     */
-    public function getBundle()
-    {
-        return $this->bundle;
+        return $this->dbType;
     }
 
     /**

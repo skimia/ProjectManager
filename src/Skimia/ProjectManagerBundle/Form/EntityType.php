@@ -17,10 +17,16 @@ class EntityType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name')
+            ->add('name', 'text', array(
+                'label' => 'Nom'
+            ))
             ->add('description')
-            ->add('dbName')
-            ->add('bundle')
+            ->add('dbName', 'text', array(
+                'label' => 'Nom de la table (BDD)'
+            ))
+            ->add('bundle', 'hidden', array(
+                'data_class' => 'Skimia\ProjectManagerBundle\Entity\Bundle'
+            ))
         ;
         $builder->addEventSubscriber(new ResourceFormSubscriber());
     }

@@ -20,6 +20,7 @@
 
 {{module_var}}.controller('{{base_name}}.CreateController',['$scope','$stateParams','$state','Fields','mc-service',function($scope, $stateParams, $state, Fields,flash){
 	$scope.data = {}
+    $scope.data.entity = $stateParams.entityId;
         $scope.submit = function(){
            var saved = Fields.save($scope.data,function()
                 {
