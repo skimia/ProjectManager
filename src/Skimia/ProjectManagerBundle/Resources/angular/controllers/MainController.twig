@@ -1,5 +1,20 @@
-SkimiaProjectManager_SPM_Controllers.controller('MainCtrl',['$rootScope','$scope','Projects','$http',function($rootScope,$scope,Projects,$http){
+{{module_var}}.controller('MainCtrl',['$rootScope','$scope','s-auth','Projects','$http',function($rootScope,$scope,auth,Projects,$http){
     $scope.projects = Projects.query();
+    $scope.auth = {};
+    var login =$('#login-holder');
+    var main = $('#body');
+    login.hide();
+        
+    $scope.$on('event:auth-loginRequired', function() {
+      login.slideDown('slow', function() {
+        main.hide();
+      });
+    });
+    $scope.$on('event:auth-loginConfirmed', function() {
+      main.show();
+      login.slideUp();
+    });
+    
     $http.get('https://api.github.com/repos/skimia/ProjectManager/commits').success(function(data, status, headers, config) {
         $rootScope.commits = data;
     });
@@ -7,4 +22,10 @@ SkimiaProjectManager_SPM_Controllers.controller('MainCtrl',['$rootScope','$scope
         if($rootScope.commits != undefined)
             return $rootScope.commits[0].sha.substring(0,10);
     }
+    $scope.login = function(){
+        auth.authenticate($scope.auth.ident,$scope.auth.password);
+    };
+    $scope.logout = function(){
+        auth.logout();
+    };
 }]);

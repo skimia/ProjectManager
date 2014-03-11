@@ -18,7 +18,7 @@ spm_project_create:
     
 spm_project_show:
     pattern: /project/:projectId
-    controller: "SPM.Project.ShowController" 
+    controller: "Project.ShowController" 
     view: "@SkimiaProjectManagerBundle:Project:show.html.twig"
     title: "Projet"
 

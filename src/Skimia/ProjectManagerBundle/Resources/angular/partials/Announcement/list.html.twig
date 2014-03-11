@@ -12,7 +12,7 @@
       <div class="panel">
       	<ul class="side-nav">
           <li class="active">Operations</li>
-          <li><a href="#/announcement/new">Ajouter</a></li>
+          <li><a ng-show="user.isGranted('ROLE_SUPER_ADMIN')" href="#/announcement/new">Ajouter</a></li>
         </ul>
       </div>
       </div>
