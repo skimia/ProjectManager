@@ -10,6 +10,9 @@ use Skimia\ProjectManagerBundle\Entity\Announcement;
 use Symfony\Component\HttpFoundation\Request;
 use FOS\RestBundle\Util\Codes;
 
+use JMS\SecurityExtraBundle\Annotation\Secure;
+
+
 class AnnouncementController extends FOSRestController implements ClassResourceInterface {
 
     /**
@@ -38,6 +41,9 @@ class AnnouncementController extends FOSRestController implements ClassResourceI
         return $entity;
     }
 
+    /**
+     * @Secure(roles="ROLE_SUPER_ADMIN")
+     */
     public function cpostAction(Request $request) {
         $entity = new Announcement();
         $form = $this->createForm(new AnnouncementType(), $entity);
@@ -55,6 +61,9 @@ class AnnouncementController extends FOSRestController implements ClassResourceI
         );
     }
 
+    /**
+     * @Secure(roles="ROLE_SUPER_ADMIN")
+     */
     public function postAction(Request $request, $id) {
         $entity = $this->getEntity($id);
         var_dump($entity);
@@ -74,6 +83,9 @@ class AnnouncementController extends FOSRestController implements ClassResourceI
         );
     }
 
+    /**
+     * @Secure(roles="ROLE_SUPER_ADMIN")
+     */
     public function deleteAction($id) {
         $entity = $this->getEntity($id);
 

@@ -13,6 +13,8 @@ security:
     firewalls:
         main:
             pattern: ^/
+            access_denied_handler: authentication_handler
+            entry_point: authentication_handler
             form_login:
                 login_path:  /login
                 check_path:  /login_check

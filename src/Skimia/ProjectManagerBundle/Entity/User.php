@@ -23,4 +23,11 @@ class User extends BaseUser
         parent::__construct();
         // your own logic
     }
+    public function getJson(){
+        return array(
+            'name' => $this->getUsername(),
+            'email' =>$this->getEmail(),
+            'roles' => $this->getRoles()
+        );
+    }
 }
