@@ -9,21 +9,32 @@
             <a href="#" ng-if="$state.includes('spm.bundle.show.entity')">Entites</a>
 		</nav>
 
-		<h1>Bundle "{{bundle.name}}"</h1>
-		<div class="panel">
-			<dl class="tabs">
-                <dd ng-class="{ active: $state.is('spm.bundle.show') }"><a href="#/bundle/{{bundle.id}}">Overview</a></dd>
-                <dd ng-class="{ active: $state.includes('spm.bundle.show.entities') }"><a href="#/bundle/{{bundle.id}}/entities">Entities</a></dd>
-                <dd ng-class="{ active: $state.includes('spm.bundle.show.edit') }"><a href="#/bundle/{{bundle.id}}/edit">Admin</a></dd>
-                <a ng-if="$state.includes('spm.bundle.show.edit')" href="#/bundle/{{bundle.id}}/delete" class="button alert right" style="margin:0">Supprimer</a>
-			</dl>
-		</div>
-            <div ui-view>
-	            <div class="panel">
-					<h3>Description</h3>
-					<p>{{bundle.description}}</p>
-               	</div>	
-        	</div>
+		<h2><img class="project-icon" src="https://avatars0.githubusercontent.com/u/4041737?s=140"/>{{bundle.name}}</h2>
+		<div class="e-container">
+			<nav>
+				<ul>
+					<li ng-class="{ active: $state.is('spm.bundle.show') }"><a href="#/bundle/{{bundle.id}}">Summary</a></li>
+					<li ng-class="{ active: $state.includes('spm.bundle.show.entities') }"><a href="#/bundle/{{bundle.id}}/entities">Entities</a></li>
+					<li ng-class="{ active: $state.includes('spm.bundle.show.edit') }"><a href="#/bundle/{{bundle.id}}/edit">Admin</a>
+					<li ng-if="$state.includes('spm.bundle.show.edit')" class="red"><a href="#/bundle/{{bundle.id}}/delete">Supprimer</a></li>
+				</ul>
+			</nav>
+			<div ui-view>
+	        	<div class="row bundle-overview">
+	        		<div class="large-9 columns">
+	        			<h3>Description</h3>
+						<p>{{bundle.description}}</p>
+					</div>
+	        		<div class="large-3 columns">
+	        			<div class="bundle-side">
+	        				<h4>Entités</h4>
+
+	        				<p ng-repeat="entity in bundle.entities"><a href="#/bundle/{{bundle.id}}/entity/{{entity.id}}">{{entity.name}}</a></p>
+	        			</div>
+	        		</div>
+	        	</div>
+	        
+			</div>
 		</div>
 	</div>
 </div>

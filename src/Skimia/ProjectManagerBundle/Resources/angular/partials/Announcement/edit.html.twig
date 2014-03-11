@@ -1,7 +1,7 @@
 <div class="color red first">
 	<div class="row">
     	<div class="large-12 columns">
-    		<h1>Poster une Annonce</h1>
+    		<h1>{% verbatim %}Editer "{{ data.title }}"{% endverbatim %}</h1>
      	   	<div class="panel front-form">
        		    {{ render_form('SkimiaProjectManagerBundle','Announcement') }}
         	</div>

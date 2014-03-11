@@ -23,7 +23,7 @@
         $scope.submit = function(){
            var saved = Announcements.save($scope.data,function()
                 {
-                    $state.go('^.show',{announcementId:saved.id});
+                    $state.go('^.list');
                     flash.add('success','Votre annonce "'+$scope.data.title+'" est bien postée !');
                 }
             );

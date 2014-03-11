@@ -45,6 +45,12 @@ class Announcement {
     private $posted;
 
     /**
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     */
+    protected $user;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -114,6 +120,29 @@ class Announcement {
      */
     public function getPosted() {
         return $this->posted;
+    }
+
+    /**
+     * Set bundle
+     *
+     * @param \Skimia\ProjectManagerBundle\Entity\User $user
+     * @return Entity
+     */
+    public function setUser(\Skimia\ProjectManagerBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+    
+        return $this;
+    }
+
+    /**
+     * Get bundle
+     *
+     * @return \Skimia\ProjectManagerBundle\Entity\User
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 
     /** 

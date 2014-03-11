@@ -46,6 +46,7 @@ class AnnouncementController extends FOSRestController implements ClassResourceI
      */
     public function cpostAction(Request $request) {
         $entity = new Announcement();
+        $entity->setUser($this->getUser());
         $form = $this->createForm(new AnnouncementType(), $entity);
         $form->bind($request);
         if ($form->isValid()) {

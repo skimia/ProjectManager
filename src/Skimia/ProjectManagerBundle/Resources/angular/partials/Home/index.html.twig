@@ -1,52 +1,46 @@
-  <div class="row">
-    <div class="large-12 columns">
-      <h1>Skimia Project Manager</h1>
-      <div class="panel">
-        <h4>Header<hr></h4>
-        <h5 class="subheader">Fusce ullamcorper mauris in eros dignissim molestie posuere felis blandit. Aliquam erat volutpat. Mauris ultricies posuere vehicula. Sed sit amet posuere erat. Quisque in ipsum non augue euismod dapibus non et eros. Pellentesque consectetur tempus mi iaculis bibendum. Ut vel dolor sed eros tincidunt volutpat ac eget leo.</h5>
+  <div class="color img first">
+    <a target="_blank" href="https://github.com/collectiveip/prerender"><img style="position: absolute; top: 45px; right: 0; border: 0; z-index: 1000;" src="{{ asset('ccss/img/beta-ribbon.gif') }}" alt="Fork me on GitHub"></a>
+    <div class="row">
+      <div class="large-12 columns">
+        <h1>Skimia Project Manager</h1>
+      </div>
+      <div class="large-6 columns animated fadeInLeft">
+        <div class="panel">
+          <h4>Générateur de Code Symfony2<hr></h4>
+          <h5 class="subheader">Pour Symfony grâce a Symfony par Skimia</h5>
+        </div>
+      </div>
+      <div class="large-6 columns animated fadeInRight">
+        <div class="panel">
+          <h4><i class="fa fa-gear"></i> Web Application<hr></h4>
+          <h5 class="subheader">Nous utilisons les dernières technologies du web. <br/> AngularJs + RestFull Application = Web Application</h5>
+        </div>
       </div>
     </div>
   </div>
-  <div class="row">
-    <div class="large-6 columns">
-      <div class="panel">
-      <h3>Annonces</h3> 
-      {% verbatim %}
-      <h3 ng-repeat="announcement in announcements">
-        <a href="#/announcement/{{announcement.id}}">
-          <small>{{announcement.title}}</small>
-        </a>
-      </h3>
-      {% endverbatim %}
+  <div class="linen">
+    <a target="_blank" href="https://github.com/collectiveip/prerender"><img style="position: absolute; top: 45px; right: 0; border: 0; z-index: 1000;" src="{{ asset('ccss/img/beta-ribbon.gif') }}" alt="Fork me on GitHub"></a>
+    <div class="row">
+      <div class="large-12 columns">
+        <h1>Pourquoi SPM</h1>
       </div>
-    </div>
-    <div class="large-6 columns">
-      <div class="panel">
-        <h3>Projets</h3>  
-        <!--<dl class="sub-nav">
-          <dt>Filter:</dt>
-          <dd class="active"><a href="#">All</a></dd>
-          <dd><a href="#">Contrats</a></dd>
-          <dd><a href="#">Frameworks</a></dd>
-          <dd><a href="#">Sites</a></dd>
-        </dl>-->
-        {% verbatim %}
-        <ul class="side-nav">
-            <li ng-repeat="project in projects">
-                <a href="#/project/{{project.id}}">{{project.name}}</a>
-            </li>
-        </ul>
-        {% endverbatim %}
+      <div class="large-4 columns">
+        <div class="panel">
+          <h4>Code Propre<hr></h4>
+          <h5 class="subheader">Dites oui a un code propre et bien documenté</h5>
+        </div>
       </div>
-      <div class="panel">
-        <h3>Bundles</h3>  
-          {% verbatim %}
-          <ul class="side-nav">
-              <li ng-repeat="bundle in bundles">
-                  <a href="#/bundle/{{bundle.id}}">{{bundle.name}}</a>
-              </li>
-          </ul>
-          {% endverbatim %}
+      <div class="large-4 columns">
+        <div class="panel">
+          <h4>Oubliez la routine<hr></h4>
+          <h5 class="subheader">Avec SPM vous avez juste besoin générer la structure de votre code et vous êtes prêt a travailler</h5>
+        </div>
+      </div>
+      <div class="large-4 columns">
+        <div class="panel">
+          <h4>Une erreur ?<hr></h4>
+          <h5 class="subheader">Rien ne vous enpeche de regenerer votre entité ou votre controlleur avec les nouvelles informations</h5>
+        </div>
       </div>
     </div>
   </div>
