@@ -2,31 +2,31 @@
     ### ENTITY
     #####################
  
-spm_entity_list:
-    pattern: /entity
+spm_bundle_show_entity_list:
+    pattern: /entities
     controller: "Entity.ListController" 
     view: "@SkimiaProjectManagerBundle:Entity:list.html.twig"
     title: "LIST Entity"
 
-spm_entity_create:
+spm_bundle_show_entity_create:
     pattern: /entity/new
     controller: "Entity.CreateController" 
     view: "@SkimiaProjectManagerBundle:Entity:form.html.twig"
     title: "CREATE Entity"
     
-spm_entity_show:
+spm_bundle_show_entity_show:
     pattern: /entity/:entityId
-    controller: "Entity.ShowController" 
+    controller: "Entity.ShowController"
     view: "@SkimiaProjectManagerBundle:Entity:show.html.twig"
     title: "SHOW Entity "
     
-spm_entity_edit:
+spm_bundle_show_entity_edit:
     pattern: /entity/:entityId/edit
     controller: "Entity.EditController" 
     view: "@SkimiaProjectManagerBundle:Entity:form.html.twig"
     title: "EDIT Entity"
     
-spm_entity_delete:
+spm_bundle_show_entity_delete:
     pattern: /entity/:entityId/delete
     controller: "Entity.DeleteController" 
     view: "@SkimiaProjectManagerBundle:Entity:show.html.twig"

@@ -17,3 +17,7 @@ entity:
 field:
     type: rest
     resource: Skimia\ProjectManagerBundle\Controller\FieldController
+    
+relation:
+    type: rest
+    resource: Skimia\ProjectManagerBundle\Controller\RelationController

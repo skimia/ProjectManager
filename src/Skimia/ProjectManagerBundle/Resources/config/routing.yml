@@ -1,3 +1,7 @@
 home_page:
     pattern:  /
     defaults: { _controller: SkimiaProjectManagerBundle:Home:home }
+    
+entity_generate:
+    pattern: /generator/entity
+    defaults: { _controller: SkimiaProjectManagerBundle:Generator:entity }

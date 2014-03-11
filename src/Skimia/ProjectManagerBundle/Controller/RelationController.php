@@ -6,8 +6,8 @@ use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Routing\ClassResourceInterface;
 
-use Skimia\ProjectManagerBundle\Form\EntityType;
-use Skimia\ProjectManagerBundle\Entity\Entity;
+use Skimia\ProjectManagerBundle\Form\relationType;
+use Skimia\ProjectManagerBundle\Entity\Relation;
 
 use Symfony\Component\HttpFoundation\Request;
 use FOS\RestBundle\Util\Codes;
@@ -17,10 +17,8 @@ use FOS\RestBundle\Util\Codes;
  *
  * @author Kessler
  */
-class EntityController extends FOSRestController implements ClassResourceInterface {
+class RelationController extends FOSRestController implements ClassResourceInterface {
 
-
-    
     /**
      * Collection get action
      * @var Request $request
@@ -30,7 +28,7 @@ class EntityController extends FOSRestController implements ClassResourceInterfa
      */
     public function cgetAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
-        $entities = $em->getRepository('SkimiaProjectManagerBundle:Entity')->findAll();
+        $entities = $em->getRepository('SkimiaProjectManagerBundle:Relation')->findAll();
         return $entities;
     }
 
@@ -48,20 +46,17 @@ class EntityController extends FOSRestController implements ClassResourceInterfa
     }
 
     public function cpostAction(Request $request) {
-        $entity = new Entity();
-        $bundle = $this->container->get('doctrine')->getRepository('SkimiaProjectManagerBundle:Bundle')->find(intval($request->request->get('bundle')));      
-        $request->request->remove('bundle');
+        $relation = new Relation();      
         
-        $form = $this->createForm(new EntityType(), $entity);
+        $form = $this->createForm(new RelationType(), $relation);
         $form->bind($request);
-        $entity->setBundle($bundle); 
         
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->persist($entity);
+            $em->persist($relation);
             $em->flush();
 
-            return $entity;
+            return $relation;
         }
 
         return array(
@@ -70,8 +65,8 @@ class EntityController extends FOSRestController implements ClassResourceInterfa
     }
 
     public function postAction(Request $request, $id) {
-        $entity = $this->getEntity($id);
-        $form = $this->createForm(new EntityType(), $entity);
+        $entity = $this->getRelation($id);
+        $form = $this->createForm(new RelationType(), $entity);
         $form->bind($request);
 
         if ($form->isValid()) {
@@ -105,7 +100,7 @@ class EntityController extends FOSRestController implements ClassResourceInterfa
     protected function getEntity($id) {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('SkimiaProjectManagerBundle:Entity')->find($id);
+        $entity = $em->getRepository('SkimiaProjectManagerBundle:Relation')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find announcement entity');

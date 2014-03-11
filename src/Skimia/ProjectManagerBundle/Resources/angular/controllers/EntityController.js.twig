@@ -19,7 +19,8 @@
 }]);
 
 {{module_var}}.controller('{{base_name}}.CreateController',['$scope','$stateParams','$state','Entities','mc-service',function($scope, $stateParams, $state, Entities,flash){
-	$scope.data = {}
+	$scope.data = {};
+    $scope.data.bundle = $stateParams.bundleId;
         $scope.submit = function(){
            var saved = Entities.save($scope.data,function()
                 {

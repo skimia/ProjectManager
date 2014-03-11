@@ -23,7 +23,7 @@ class BundleType extends AbstractType
                 'label' => 'Projects',
                 'class' => 'SkimiaProjectManagerBundle:Project',
                 'property' => 'name',
-                'hide'=>true
+                'hide'=> true
                 ))
         ;
         $builder->addEventSubscriber(new ResourceFormSubscriber());

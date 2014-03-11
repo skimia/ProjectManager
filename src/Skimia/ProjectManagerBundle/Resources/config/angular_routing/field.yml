@@ -1,32 +1,20 @@
     #####################
     ### FIELD
     #####################
- 
-spm_field_list:
-    pattern: /field
-    controller: "Field.ListController" 
-    view: "@SkimiaProjectManagerBundle:Field:list.html.twig"
-    title: "LIST Field"
 
-spm_field_create:
+spm_bundle_show_entity_show_field_create:
     pattern: /field/new
     controller: "Field.CreateController" 
     view: "@SkimiaProjectManagerBundle:Field:form.html.twig"
     title: "CREATE Field"
     
-spm_field_show:
-    pattern: /field/:fieldId
-    controller: "Field.ShowController" 
-    view: "@SkimiaProjectManagerBundle:Field:show.html.twig"
-    title: "SHOW Field "
-    
-spm_field_edit:
+spm_bundle_show_entity_show_field_edit:
     pattern: /field/:fieldId/edit
     controller: "Field.EditController" 
     view: "@SkimiaProjectManagerBundle:Field:form.html.twig"
     title: "EDIT Field"
     
-spm_field_delete:
+spm_bundle_show_entity_show_field_delete:
     pattern: /field/:fieldId/delete
     controller: "Field.DeleteController" 
     view: "@SkimiaProjectManagerBundle:Field:show.html.twig"

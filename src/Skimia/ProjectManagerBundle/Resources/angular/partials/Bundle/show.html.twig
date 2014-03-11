@@ -5,14 +5,16 @@
 			<a href="#/home">Accueil</a>
 			<a href="#/bundles">Bundles</a>
 			<a class="current" href="#/bundle/{{bundle.id}}">{{bundle.name}}</a>
+            <a href="#" ng-if="$state.includes('spm.bundle.show.entity')">Entites</a>
+            <a href="#" ng-if="$state.includes('spm.bundle.show.entity')">Entites</a>
 		</nav>
 
 		<h1>Bundle "{{bundle.name}}"</h1>
 		<div class="panel">
 			<dl class="tabs">
                 <dd ng-class="{ active: $state.is('spm.bundle.show') }"><a href="#/bundle/{{bundle.id}}">Overview</a></dd>
-		<dd ng-class="{ active: $state.includes('spm.bundle.show.entities') }"><a href="#/bundle/{{bundle.id}}/entities">Entities</a></dd>
-		<dd ng-class="{ active: $state.includes('spm.bundle.show.edit') }"><a href="#/bundle/{{bundle.id}}/edit">Admin</a></dd>
+                <dd ng-class="{ active: $state.includes('spm.bundle.show.entities') }"><a href="#/bundle/{{bundle.id}}/entities">Entities</a></dd>
+                <dd ng-class="{ active: $state.includes('spm.bundle.show.edit') }"><a href="#/bundle/{{bundle.id}}/edit">Admin</a></dd>
                 <a ng-if="$state.includes('spm.bundle.show.edit')" href="#/bundle/{{bundle.id}}/delete" class="button alert right" style="margin:0">Supprimer</a>
 			</dl>
 		</div>

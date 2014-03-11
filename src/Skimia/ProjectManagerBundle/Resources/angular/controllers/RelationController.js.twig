@@ -1,0 +1,32 @@
+
+{{module_var}}.controller('{{base_name}}.EditController',['$scope','$stateParams', '$state','Relations','mc-service',function($scope, $stateParams, $state, Relations,flash){
+	$scope.data = Relations.get({ relationId:$stateParams.relationId});
+        $scope.submit = function(){
+            $scope.data.$save(function()
+                {
+                    $state.go('^.^');
+                    flash.add('success','Message success Edit');
+                });
+        }
+}]);
+
+{{module_var}}.controller('{{base_name}}.CreateController',['$scope','$stateParams','$state','Relations','mc-service',function($scope, $stateParams, $state, Relations,flash){
+	$scope.data = {}
+        $scope.submit = function(){
+           var saved = Relations.save($scope.data,function()
+                {
+                    $state.go('^.^');
+                    flash.add('success','Message success Create');
+                }
+            );
+        }
+}]);
+
+{{module_var}}.controller('{{base_name}}.DeleteController',['$scope','$stateParams','$state','Relations','mc-service',function($scope, $stateParams, $state, Relations,flash){
+    Relations.delete({ relationId:$stateParams.relationId},function()
+                {
+                    $state.go('^.^');
+                    flash.add('success','Message success Delete');
+                });
+}]);
+
