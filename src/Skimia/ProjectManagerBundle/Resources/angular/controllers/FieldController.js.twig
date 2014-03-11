@@ -24,7 +24,7 @@
         $scope.submit = function(){
            var saved = Fields.save($scope.data,function()
                 {
-                    $state.go('^.show',{fieldId:saved.id});
+                    $state.go('^.^',{fieldId:saved.id}, {reload: true});
                     flash.add('success','Message success Create');
                 }
             );

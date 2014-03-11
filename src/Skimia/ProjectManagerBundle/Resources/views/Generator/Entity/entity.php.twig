@@ -1,0 +1,39 @@
+{% import 'SkimiaProjectManagerBundle:Generator:Entity/field.php.twig' as _field %}
+{% import 'SkimiaProjectManagerBundle:Generator:Entity/relation.php.twig' as _relation %}
+
+<?php
+
+namespace Skimia\Test\Generator;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * @ORM\Entity
+ * @ORM\Table({% if entity.tableName %}name="{{ entity.tableName }}"{% endif %})
+ */
+class {{ entity.name }} {
+    
+    /**
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    protected $id;   
+    
+{% for field in entity.fields %}
+{{ _field.field(field) }}
+{% endfor %}   
+    
+{% for relation in entity.mainRelations %}
+{{ _relation.field(entity, relation) }}
+{% endfor %}
+    
+{% for field in entity.fields %}
+{{ _field.functions(field) }}
+{% endfor %}
+    
+{% for relation in entity.mainRelations %}
+{{ _relation.functions(entity, relation) }}
+{% endfor %}
+    
+}

@@ -1,0 +1,44 @@
+{% macro field(field) %}
+    /**
+     * @var {{ field.type }}
+     * @ORM\Column(type="{{ field.type }}"{#
+#}{% if field.dbName %}, name="{{ field.dbName }}"{% endif %}
+{% if field.length %}, length={{ field.length }}{% endif %}
+{% if field.precision %}, precision={{ field.precision }}{% endif %}
+{% if field.scale %}, scale={{ field.scale }}{% endif %}
+{% if field.nullable %}, nullable=true{% endif %}
+{% if field.unique %}, unique=true{% endif %})        
+     */
+    protected ${{ field.name }};
+{% endmacro %}
+   
+    
+    
+    
+{% macro functions(field) %}
+    /**
+     * Set {{ field.name }}
+     * @param {{ field.type }} ${{ field.name }}
+     * @return {{ field.entity.name }}
+     */
+    public function set{{ field.name|capitalize }}(${{ field.name }}){
+        $this->{{ field.name }} = ${{ field.name }}
+
+        return $this;
+    }
+
+    /**
+     * Get {{ field.name }}
+     * @return {{ field.type }}
+     */
+    public function get{{ field.name|capitalize }}(){
+        return $this->{{ field.name }};
+    }  
+{% endmacro %}
+
+
+
+
+
+
+

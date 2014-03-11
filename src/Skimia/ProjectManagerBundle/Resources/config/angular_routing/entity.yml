@@ -8,25 +8,25 @@ spm_bundle_show_entity_list:
     view: "@SkimiaProjectManagerBundle:Entity:list.html.twig"
     title: "LIST Entity"
 
-spm_bundle_show_bundle_entity_create:
+spm_bundle_show_entity_create:
     pattern: /entity/new
     controller: "Entity.CreateController" 
     view: "@SkimiaProjectManagerBundle:Entity:form.html.twig"
     title: "CREATE Entity"
     
-spm_bundle_show_bundle_entity_show:
+spm_bundle_show_entity_show:
     pattern: /entity/:entityId
     controller: "Entity.ShowController"
     view: "@SkimiaProjectManagerBundle:Entity:show.html.twig"
     title: "SHOW Entity "
     
-spm_bundle_show_bundle_entity_edit:
+spm_bundle_show_entity_edit:
     pattern: /entity/:entityId/edit
     controller: "Entity.EditController" 
     view: "@SkimiaProjectManagerBundle:Entity:form.html.twig"
     title: "EDIT Entity"
     
-spm_bundle_show_bundle_entity_delete:
+spm_bundle_show_entity_delete:
     pattern: /entity/:entityId/delete
     controller: "Entity.DeleteController" 
     view: "@SkimiaProjectManagerBundle:Entity:show.html.twig"

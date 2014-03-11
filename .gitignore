@@ -31,3 +31,5 @@ nbproject/project.properties
 
 web/theme/*
 web/theme/.bowerrc
+web/ccss/app.css
+web/theme/bower.json

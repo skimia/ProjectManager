@@ -1,0 +1,73 @@
+{% macro field(entity, relation) %}
+{# Preparation des parametres #}
+    {% if entity == relation.mainEntity %}
+        {% set side = 'main' %}
+        {% set linkedName = relation.linkedEntity.name %}
+    {% elseif entity == relation.linkedEntity %}
+        {% set side = 'inversed' %}
+    {% endif %}    
+{# Code #}
+{% if relation.type == 'OneToOne' %}
+{% if side == 'main' %}
+    
+{% endif %}
+{% endif %}
+{% endmacro %}
+
+
+
+{% macro functions(entity, relation) %}
+    {% import _self as macros %}
+{# Preparation des parametres #}
+    {% if entity == relation.mainEntity %}
+        {% set side = 'main' %}
+        {% set linkedName = relation.linkedEntity.name %}
+    {% elseif entity == relation.linkedEntity %}
+        {% set side = 'inversed' %}
+    {% endif %}   
+{# Code #}
+{% if relation.type == 'OneToOne' %}
+{% if relation.bidirectionnal %}
+{% if side == 'main' %}
+{{ macros.otofuncs(linkedName, entity) }}
+{% endif %}
+{% else %}
+{% endif %}
+{% endif %}
+{% endmacro %}
+    
+    
+  
+{% macro otofield(linkedName, entity) %}
+    /**
+     * @var {{ linkedName }}
+     * @ORM\OneToOne(targetEntity="{{ linkedName }}", inversedBy="{{ relation.linkedField }}")
+{% if relation.joinColumn %}
+     * @ORM\JoinColumn(name="{{ relation.joinColumn }}", referencedColumnName="id"){#
+#}{% endif %} 
+     */
+    private ${{ linkedName|lower }};        
+{% endmacro %} 
+    
+{% macro otofuncs(linkedName, entity) %}
+    /**
+     * Set {{ linkedName|lower }}
+     * @param {{ linkedName }} ${{ linkedName|lower }}
+     * @return {{ entity.name }}
+     */
+    public function set{{ linkedName }}({{ linkedName }} ${{ linkedName|lower }}){
+        $this->{{ linkedName|lower }} = ${{ linkedName|lower }};
+        if(${{ linkedName|lower }}->get{{ entity.name }}() != $this)
+            ${{ linkedName|lower }}->set{{ entity.name }}($this);
+
+        return $this;
+    }
+
+    /**
+     * Get {{ linkedName|lower }}
+     * @return {{ linkedName }}
+     */
+    public function get{{ linkedName }}(){
+        return $this->{{ linkedName|lower }};
+    }                
+{% endmacro %}

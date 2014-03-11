@@ -5,3 +5,7 @@ services:
 #    skimia_project_manager.example:
 #        class: %skimia_project_manager.example.class%
 #        arguments: [@service_id, "plain_value", %parameter%]
+
+    spm.generator:
+        class: Skimia\ProjectManagerBundle\Service\Generator
+        arguments: ["@templating"]

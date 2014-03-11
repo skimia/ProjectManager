@@ -1,15 +1,95 @@
 {% verbatim %}
 <div class="row">
-    <div class="large-12 columns">
-        <div class="panel">
-           <h3>{{entity.name}}</h3>
-        </div>
+    <div class="large-12 columns">     
+        <h3>{{entity.name}}</h3>
         <div class="panel">
            <dl class="tabs">
                 <dd><a href="#/bundle/{{bundle.id}}/entity/{{entity.id}}/field/new">Ajouter un Champ</a></dd>
+                <dd><a href="#/bundle/{{bundle.id}}/entity/{{entity.id}}/relation/new">Ajouter une Relation</a></dd>
            </dl>
         </div>
-       <div ui-view></div>         
+       <div ui-view>
+           <div class="panel">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Nom</th>
+                    <th>Description</th>
+                    <th>Type</th>
+                    <th>Nom Bdd</th>
+                    <th>Nullable</th>
+                    <th>Unique</th>
+                    <th>Length</th>
+                    <th>Precision</th>
+                    <th>Scale</th>
+                  </tr>
+                </thead> 
+                <tbody>
+                  <tr ng-repeat="field in entity.fields">
+                    <td>{{field.name}}</td>
+                    <td>{{field.description}}</td>
+                    <td>{{field.type}}</td>
+                    <td>{{field.db_name}}</td>
+                    <td>{{field.nullable}}</td>
+                    <td>{{field.unique}}</td>
+                    <td>{{field.length}}</td>
+                    <td>{{field.precision}}</td>
+                    <td>{{field.scale}}</td>
+                  </tr>
+                </tbody> 
+              </table>
+           </div>
+           <div class="panel">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Champ</th>
+                    <th>Entité</th>
+                    <th>Champ lié</th>
+                    <th>Type</th>
+                    <th>Bidirectionnel</th>
+                    <th>Join Column</th>
+                    <th>Join Table</th>
+                  </tr>
+                </thead> 
+                <tbody>
+                  <tr ng-repeat="relation in entity.main_relations">
+                    <td>{{relation.main_field}}</td>
+                    <td>{{relation.linked_entity.name}}</td>
+                    <td>{{relation.linked_field}}</td>
+                    <td>{{relation.type}}</td>
+                    <td>{{relation.bidirectionnal}}</td>
+                    <td>{{relation.join_column}}</td>
+                    <td>{{relation.join_table}}</td>
+                  </tr>
+                </tbody> 
+              </table>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Champ</th>
+                    <th>Entité</th>
+                    <th>Champ lié</th>
+                    <th>Type</th>
+                    <th>Bidirectionnel</th>
+                    <th>Join Column</th>
+                    <th>Join Table</th>
+                  </tr>
+                </thead> 
+                <tbody>
+                  <tr ng-repeat="relation in entity.linked_relations">
+                    <td>{{relation.linked_field}}</td>
+                    <td>{{relation.main_entity.name}}</td>
+                    <td>{{relation.main_field}}</td>
+                    <td>{{relation.type}}</td>
+                    <td>{{relation.bidirectionnal}}</td>
+                    <td>{{relation.join_column}}</td>
+                    <td>{{relation.join_table}}</td>
+                  </tr>
+                </tbody> 
+              </table>
+           </div>
+       </div>         
     </div>
 </div>
 {% endverbatim %}

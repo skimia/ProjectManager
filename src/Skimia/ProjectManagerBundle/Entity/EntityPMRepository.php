@@ -12,4 +12,9 @@ use Doctrine\ORM\EntityRepository;
  */
 class EntityPMRepository extends EntityRepository
 {
+    public function getByBundle($bundle){
+        return $this->findBy(array(
+            'bundle' => $bundle
+        ));
+    }
 }
