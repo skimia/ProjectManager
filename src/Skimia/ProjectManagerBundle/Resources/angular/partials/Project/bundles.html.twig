@@ -3,7 +3,7 @@
   <div class="large-2 columns project-side">
     <h4>Bundles</h4>
     <ul class="side-nav">
-     <li><a href="#/bundle/new">Ajouter</a></li>
+     <li><a href="{{$state.href('spm.bundle.create')}}">Ajouter</a></li>
     </ul>
   </div>
   <div class="large-10 columns">
@@ -15,11 +15,11 @@
         <li ng-repeat="project in bundle.projects">{{project.name}}</li>
       </ul>
     </div>
-    <h4><a href="#/bundle/{{bundle.id}}">{{bundle.name}}</a><hr></h4>
+    <h4><a href="{{$state.href('spm.bundle.show',{bundleId:bundle.id})}}">{{bundle.name}}</a><hr></h4>
     <p>{{bundle.description}}</p>
     <hr>
     <ul class="inline-list icons">
-      <li><i class="fa fa-archive"></i> {{bundle.entities.length}} Entitées</li>
+      <li><a href="{{$state.href('spm.bundle.show.entity.list',{bundleId:bundle.id})}}"><i class="fa fa-archive"></i> {{bundle.entities.length}} Entitées</a></li>
       <li><i class="fa fa-cogs"></i> {{bundle.entities.length}} Controlleurs</li>
     </ul>
   </article>

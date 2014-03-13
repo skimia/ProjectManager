@@ -1,6 +1,6 @@
 
 {{module_var}}.controller('{{base_name}}.ListController',['$scope','Announcements',function($scope, Announcements){
-	$scope.announcements = Announcements.query();
+	$scope.announcements = Announcements.query(function(){$scope.announcementLoaded = true});
 }]);
 
 {{module_var}}.controller('{{base_name}}.ShowController',['$scope','$stateParams','Announcements',function($scope, $stateParams, Announcements){
@@ -8,7 +8,7 @@
 }]);
 
 {{module_var}}.controller('{{base_name}}.EditController',['$scope','$stateParams', '$state','Announcements','mc-service',function($scope, $stateParams, $state, Announcements,flash){
-	$scope.data = Announcements.get({announcementId:$stateParams.announcementId});
+	$scope.data = Announcements.get({announcementId:$stateParams.announcementId},function(){$scope.announcementLoaded = true});
         $scope.submit = function(){
             $scope.data.$save(function()
                 {

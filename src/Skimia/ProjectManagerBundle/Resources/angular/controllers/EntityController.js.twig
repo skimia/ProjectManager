@@ -1,14 +1,14 @@
 
 {{module_var}}.controller('{{base_name}}.ListController',['$scope','Entities',function($scope, Entities){
-	$scope.entities = Entities.query();
+	$scope.entities = Entities.query(function(){$scope.entityLoaded = true});
 }]);
 
 {{module_var}}.controller('{{base_name}}.ShowController',['$scope','$stateParams','Entities',function($scope, $stateParams, Entities){
-	$scope.entity = Entities.get({ entityId:$stateParams.entityId});
+	$scope.entity = Entities.get({ entityId:$stateParams.entityId},function(){$scope.entityLoaded = true});
 }]);
 
 {{module_var}}.controller('{{base_name}}.EditController',['$scope','$stateParams', '$state','Entities','mc-service',function($scope, $stateParams, $state, Entities,flash){
-	$scope.data = Entities.get({ entityId:$stateParams.entityId});
+	$scope.data = Entities.get({ entityId:$stateParams.entityId},function(){$scope.entityEditLoaded = true});
         $scope.submit = function(){
             $scope.data.$save(function()
                 {

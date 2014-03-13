@@ -5,111 +5,95 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title ng-bind="$state.current.title + ' | Skimia Project Manager'">SPM</title>
   {% stylesheets 
-    'ccss/*.css' 
-    '@SkimiaAngularBundle/Resources/public/css/loading-bar.css'
-    '@SkimiaAngularBundle/Resources/public/css/flash-message.css'
-    filter='cssrewrite' %}
-    <link rel="stylesheet" href="{{ asset_url }}" />
+  'ccss/*.css' 
+  '@SkimiaAngularBundle/Resources/public/css/loading-bar.css'
+  '@SkimiaAngularBundle/Resources/public/css/flash-message.css'
+  filter='cssrewrite' %}
+  <link rel="stylesheet" href="{{ asset_url }}" />
   {% endstylesheets %}
 </head>
 <body ng-controller="MainCtrl">
-    <div id="login-holder">
-        <div id="loginbox">
-          <div id="login-inner">
-            <form ng-submit="login()">
-              <table border="0" cellpadding="0" cellspacing="0">
-                <tr>
-                  <th>Username</th>
-                  <td><input type="text" ng-model="auth['ident']"/></td>
-                </tr>
-                <tr>
-                  <th>Password</th>
-                  <td><input type="password" ng-model="auth['password']"/></td>
-                </tr>
-                <tr>
-                  <th></th>
-                  <td><input type="submit" class="submit-login"/></td>
-                </tr>
-              </table>
-            </form>
+  <div id="login-holder">
+    <div class="modal-bg" ng-click="hideLogin()">
+    </div>
+    <div class="modal-container">
+      <div class="modal-dialog">
+        <form ng-submit="login()">
+          <div class="modal-header">
+            <h4>Contenu Protégé</h4>
           </div>
-          <div class="clear"></div>
-        </div>
+          <div class="modal-body">
+            <label for="ident">Username</label>
+            <input id="ident" type="text" ng-model="auth['ident']"/>
+            <label for="password">Password</label>
+            <input id="password" type="password" ng-model="auth['password']"/>
+          </div>
+          <div class="modal-footer">
+            <input type="submit" class="modal-submit"/>
+          </div>
+        </form>
       </div>
-<div id="body" Security>
-  <div class="sticky">
-    <nav class="top-bar" data-topbar data-options="is_hover: false" style="margin-bottom:20px;">
+    </div>
+  </div>
+    {% verbatim %}
+    <nav class="top-bar" data-topbar data-options="is_hover: false">
       <ul class="title-area">
         <li class="name">
-          <h1><a href="#/home">Skimia Project Manager</a></h1>
+          <h1><a href="{{$state.href('spm.homepage')}}">Skimia Project Manager</a></h1>
         </li>
-        <li class="toggle-topbar menu-icon"><a href="#">Menu</a></li>
+        <li class="toggle-topbar menu-icon"><a>Menu</a></li>
       </ul>
 
       <section class="top-bar-section">
-        {% verbatim %}
+        
         <!-- Right Nav Section -->
         <ul class="right">
-              <div ng-show="user.authenticated">
-                <li class="has-dropdown active">
-                    <a href="#">{{user.name}}</a>
-                    <ul class="dropdown">
-                        <li><a class="button"  ng-click="logout()">Déconnecter</a></li>
-                    </ul>
-                </li>
-              </div>
-              <div ng-show="!user.authenticated">
-                <li class="has-dropdown active">
-                    <a>Connexion</a>
-                    <ul class="dropdown" style="min-width: 200px">
-                        <li>
-                        <form name="" ng-submit="login()" method="post" action="">
-                            <label>Identifiant
-                                <input type="text" ng-model="auth['ident']"/>
-                            </label>
-                            <label style="padding-bottom: 20px">Mot de Passe
-                                <input type="password" ng-model="auth['password']"/>
-                            </label>
-                            <a href="#" ng-click="login()" class="button" style="top:0">Connexion</a>
-                        </form>
-                        </li>
-                    </ul>
-                </li>
-              </div>
-          </li>
+          <div ng-show="user.authenticated">
+            <li class="has-dropdown active">
+              <a>{{user.name}}</a>
+              <ul class="dropdown">
+                <li><a class="button"  ng-click="logout()">Déconnecter</a></li>
+              </ul>
+            </li>
+          </div>
+          <div ng-show="!user.authenticated">
+            <li class=" active">
+              <a ng-click="showLogin()">Connexion</a>
+            </li>
+          </div>
         </ul>
-        {% endverbatim %}
-        <!-- Left Nav Section -->
-        <ul class="left">
-          <li class="has-form">
-            <a href="#/about" class="button">v {{version}}.{%verbatim%}{{getRev()}}{%endverbatim%}</a>
-          </li>
-          <li class="divider"></li>
-          <li><a href="#/announcement">Annonces</a></li>
-          <li class="divider"></li>
-          <li class="has-dropdown">
-            <a href="#/projects">Projets</a>
-            <ul class="dropdown">
-                <li ng-repeat="project in projects">
-                    {% verbatim %}<a href="#/project/{{project.id}}">{{project.name}}</a>{% endverbatim %}
-                </li>
-            </ul>
-          </li>
-          
-        </ul>
-      </section>
-    </nav>
-  </div>
-        {% verbatim %}
-        <message-center></message-center>
-        {% endverbatim %}
-  <div ui-view>
+      
+      
+      <!-- Left Nav Section -->
+      <ul class="left">
+        <li class="has-form">
+          <a href="{{$state.href('spm.about')}}" class="button">v {% endverbatim %}{{version}}{%verbatim%}.{{getRev()}}</a>
+        </li>
+        <li class="divider"></li>
+        <li><a href="{{$state.href('spm.announcement.list')}}">Annonces</a></li>
+        <li class="divider"></li>
+        <li class="has-dropdown">
+          <a href="{{$state.href('spm.project.list')}}">Projets</a>
+          <ul class="dropdown">
+            <li ng-repeat="project in projects">
+              <a href="{{$state.href('spm.project.show',{projectId : project.id})}}">{{project.name}}</a>
+            </li>
+          </ul>
+        </li>
 
-  </div>
+      </ul>
+    </section>
+  </nav>
+  {% endverbatim %}
+{% verbatim %}
+<message-center></message-center>
+{% endverbatim %}
+<div ui-view>
+
 </div>
-  {{app_javascript()}}
-  <script>
-    $(document).foundation();
-  </script>
+{{app_javascript()}}
+<script>
+  $(document).foundation();
+</script>
 </body>
 </html>

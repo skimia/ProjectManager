@@ -1,6 +1,13 @@
 <div class="color red first">
 	<div class="row">
-    	<div class="large-12 columns">
+		<div class="large-12 columns" ng-show="!announcementLoaded">
+        	<div class="loader">
+          		<span></span>
+          		<span></span>
+          		<span></span>
+        	</div>
+    	</div>
+    	<div class="large-12 columns" ng-show="announcementLoaded">
     		<h1>{% verbatim %}Editer "{{ data.title }}"{% endverbatim %}</h1>
      	   	<div class="panel front-form">
        		    {{ render_form('SkimiaProjectManagerBundle','Announcement') }}

@@ -1,22 +1,28 @@
 {% verbatim %}
 <div class="row">
-	<div class="large-12 columns">
+	<div class="large-12 columns" ng-show="!bundleLoaded">
+        <div class="loader">
+          	<span></span>
+          	<span></span>
+          	<span></span>
+        </div>
+    </div>
+	<div class="large-12 columns" ng-show="bundleLoaded">
 		<nav class="breadcrumbs">
-			<a href="#/home">Accueil</a>
-			<a href="#/bundles">Bundles</a>
-			<a class="current" href="#/bundle/{{bundle.id}}">{{bundle.name}}</a>
-            <a href="#" ng-if="$state.includes('spm.bundle.show.entity')">Entites</a>
-            <a href="#" ng-if="$state.includes('spm.bundle.show.entity')">Entites</a>
+			<li><a href="{{$state.href('spm.bundle.list')}}">Bundles</a></li>
+			<li ng-class="{ current: $state.is('spm.bundle.show') }"><a href="{{$state.href('spm.bundle.show',{bundleId: $stateParams.bundleId})}}">{{bundle.name}}</a></li>
+			<li ng-class="{ current: $state.is('spm.bundle.show.edit') }" ng-if="$state.includes('spm.bundle.show.edit')"><a href="{{$state.href('spm.bundle.show.edit',{bundleId: $stateParams.bundleId})}}">Admin</a></li>
+            <li ng-class="{ current: $state.is('spm.bundle.show.entity.list') }" ng-if="$state.includes('spm.bundle.show.entity')"><a href="{{$state.href('spm.bundle.show.entity.list',{bundleId: $stateParams.bundleId})}}">Entites</a></li>
 		</nav>
 
 		<h2><img class="project-icon" src="https://avatars0.githubusercontent.com/u/4041737?s=140"/>{{bundle.name}}</h2>
 		<div class="e-container">
 			<nav>
 				<ul>
-					<li ng-class="{ active: $state.is('spm.bundle.show') }"><a href="#/bundle/{{bundle.id}}">Summary</a></li>
-					<li ng-class="{ active: $state.includes('spm.bundle.show.entities') }"><a href="#/bundle/{{bundle.id}}/entities">Entities</a></li>
-					<li ng-class="{ active: $state.includes('spm.bundle.show.edit') }"><a href="#/bundle/{{bundle.id}}/edit">Admin</a>
-					<li ng-if="$state.includes('spm.bundle.show.edit')" class="red"><a href="#/bundle/{{bundle.id}}/delete">Supprimer</a></li>
+					<li ng-class="{ active: $state.is('spm.bundle.show') }"><a href="{{$state.href('spm.bundle.show',{bundleId: $stateParams.bundleId})}}">Summary</a></li>
+					<li ng-class="{ active: $state.includes('spm.bundle.show.entity') }"><a href="{{$state.href('spm.bundle.show.entity.list',{bundleId: $stateParams.bundleId})}}">Entities</a></li>
+					<li ng-class="{ active: $state.includes('spm.bundle.show.edit') }"><a href="{{$state.href('spm.bundle.show.edit',{bundleId: $stateParams.bundleId})}}">Admin</a>
+					<li ng-if="$state.includes('spm.bundle.show.edit')" class="red"><a href="{{$state.href('spm.bundle.delete',{bundleId: $stateParams.bundleId})}}">Supprimer</a></li>
 				</ul>
 			</nav>
 			<div ui-view>
@@ -29,7 +35,7 @@
 	        			<div class="bundle-side">
 	        				<h4>Entités</h4>
 
-	        				<p ng-repeat="entity in bundle.entities"><a href="#/bundle/{{bundle.id}}/entity/{{entity.id}}">{{entity.name}}</a></p>
+	        				<p ng-repeat="entity in bundle.entities"><a href="{{$state.href('spm.bundle.show.entity.show',{bundleId: $stateParams.bundleId, entityId: entity.id})}}">{{entity.name}}</a></p>
 	        			</div>
 	        		</div>
 	        	</div>

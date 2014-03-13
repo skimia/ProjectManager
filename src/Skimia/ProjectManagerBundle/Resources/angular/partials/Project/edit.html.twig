@@ -1,5 +1,17 @@
-<div class="row project-overview">
-    <div class="large-12 columns">
-            {{ render_form('SkimiaProjectManagerBundle','Project') }}
+{% verbatim %}
+<div class="row project-bundles">
+  <div class="large-12 columns" ng-show="!projectEditLoaded">
+    <div class="loader">
+      <span></span>
+      <span></span>
+      <span></span>
     </div>
+  </div>
+  <div class="large-12 columns" ng-show="projectEditLoaded">
+   <article class="bundle">
+    <h4>Administration<hr></h4>
+    {%endverbatim%}{{ render_form('SkimiaProjectManagerBundle','Project') }}{%verbatim%}
+  </article>
+  </div>
 </div>
+{% endverbatim %}

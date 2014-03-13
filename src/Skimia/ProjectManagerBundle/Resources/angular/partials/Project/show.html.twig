@@ -1,22 +1,29 @@
 {% verbatim %}
 <div class="row">
-	<div class="large-12 columns">
+	<div class="large-12 columns" ng-show="!projectLoaded">
+        <div class="loader">
+          	<span></span>
+          	<span></span>
+          	<span></span>
+        </div>
+    </div>
+	<div class="large-12 columns" ng-show="projectLoaded">
 		<nav class="breadcrumbs">
-			<a href="#/projects">Projects</a>
-			<a class="current" href="#/project/{{project.id}}">{{project.name}}</a>
+			<li><a href="{{$state.href('spm.project.list')}}">Projects</a></li>
+			<li class="current">{{project.name}}</li>
 		</nav>
 
 		<h2><img class="project-icon" src="https://avatars0.githubusercontent.com/u/4041737?s=140"/>{{project.name}}</h2>
 		<div class="e-container">
 			<nav>
 				<ul>
-					<li ng-class="{ active: $state.is('spm.project.show') }"><a href="#/project/{{project.id}}">Summary</a></li>
+					<li ng-class="{ active: $state.is('spm.project.show') }"><a href="{{$state.href('spm.project.show',{projectId:$stateParams.projectId})}}">Summary</a></li>
 					<li><a href="http://wiki.skimia-agency.com/index.php?title={{project.name}}">Wiki</a></li>
-					<li ng-class="{ active: $state.includes('spm.project.show.bundles') }"><a href="#/project/{{project.id}}/bundles">Code</a></li>
-					<li ng-class="{ active: $state.includes('spm.project.show.issues') }"><a href="#/project/{{project.id}}/issues">Issues</a></li>
-					<li ng-class="{ active: $state.includes('spm.project.show.files') }"><a href="#/project/{{project.id}}/files">Fichiers</a></li>
-					<li ng-class="{ active: $state.includes('spm.project.show.edit') }"><a href="#/project/{{project.id}}/edit">Admin</a></li>
-					<li ng-if="$state.includes('spm.project.show.edit')" class="red"><a href="#/project/{{project.id}}/delete">Supprimer</a></li>
+					<li ng-class="{ active: $state.includes('spm.project.show.bundles') }"><a href="{{$state.href('spm.project.show.bundles',{projectId:$stateParams.projectId})}}">Code</a></li>
+					<li ng-class="{ active: $state.includes('spm.project.show.issues') }"><a href="{{$state.href('spm.project.show.issues',{projectId:$stateParams.projectId})}}">Demandes</a></li>
+					<li ng-class="{ active: $state.includes('spm.project.show.files') }"><a href="{{$state.href('spm.project.show.files',{projectId:$stateParams.projectId})}}">Fichiers</a></li>
+					<li ng-class="{ active: $state.includes('spm.project.show.edit') }"><a href="{{$state.href('spm.project.show.edit',{projectId:$stateParams.projectId})}}">Admin</a></li>
+					<li ng-if="$state.includes('spm.project.show.edit')" class="red"><a href="{{$state.href('spm.project.delete',{projectId:$stateParams.projectId})}}">Supprimer</a></li>
 				</ul>
 			</nav>
 	        <div ui-view>
@@ -29,7 +36,7 @@
 	        			<div class="project-side">
 	        				<h4>Bundles</h4>
 
-	        				<p ng-repeat="bundle in project.bundles"><a href="#/bundle/{{bundle.id}}">{{bundle.name}}</a></p>
+	        				<p ng-repeat="bundle in project.bundles"><a href="{{$state.href('spm.bundle.show',{bundleId:bundle.id})}}">{{bundle.name}}</a></p>
 	        			</div>
 	        		</div>
 	        	</div>

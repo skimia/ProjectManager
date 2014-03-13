@@ -2,19 +2,13 @@
     $scope.projects = Projects.query();
     $scope.auth = {};
     var login =$('#login-holder');
-    var main = $('#body');
-    login.hide();
         
     $scope.$on('event:auth-loginRequired', function() {
-      login.slideDown('slow', function() {
-        main.hide();
-      });
+      login.show();
     });
     $scope.$on('event:auth-loginConfirmed', function() {
-      main.show();
-      login.slideUp();
+      login.hide();
     });
-    
     $http.get('https://api.github.com/repos/skimia/ProjectManager/commits').success(function(data, status, headers, config) {
         $rootScope.commits = data;
     });
@@ -25,6 +19,12 @@
     $scope.login = function(){
         auth.authenticate($scope.auth.ident,$scope.auth.password);
     };
+    $scope.showLogin = function(){
+        $rootScope.$broadcast('event:auth-loginRequired');
+    }
+    $scope.hideLogin = function(){
+        $('#login-holder').hide();
+    }
     $scope.logout = function(){
         auth.logout();
     };

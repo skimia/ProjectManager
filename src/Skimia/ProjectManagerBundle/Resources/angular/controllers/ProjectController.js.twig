@@ -1,17 +1,20 @@
 
 {{module_var}}.controller('{{base_name}}.ListController',['$scope','Projects',function($scope, Projects){
-	$scope.projects = Projects.query();
+	$scope.projects = Projects.query(function(){$scope.projectLoaded = true});
 }]);
 
 {{module_var}}.controller('{{base_name}}.ShowController',['$scope','$stateParams','Projects',function($scope, $stateParams, Projects){
-	$scope.project = Projects.get({projectId:$stateParams.projectId});
+	$scope.project = Projects.get({projectId:$stateParams.projectId},function(){$scope.projectLoaded = true});
 }]);
 
 {{module_var}}.controller('{{base_name}}.EditController',['$scope','$stateParams', '$state','Bundles','Projects','mc-service',function($scope, $stateParams, $state,Bundles, Projects,flash){
-        $scope.data = Projects.get({projectId:$stateParams.projectId});        
-        Bundles.query({},function(data){
-            $scope.bundles = data;
-        });
+        $scope.data = Projects.get({projectId:$stateParams.projectId},function(){
+            Bundles.query({},function(data){
+                $scope.bundles = data;
+                $scope.projectEditLoaded = true
+            });
+        });        
+        
 
         $scope.submit = function(){
             $scope.data.$save(function()
@@ -25,6 +28,7 @@
 {{module_var}}.controller('{{base_name}}.CreateController',['$scope','$stateParams','$state','Bundles','Projects','mc-service',function($scope, $stateParams, $state, Bundles, Projects,flash){
 	Bundles.query({},function(data){
             $scope.bundles = data;
+            $scope.projectLoaded = true;
         });
         $scope.data = {};
 

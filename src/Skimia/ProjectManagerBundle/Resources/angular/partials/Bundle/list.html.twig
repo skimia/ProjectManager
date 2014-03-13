@@ -2,7 +2,7 @@
 <div class="row">
     <div class="large-9 large-push-3 columns">
     	<article ng-repeat="bundle in bundles">
-            <h1><a href="#/bundle/{{bundle.id}}">{{bundle.name}}</a></h1>
+            <h1><a href="{{$state.href('spm.bundle.show',{bundleId: bundle.id})}}">{{bundle.name}}</a></h1>
       		<div class="panel">
       			{{bundle.description}}
       		</div>
@@ -12,7 +12,7 @@
       <div class="panel">
       	<ul class="side-nav">
           <li class="active">Operations</li>
-          <li><a href="#/bundle/new">Ajouter</a></li>
+          <li><a href="{{$state.href('spm.bundle.create')}}">Ajouter</a></li>
         </ul>
       </div>
     </div>

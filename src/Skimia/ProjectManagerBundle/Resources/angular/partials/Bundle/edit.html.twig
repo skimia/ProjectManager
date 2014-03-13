@@ -1,5 +1,12 @@
 <div class="row bundle-overview">
-    <div class="large-12 columns">
+	<div class="large-12 columns" ng-show="!bundleEditLoaded">
+        <div class="loader">
+          	<span></span>
+          	<span></span>
+          	<span></span>
+        </div>
+    </div>
+    <div class="large-12 columns" ng-show="bundleEditLoaded">
             {{ render_form('SkimiaProjectManagerBundle','Bundle') }}
     </div>
 </div>
