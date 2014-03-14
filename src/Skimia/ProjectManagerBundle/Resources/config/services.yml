@@ -9,3 +9,10 @@ services:
     spm.generator:
         class: Skimia\ProjectManagerBundle\Service\Generator
         arguments: ["@templating"]
+    spm.beautifier:
+        class: Skimia\ProjectManagerBundle\Service\Beautifier
+    spm.twig.word_transformer_extension:
+        class: Skimia\ProjectManagerBundle\Twig\WordTransformerExtension
+        tags:
+            - { name: twig.extension }
+        

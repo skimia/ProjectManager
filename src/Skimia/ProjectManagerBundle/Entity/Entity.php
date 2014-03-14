@@ -4,8 +4,6 @@ namespace Skimia\ProjectManagerBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
-use Skimia\ProjectManagerBundle\Entity\Field;
-use Skimia\ProjectManagerBundle\Entity\Relation;
 
 /**
  * @ORM\Entity
@@ -14,54 +12,54 @@ use Skimia\ProjectManagerBundle\Entity\Relation;
 class Entity {
 
     /**
-     * @ORM\Column(name="id", type="integer")
      * @ORM\Id
+     * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id;
 
     /**
      * @var string
-     * @ORM\Column(type="text", nullable=true)
+     * @ORM\Column(type="string", name="name", length=255)
      */
-    private $description;
+    protected $name;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Bundle", inversedBy="entities", cascade={"persist"})
+     * @var text
+     * @ORM\Column(type="text", name="description", nullable=true)
+     */
+    protected $description;
+
+    /**
+     * @var string
+     * @ORM\Column(type="string", name="table_name", length=255, nullable=true)
+     */
+    protected $tableName;
+
+    /**
+     * @var Bundle
+     * @ORM\ManyToOne(targetEntity="Bundle", inversedBy="entities")
      * @ORM\JoinColumn(name="bundle_id", referencedColumnName="id")
      */
     protected $bundle;
 
     /**
-     * @var string
-     * @ORM\Column(type="string")
-     */
-    private $name;
-
-    /**
-     * @var string
-     * @ORM\Column(name="table_name", type="string", nullable=true)
-     */
-    private $tableName;
-
-    /**
      * @var ArrayCollection
      * @ORM\OneToMany(targetEntity="Field", mappedBy="entity",cascade={"persist", "remove"})
      */
-    private $fields;
+    protected $fields;
 
     /**
      * @var ArrayCollection
      * @ORM\OneToMany(targetEntity="Relation", mappedBy="mainEntity",cascade={"persist", "remove"},cascade={"persist", "remove"})
      */
-    private $mainRelations;
+    protected $mainRelations;
 
     /**
      * @var ArrayCollection
      * @ORM\OneToMany(targetEntity="Relation", mappedBy="linkedEntity")
      */
-    private $inversedRelations;
-
+    protected $inversedRelations;
     public function __construct() {
         $this->fields = new ArrayCollection();
         $this->mainRelations = new ArrayCollection();
@@ -73,26 +71,8 @@ class Entity {
      * @return integer
      */
     public function getId() {
+        
         return $this->id;
-    }
-
-    /**
-     * Set description
-     * @param string $description
-     * @return Entity
-     */
-    public function setDescription($description) {
-        $this->description = $description;
-
-        return $this;
-    }
-
-    /**
-     * Get description
-     * @return string 
-     */
-    public function getDescription() {
-        return $this->description;
     }
 
     /**
@@ -102,58 +82,81 @@ class Entity {
      */
     public function setName($name) {
         $this->name = $name;
-
+        
         return $this;
     }
 
     /**
      * Get name
-     * @return string 
+     * @return string
      */
     public function getName() {
+        
         return $this->name;
     }
 
     /**
-     * Set bundle
-     *
-     * @param \Skimia\ProjectManagerBundle\Entity\Bundle $bundle
+     * Set description
+     * @param text $description
      * @return Entity
      */
-    public function setBundle(\Skimia\ProjectManagerBundle\Entity\Bundle $bundle = null)
-    {
-        $this->bundle = $bundle;
-    
+    public function setDescription($description) {
+        $this->description = $description;
+        
         return $this;
     }
 
     /**
-     * Get bundle
-     *
-     * @return \Skimia\ProjectManagerBundle\Entity\Bundle 
+     * Get description
+     * @return text
      */
-    public function getBundle()
-    {
-        return $this->bundle;
+    public function getDescription() {
+        
+        return $this->description;
     }
-    
+
     /**
      * Set tableName
-     * @param string $table
+     * @param string $tableName
      * @return Entity
      */
     public function setTableName($tableName) {
         $this->tableName = $tableName;
-
+        
         return $this;
     }
 
     /**
      * Get tableName
-     * @return string 
+     * @return string
      */
     public function getTableName() {
+        
         return $this->tableName;
+    }
+
+    /**
+     * Set bundle
+     * @param Bundle $bundle
+     * @return Entity
+     */
+    public function setBundle(Bundle $bundle) {
+        $this->bundle = $bundle;
+        
+        if (!$bundle->getBundles()->contains($this)) {
+            $bundle->addBundle($this);
+        }
+        
+        return $this;
+    }
+
+    /**
+     * Get bundle
+     * @return Bundle
+     */
+    public function getBundle() {
+        
+        return $this->bundle;
     }
 
     /**
@@ -163,8 +166,11 @@ class Entity {
      */
     public function addField(Field $field) {
         $this->fields[] = $field;
-        if($field->getEntity() != $this) $field->setEntity ($this);
-
+        
+        if ($field->getEntity() != $this) {
+            $field->setEntity($this);
+        }
+        
         return $this;
     }
 
@@ -175,7 +181,7 @@ class Entity {
      */
     public function removeField(Field $field) {
         $this->fields->removeElement($field);
-
+        
         return $this;
     }
 
@@ -184,29 +190,33 @@ class Entity {
      * @return ArrayCollection
      */
     public function getFields() {
+        
         return $this->fields;
     }
-    
+
     /**
      * Add mainRelation
-     * @param Relation $mainRelation
+     * @param Relation $relation
      * @return Entity
      */
-    public function addMainRelation(Relation $mainRelation) {
-        $this->mainRelations[] = $mainRelation;
-        if($mainRelation->getMainEntity() != $this) $mainRelation->setMainEntity($this);
-
+    public function addMainRelation(Relation $relation) {
+        $this->mainRelations[] = $relation;
+        
+        if ($relation->getMainEntity() != $this) {
+            $relation->setMainEntity($this);
+        }
+        
         return $this;
     }
 
     /**
      * Remove mainRelation
-     * @param Relation $mainRelation
+     * @param Relation $relation
      * @return Entity
      */
-    public function removeMainRelation(Relation $mainRelation) {
-        $this->mainRelations->removeElement($mainRelation);
-
+    public function removeMainRelation(Relation $relation) {
+        $this->mainRelations->removeElement($relation);
+        
         return $this;
     }
 
@@ -215,38 +225,46 @@ class Entity {
      * @return ArrayCollection
      */
     public function getMainRelations() {
+        
         return $this->mainRelations;
     }
-    
+
     /**
      * Add inversedRelation
-     * @param Relation $inversedRelation
+     * @param Relation $relation
      * @return Entity
      */
-    public function addInversedRelation(Relation $inversedRelation) {
-        $this->inversedRelations[] = $inversedRelation;
-        if($inversedRelation->getLinkedEntity() != $this) $inversedRelation->setLinkedEntity ($this);
-
+    public function addInversedRelation(Relation $relation) {
+        $this->inversedRelations[] = $relation;
+        
+        if ($relation->getLinkedEntity() != $this) {
+            $relation->setLinkedEntity($this);
+        }
+        
         return $this;
     }
 
     /**
      * Remove inversedRelation
-     * @param Relation $inversedRelation
+     * @param Relation $relation
      * @return Entity
      */
-    public function removeInversedRelation(Relation $inversedRelation) {
-        $this->inversedRelations->removeElement($inversedRelation);
-
+    public function removeInversedRelation(Relation $relation) {
+        $this->inversedRelations->removeElement($relation);
+        
         return $this;
     }
 
     /**
-     * Get inversedRelation
+     * Get inversedRelations
      * @return ArrayCollection
      */
     public function getInversedRelations() {
+        
         return $this->inversedRelations;
     }
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/generation
 }

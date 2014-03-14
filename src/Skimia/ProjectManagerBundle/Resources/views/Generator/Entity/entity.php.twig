@@ -3,13 +3,15 @@
 
 <?php
 
-namespace Skimia\Test\Generator;
+namespace ;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+
 
 /**
  * @ORM\Entity
- * @ORM\Table({% if entity.tableName %}name="{{ entity.tableName }}"{% endif %})
+ * @ORM\Table({% if entity.tableName|underscore %}name="{{ entity.tableName }}"{% endif %})
  */
 class {{ entity.name }} {
     
@@ -19,21 +21,59 @@ class {{ entity.name }} {
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;   
-    
-{% for field in entity.fields %}
-{{ _field.field(field) }}
-{% endfor %}   
-    
-{% for relation in entity.mainRelations %}
-{{ _relation.field(entity, relation) }}
-{% endfor %}
-    
-{% for field in entity.fields %}
-{{ _field.functions(field) }}
-{% endfor %}
-    
-{% for relation in entity.mainRelations %}
-{{ _relation.functions(entity, relation) }}
-{% endfor %}
+
+	{% for field in entity.fields %}
+		{{ _field.field(field) }}
+	{% endfor %}  
+
+	{% for relation in entity.mainRelations %}
+		{{ _relation.field(entity, relation) }}
+	{% endfor %}
+
+	{% for relation in entity.inversedRelations %}
+		{{ _relation.field(entity, relation) }}
+	{% endfor %}
+
+    {% if entity.mainRelations is not empty or entity.inversedRelations is not empty %}
+
+    /**
+     * Constructor
+     */
+    public function __construct(){
+        {% for relation in entity.mainRelations %}
+            {% if relation.type == 'ManyToMany' and relation.mainEntity == entity %}
+                $this->{{ relation.mainField|variablize }} = new ArrayCollection();
+            {% endif %}
+        {% endfor %}
+        {% for relation in entity.inversedRelations %}
+            {% if relation.type == 'ManyToOne' and relation.linkedEntity == entity and relation.bidirectionnal %}
+                $this->{{ relation.linkedField|variablize }} = new ArrayCollection();
+            {% endif %}
+            {% if relation.type == 'ManyToMany' and relation.linkedEntity == entity and relation.bidirectionnal %}
+                $this->{{ relation.linkedField|variablize }} = new ArrayCollection();
+            {% endif %}
+        {% endfor %}
+    }
+    {% endif %}
+
+    /**
+     * Get id
+     * @return integer 
+     */
+    public function getId(){
+    	return $this->id;
+    }
+
+	{% for field in entity.fields %}
+		{{ _field.functions(field) }}
+	{% endfor %}    
+
+	{% for relation in entity.mainRelations %}
+		{{ _relation.functions(entity, relation) }}
+	{% endfor %}
+
+	{% for relation in entity.inversedRelations %}
+		{{ _relation.functions(entity, relation) }}
+	{% endfor %}
     
 }

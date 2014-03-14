@@ -9,11 +9,11 @@ use Symfony\Component\HttpFoundation\Response;
 
 class GeneratorController extends Controller
 {
-    public function entityAction(Request $request){
+    public function entityAction(Request $request, $id){
         
-        $entity = $this->getDoctrine()->getRepository('SkimiaProjectManagerBundle:Entity')->find(1);
-        
-        $result = $this->container->get('spm.generator')->generateEntity($entity);
+        $entity = $this->getDoctrine()->getRepository('SkimiaProjectManagerBundle:Entity')->find($id);        
+        $result = $this->container->get('spm.generator')->generateEntity($entity);        
+        $result = $this->container->get('spm.beautifier')->beautify($result);
         
         return new Response('<pre>' . htmlspecialchars($result) . '</pre>');
     }
