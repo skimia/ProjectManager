@@ -1,0 +1,17 @@
+<div class="color red first">
+	<div class="row">
+		<div class="large-12 columns" ng-show="!groupEditLoaded">
+        	<div class="loader">
+          		<span></span>
+          		<span></span>
+          		<span></span>
+        	</div>
+    	</div>
+    	<div class="large-12 columns" ng-show="groupEditLoaded">
+    		<h1>{% verbatim %}Editer "{{ data.name }}"{% endverbatim %}</h1>
+     	   	<div class="panel front-form">
+       		    {{ render_form('SkimiaProjectManagerBundle','Group') }}
+        	</div>
+    	</div>
+	</div>
+</div>

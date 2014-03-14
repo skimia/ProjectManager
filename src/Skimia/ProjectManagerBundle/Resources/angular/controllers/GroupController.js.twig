@@ -1,0 +1,40 @@
+
+{{module_var}}.controller('{{base_name}}.ListController',['$scope','Groups',function($scope, Groups){
+	$scope.groups = Groups.query(function(){$scope.groupLoaded = true});
+}]);
+
+{{module_var}}.controller('{{base_name}}.ShowController',['$scope','$stateParams','Groups',function($scope, $stateParams, Groups){
+	$scope.group = Groups.get({ groupId:$stateParams.groupId},function(){$scope.groupLoaded = true});
+}]);
+
+{{module_var}}.controller('{{base_name}}.EditController',['$scope','$stateParams', '$state','Groups','mc-service',function($scope, $stateParams, $state, Groups,flash){
+	$scope.data = Groups.get({ groupId:$stateParams.groupId},function(){$scope.groupEditLoaded = true});
+        $scope.submit = function(){
+            $scope.data.$save(function()
+                {
+                    $state.go('^.show',{groupId:$scope.data.id},{'reload':true});
+                    flash.add('success','Message success Edit');
+                });
+        }
+}]);
+
+{{module_var}}.controller('{{base_name}}.CreateController',['$scope','$stateParams','$state','Groups','mc-service',function($scope, $stateParams, $state, Groups,flash){
+	$scope.data = {}
+        $scope.submit = function(){
+           var saved = Groups.save($scope.data,function()
+                {
+                    $state.go('^.show',{groupId:saved.id});
+                    flash.add('success','Message success Create');
+                }
+            );
+        }
+}]);
+
+{{module_var}}.controller('{{base_name}}.DeleteController',['$scope','$stateParams','$state','Groups','mc-service',function($scope, $stateParams, $state, Groups,flash){
+    Groups.delete({ groupId:$stateParams.groupId},function()
+                {
+                    $state.go('^.list');
+                    flash.add('success','Message success Delete');
+                });
+}]);
+

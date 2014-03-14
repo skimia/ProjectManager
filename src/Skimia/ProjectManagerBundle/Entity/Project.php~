@@ -2,12 +2,13 @@
 
 namespace Skimia\ProjectManagerBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Project
  *
- * @ORM\Table()
+ * @ORM\Table(name="projects")
  * @ORM\Entity(repositoryClass="Skimia\ProjectManagerBundle\Entity\ProjectRepository")
  */
 class Project
@@ -36,7 +37,7 @@ class Project
     private $description;
 
     /**
-     * @ORM\OneToMany(targetEntity="Bundle", mappedBy="project")
+     * @ORM\ManyToMany(targetEntity="Bundle", inversedBy="projects", cascade={"persist"})
      */
     protected $bundles;
 
@@ -99,4 +100,38 @@ class Project
     {
         return $this->description;
     }
+
+    /**
+     * Add bundles
+     *
+     * @param \Skimia\ProjectManagerBundle\Entity\Bundle $bundles
+     * @return Project
+     */
+    public function addBundle(\Skimia\ProjectManagerBundle\Entity\Bundle $bundles)
+    {
+        $this->bundles[] = $bundles;
+    
+        return $this;
+    }
+
+    /**
+     * Remove bundles
+     *
+     * @param \Skimia\ProjectManagerBundle\Entity\Bundle $bundles
+     */
+    public function removeBundle(\Skimia\ProjectManagerBundle\Entity\Bundle $bundles)
+    {
+        $this->bundles->removeElement($bundles);
+    }
+
+    /**
+     * Get bundles
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getBundles()
+    {
+        return $this->bundles;
+    }
+    
 }

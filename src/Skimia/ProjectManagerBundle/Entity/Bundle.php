@@ -43,8 +43,8 @@ class Bundle
     protected $projects;
 
 
-	/**
-     * @ORM\OneToMany(targetEntity="Entity", mappedBy="bundle")
+    /**
+     * @ORM\OneToMany(targetEntity="Entity", mappedBy="bundle",cascade={"persist", "remove"})
      */
     protected $entities;
 
@@ -174,5 +174,28 @@ class Bundle
     public function getEntities()
     {
         return $this->entities;
+    }
+
+    /**
+     * Add entities
+     *
+     * @param \Skimia\ProjectManagerBundle\Entity\Entity $entities
+     * @return Bundle
+     */
+    public function addEntitie(\Skimia\ProjectManagerBundle\Entity\Entity $entities)
+    {
+        $this->entities[] = $entities;
+    
+        return $this;
+    }
+
+    /**
+     * Remove entities
+     *
+     * @param \Skimia\ProjectManagerBundle\Entity\Entity $entities
+     */
+    public function removeEntitie(\Skimia\ProjectManagerBundle\Entity\Entity $entities)
+    {
+        $this->entities->removeElement($entities);
     }
 }

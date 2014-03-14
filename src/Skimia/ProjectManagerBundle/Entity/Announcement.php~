@@ -8,7 +8,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Announcement
  *
- * @ORM\Table()
+ * @ORM\Table(name="announcements")
  * @ORM\Entity(repositoryClass="Skimia\ProjectManagerBundle\Entity\AnnouncementRepository")
  * @ORM\HasLifecycleCallbacks
  */
@@ -43,6 +43,12 @@ class Announcement {
      * @ORM\Column(name="posted", type="datetime")
      */
     private $posted;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     */
+    protected $user;
 
     /**
      * Get id
@@ -114,6 +120,29 @@ class Announcement {
      */
     public function getPosted() {
         return $this->posted;
+    }
+
+    /**
+     * Set bundle
+     *
+     * @param \Skimia\ProjectManagerBundle\Entity\User $user
+     * @return Entity
+     */
+    public function setUser(\Skimia\ProjectManagerBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+    
+        return $this;
+    }
+
+    /**
+     * Get bundle
+     *
+     * @return \Skimia\ProjectManagerBundle\Entity\User
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 
     /** 

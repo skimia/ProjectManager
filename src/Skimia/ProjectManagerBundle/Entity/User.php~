@@ -34,7 +34,6 @@ class User extends BaseUser
     }
     public function getJson(){
         return array(
-            'id' => $this->getId(),
             'name' => $this->getUsername(),
             'email' =>$this->getEmail(),
             'roles' => $this->getRoles()

@@ -1,0 +1,33 @@
+    #####################
+    ### GROUP
+    #####################
+ 
+spm_group_list:
+    pattern: /group
+    controller: "Group.ListController" 
+    view: "@SkimiaProjectManagerBundle:Group:list.html.twig"
+    title: "LIST Group"
+
+spm_group_create:
+    pattern: /group/new
+    controller: "Group.CreateController" 
+    view: "@SkimiaProjectManagerBundle:Group:form.html.twig"
+    title: "CREATE Group"
+    
+spm_group_show:
+    pattern: /group/:groupId
+    controller: "Group.ShowController" 
+    view: "@SkimiaProjectManagerBundle:Group:show.html.twig"
+    title: "SHOW Group "
+    
+spm_group_edit:
+    pattern: /group/:groupId/edit
+    controller: "Group.EditController" 
+    view: "@SkimiaProjectManagerBundle:Group:edit.html.twig"
+    title: "EDIT Group"
+    
+spm_group_delete:
+    pattern: /group/:groupId/delete
+    controller: "Group.DeleteController" 
+    view: "@SkimiaProjectManagerBundle:Group:show.html.twig"
+    title: "DELETE Group"

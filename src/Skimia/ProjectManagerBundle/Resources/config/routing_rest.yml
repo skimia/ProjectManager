@@ -21,3 +21,7 @@ field:
 relation:
     type: rest
     resource: Skimia\ProjectManagerBundle\Controller\RelationController
+    
+group:
+    type: rest
+    resource: Skimia\ProjectManagerBundle\Controller\GroupController

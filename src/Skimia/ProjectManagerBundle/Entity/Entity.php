@@ -46,13 +46,13 @@ class Entity {
 
     /**
      * @var ArrayCollection
-     * @ORM\OneToMany(targetEntity="Field", mappedBy="entity")
+     * @ORM\OneToMany(targetEntity="Field", mappedBy="entity",cascade={"persist", "remove"})
      */
     private $fields;
 
     /**
      * @var ArrayCollection
-     * @ORM\OneToMany(targetEntity="Relation", mappedBy="mainEntity")
+     * @ORM\OneToMany(targetEntity="Relation", mappedBy="mainEntity",cascade={"persist", "remove"},cascade={"persist", "remove"})
      */
     private $mainRelations;
 

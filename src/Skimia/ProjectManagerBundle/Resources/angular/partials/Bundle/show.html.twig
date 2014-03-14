@@ -13,6 +13,7 @@
 			<li ng-class="{ current: $state.is('spm.bundle.show') }"><a href="{{$state.href('spm.bundle.show',{bundleId: $stateParams.bundleId})}}">{{bundle.name}}</a></li>
 			<li ng-class="{ current: $state.is('spm.bundle.show.edit') }" ng-if="$state.includes('spm.bundle.show.edit')"><a href="{{$state.href('spm.bundle.show.edit',{bundleId: $stateParams.bundleId})}}">Admin</a></li>
             <li ng-class="{ current: $state.is('spm.bundle.show.entity.list') }" ng-if="$state.includes('spm.bundle.show.entity')"><a href="{{$state.href('spm.bundle.show.entity.list',{bundleId: $stateParams.bundleId})}}">Entites</a></li>
+            <li ng-class="{ current: $state.is('spm.bundle.show.entity.create') }" ng-if="$state.includes('spm.bundle.show.entity.create')"><a href="{{$state.href('spm.bundle.show.entity.list',{bundleId: $stateParams.bundleId})}}">Creer</a></li>
 		</nav>
 
 		<h2><img class="project-icon" src="https://avatars0.githubusercontent.com/u/4041737?s=140"/>{{bundle.name}}</h2>
