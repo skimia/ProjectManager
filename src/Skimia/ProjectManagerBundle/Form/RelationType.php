@@ -14,9 +14,8 @@ class RelationType extends AbstractType {
                 ->add('type', 'choice', array(
                     'choices' => array(
                         'OneToOne' => 'One To One',
-                        'OneToMany' => 'One To Many',
-                        'ManyToMany' => 'Many To Many',
-                        'ParamManyToMany' => 'Many To Many avec parametres',
+                        'ManyToOne' => 'Many To One',
+                        'ManyToMany' => 'Many To Many'
                     ),
                 ))
                 ->add('mainEntity', 'entity', array(
@@ -27,8 +26,12 @@ class RelationType extends AbstractType {
                     'class' => 'SkimiaProjectManagerBundle:Entity',
                     'property' => 'name'
                 ))
-                ->add('mainField')
-                ->add('linkedField')
+                ->add('mainField', 'text', array(
+                    'required' => false
+                ))
+                ->add('linkedField', 'text', array(
+                    'required' => false
+                ))
                 ->add('bidirectionnal', 'checkbox', array(
                     'required' => false
                 ))

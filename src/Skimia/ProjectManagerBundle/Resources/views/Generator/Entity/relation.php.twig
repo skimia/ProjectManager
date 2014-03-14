@@ -1,73 +1,324 @@
 {% macro field(entity, relation) %}
-{# Preparation des parametres #}
+    {% import _self as macros %}
+
+    {# Preparation des parametres #}
     {% if entity == relation.mainEntity %}
         {% set side = 'main' %}
-        {% set linkedName = relation.linkedEntity.name %}
     {% elseif entity == relation.linkedEntity %}
         {% set side = 'inversed' %}
     {% endif %}    
-{# Code #}
-{% if relation.type == 'OneToOne' %}
-{% if side == 'main' %}
-    
-{% endif %}
-{% endif %}
+
+    {# Code #}
+    {% if relation.type == 'OneToOne' %}
+        {{ macros.oneToOneField(relation, entity, side) }}
+    {% endif %}
+    {% if relation.type == 'ManyToOne' %}
+        {{ macros.manyToOneField(relation, entity, side) }}
+    {% endif %}
+    {% if relation.type == 'ManyToMany' %}
+        {{ macros.manyToManyField(relation, entity, side) }}
+    {% endif %}
 {% endmacro %}
 
 
 
 {% macro functions(entity, relation) %}
     {% import _self as macros %}
-{# Preparation des parametres #}
+
+    {# Preparation des parametres #}
     {% if entity == relation.mainEntity %}
         {% set side = 'main' %}
-        {% set linkedName = relation.linkedEntity.name %}
     {% elseif entity == relation.linkedEntity %}
         {% set side = 'inversed' %}
-    {% endif %}   
-{# Code #}
-{% if relation.type == 'OneToOne' %}
-{% if relation.bidirectionnal %}
-{% if side == 'main' %}
-{{ macros.otofuncs(linkedName, entity) }}
-{% endif %}
-{% else %}
-{% endif %}
-{% endif %}
+    {% endif %}  
+
+    {# Code #}
+    {% if relation.type == 'OneToOne' %}
+        {{ macros.oneToOneFuncs(relation, entity, side) }}
+    {% endif %}
+    {% if relation.type == 'ManyToOne' %}
+        {{ macros.manyToOneFuncs(relation, entity, side) }}
+    {% endif %}
+    {% if relation.type == 'ManyToMany' %}
+        {{ macros.manyToManyFuncs(relation, entity, side) }}
+    {% endif %}
 {% endmacro %}
-    
-    
+
+
   
-{% macro otofield(linkedName, entity) %}
-    /**
-     * @var {{ linkedName }}
-     * @ORM\OneToOne(targetEntity="{{ linkedName }}", inversedBy="{{ relation.linkedField }}")
-{% if relation.joinColumn %}
-     * @ORM\JoinColumn(name="{{ relation.joinColumn }}", referencedColumnName="id"){#
-#}{% endif %} 
-     */
-    private ${{ linkedName|lower }};        
+{% macro oneToOneField(relation, entity, side) %}
+    {% if side == 'main' %}
+        {% set linkedName = relation.linkedEntity.name|camelize %}
+
+        /**
+         * @var {{ linkedName }}
+         * @ORM\OneToOne(targetEntity="{{ linkedName }}"{% if relation.bidirectionnal %}, inversedBy="{{ relation.linkedField|variablize }}"{% endif %})
+         * @ORM\JoinColumn(name="{{ relation.joinColumn|underscore }}", referencedColumnName="id"{% if relation.nullable %}, nullable=true{% endif %})
+         */
+        protected ${{ relation.mainField|variablize }};   
+    {% elseif side == 'inversed' and relation.bidirectionnal %}
+        {% set mainName = relation.mainEntity.name|variablize %}
+
+        /**
+         * @var {{ mainName }}
+         * @ORM\OneToOne(targetEntity="{{ mainName }}", mappedBy="{{ relation.mainField|variablize }}")
+         */
+        protected ${{ relation.linkedField|variablize }}; 
+    {% endif %}     
 {% endmacro %} 
+
+
+
+{% macro manyToOneField(relation, entity, side) %}
+    {% if side == 'main' %}
+        {% set linkedName = relation.linkedEntity.name|camelize %}
+
+        /**
+         * @var {{ linkedName }}
+         * @ORM\ManyToOne(targetEntity="{{ linkedName }}"{% if relation.bidirectionnal %}, inversedBy="{{ relation.linkedField|variablize }}"{% endif %})
+         * @ORM\JoinColumn(name="{{ relation.joinColumn|underscore }}", referencedColumnName="id"{% if relation.nullable %}, nullable=true{% endif %})
+         */
+        protected ${{ relation.mainField|variablize }};
+    {% elseif side == 'inversed' and relation.bidirectionnal %}
+        {% set mainName = relation.mainEntity.name|camelize %}
+
+        /**
+         * @var ArrayCollection
+         * @ORM\OneToMany(targetEntity="{{ mainName }}", mappedBy="{{ relation.mainField|variablize }}")
+         */
+        protected ${{ relation.linkedField|variablize }}; 
+    {% endif %}
+{% endmacro %}
+
+
+
+{% macro manyToManyField(relation, entity, side) %}
+    {% if side == 'main' %}
+        {% set linkedName = relation.linkedEntity.name|camelize %}
+
+        /**
+         * @var ArrayCollection
+         * @ORM\ManyToMany(targetEntity="{{ linkedName }}"{% if relation.bidirectionnal %}, inversedBy="{{ relation.linkedField|variablize }}"{% endif %})
+         */
+        protected ${{ relation.mainField|variablize }};
+    {% elseif side == 'inversed' and relation.bidirectionnal %}
+        {% set mainName = relation.mainEntity.name|camelize %}
+
+        /**
+         * @var ArrayCollection
+         * @ORM\ManyToMany(targetEntity="{{ mainName }}", mappedBy="{{ relation.mainField|variablize }}")
+         */
+        protected ${{ relation.linkedField|variablize }}; 
+    {% endif %}
+{% endmacro %}
+
+
     
-{% macro otofuncs(linkedName, entity) %}
-    /**
-     * Set {{ linkedName|lower }}
-     * @param {{ linkedName }} ${{ linkedName|lower }}
-     * @return {{ entity.name }}
-     */
-    public function set{{ linkedName }}({{ linkedName }} ${{ linkedName|lower }}){
-        $this->{{ linkedName|lower }} = ${{ linkedName|lower }};
-        if(${{ linkedName|lower }}->get{{ entity.name }}() != $this)
-            ${{ linkedName|lower }}->set{{ entity.name }}($this);
+{% macro oneToOneFuncs(relation, entity, side) %}
+    {% if side == 'main' %}
+        {% set linkedName = relation.linkedEntity.name|variablize %}
 
-        return $this;
-    }
+        /**
+         * Set {{ relation.mainField|variablize }}
+         * @param {{ linkedName|camelize }} ${{ linkedName }}
+         * @return {{ entity.name|camelize }}
+         */
+        public function set{{ relation.mainField|camelize }}({{ linkedName }} ${{ linkedName }}){
+            $this->{{ relation.mainField|variablize }} = ${{ linkedName }};
+            {% if relation.bidirectionnal %}
+                if(${{ linkedName }}->get{{ relation.mainField|camelize }}() != $this){
+                    ${{ linkedName }}->set{{ relation.mainField|camelize }}($this);
+                }
+            {% endif %}
 
-    /**
-     * Get {{ linkedName|lower }}
-     * @return {{ linkedName }}
-     */
-    public function get{{ linkedName }}(){
-        return $this->{{ linkedName|lower }};
-    }                
+            return $this;
+        }
+
+        /**
+         * Get {{ relation.mainField|variablize }}
+         * @return {{ linkedName|camelize }}
+         */
+        public function get{{ relation.mainField|camelize }}(){
+            return $this->{{ relation.mainField|variablize }};
+        }
+    {% elseif side == 'inversed' and relation.bidirectionnal %}
+        {% set mainName = relation.mainEntity.name|variablize %}
+
+        /**
+         * Set {{ relation.linkedField|variablize }}
+         * @param {{ mainName|camelize }} ${{ mainName }}
+         * @return {{ entity.name|camelize }}
+         */
+        public function set{{ relation.linkedField|camelize }}({{ mainName|camelize }} ${{ mainName }}){
+            $this->{{ relation.linkedField|variablize }} = ${{ mainName }};
+            {% if relation.bidirectionnal %}
+            if(${{ mainName }}->get{{ relation.linkedField|camelize }}() != $this){
+                ${{ mainName }}->set{{ relation.linkedField|camelize }}($this);
+            }
+            {% endif %}
+
+            return $this;
+        }
+
+        /**
+         * Get {{ relation.mainField|variablize }}
+         * @return {{ mainName|camelize }}
+         */
+        public function get{{ relation.linkedField|camelize }}(){
+            return $this->{{ relation.mainField|variablize }};
+        }
+    {% endif %}           
+{% endmacro %}
+
+
+
+{% macro manyToOneFuncs(relation, entity, side) %}
+    {% if side == 'main' %}
+        {% set linkedName = relation.linkedEntity.name|variablize %}
+
+        /**
+         * Set {{ relation.mainField|variablize }}
+         * @param {{ linkedName|camelize }} ${{ linkedName }}
+         * @return {{ entity.name|camelize }}
+         */
+        public function set{{ relation.mainField|camelize }}({{ linkedName|camelize }} ${{ linkedName }}){
+            $this->{{ relation.mainField|variablize }} = ${{ linkedName }};
+            {% if relation.bidirectionnal %}
+                if(!${{ linkedName }}->get{{ relation.mainField|camelize|pluralize }}()->contains($this)){
+                    ${{ linkedName }}->add{{ relation.mainField|camelize }}($this);
+                }
+            {% endif %}
+
+            return $this;
+        }
+
+        /**
+         * Get {{ relation.mainField|variablize }}
+         * @return {{ linkedName|camelize }}
+         */
+        public function get{{ relation.mainField|camelize }}(){
+            return $this->{{ relation.mainField|variablize }};
+        }
+    {% elseif side == 'inversed' and relation.bidirectionnal %}
+        {% set mainName = relation.mainEntity.name|variablize %}
+
+        /**
+         * Add {{ relation.linkedField|variablize|singularize }}
+         * @param {{ mainName|camelize }} ${{ mainName }}
+         * @return {{ entity.name|camelize }}
+         */
+        public function add{{ relation.linkedField|camelize|singularize }}({{ mainName|camelize }} ${{ mainName }}) {
+            $this->{{ relation.linkedField|variablize|pluralize }}[] = ${{ mainName }};
+            if(${{ mainName }}->get{{ relation.mainField|camelize }}() != $this){
+                ${{ mainName }}->set{{ relation.mainField|camelize }}($this);
+            }
+
+            return $this;
+        }
+
+        /**
+         * Remove {{ relation.linkedField|variablize|singularize }}
+         * @param {{ mainName|camelize }} ${{ mainName }}
+         * @return {{ entity.name|camelize }}
+         */
+        public function remove{{ relation.linkedField|camelize|singularize }}({{ mainName|camelize }} ${{ mainName }}) {
+            $this->{{ relation.linkedField|variablize|pluralize }}->removeElement(${{ mainName }});
+
+            return $this;
+        }
+
+        /**
+         * Get {{ relation.linkedField|variablize|pluralize }}
+         * @return ArrayCollection
+         */
+        public function get{{ relation.linkedField|camelize }}() {
+            return $this->{{ relation.linkedField|variablize|pluralize }};
+        }
+    {% endif %}           
+{% endmacro %}
+
+
+
+{% macro manyToManyFuncs(relation, entity, side) %}
+    {% if side == 'main' %}
+        {% set linkedName = relation.linkedEntity.name|variablize %}
+
+        /**
+         * Add {{ relation.mainField|variablize|singularize }}
+         * @param {{ linkedName|camelize }} ${{ linkedName }}
+         * @return {{ entity.name|camelize }}
+         */
+        public function add{{ relation.mainField|camelize|singularize }}({{ linkedName|camelize }} ${{ linkedName }}) {
+            $this->{{ relation.mainField|variablize|pluralize }}[] = ${{ linkedName }};
+            {% if relation.bidirectionnal %}
+                if(${{ linkedName }}->get{{ relation.linkedField|camelize }}()->contains($this){
+                    ${{ linkedName }}->add{{ relation.linkedField|camelize|singularize }}($this);
+                }
+            {% endif %}
+
+            return $this;
+        }
+
+        /**
+         * Remove {{ relation.mainField|variablize|singularize }}
+         * @param {{ linkedName|camelize }} ${{ linkedName }}
+         * @return {{ entity.name|camelize }}
+         */
+        public function remove{{ relation.mainField|camelize|singularize }}({{ linkedName|camelize }} ${{ linkedName }}) {
+            $this->{{ relation.mainField|variablize|pluralize }}->removeElement(${{ linkedName }});
+            {% if relation.bidirectionnal %}
+                if(${{ linkedName }}->get{{ relation.linkedField|camelize }}()->contains($this){
+                    ${{ linkedName }}->remove{{ relation.linkedField|camelize|singularize }}($this);
+                }
+            {% endif %}
+
+            return $this;
+        }
+
+        /**
+         * Get {{ relation.mainField|variablize|pluralize }}
+         * @return ArrayCollection
+         */
+        public function get{{ relation.mainField|camelize }}() {
+            return $this->{{ relation.mainField|variablize|pluralize }};
+        }
+    {% elseif side == 'inversed' and relation.bidirectionnal %}
+        {% set mainName = relation.mainEntity.name|variablize %}
+
+        /**
+         * Add {{ relation.linkedField|variablize|singularize }}
+         * @param {{ mainName|camelize }} ${{ mainName }}
+         * @return {{ entity.name|camelize }}
+         */
+        public function add{{ relation.linkedField|camelize|singularize }}({{ mainName|camelize }} ${{ mainName }}) {
+            $this->{{ relation.linkedField|variablize|pluralize }}[] = ${{ mainName }};
+            if(${{ mainName }}->get{{ relation.mainField|camelize }}() != $this){
+                ${{ mainName }}->set{{ relation.mainField|camelize }}($this);
+            }
+
+            return $this;
+        }
+
+        /**
+         * Remove {{ relation.linkedField|variablize|singularize }}
+         * @param {{ mainName|camelize }} ${{ mainName }}
+         * @return {{ entity.name|camelize }}
+         */
+        public function remove{{ relation.linkedField|camelize|singularize }}({{ mainName|camelize }} ${{ mainName }}) {
+            $this->{{ relation.linkedField|variablize|pluralize }}->removeElement(${{ mainName }});
+            if(${{ mainName }}->get{{ relation.mainField|camelize }}()->contains($this){
+                ${{ mainName }}->remove{{ relation.mainField|camelize|singularize }}($this);
+            }
+
+            return $this;
+        }
+
+        /**
+         * Get {{ relation.linkedField|variablize|pluralize }}
+         * @return ArrayCollection
+         */
+        public function get{{ relation.linkedField|camelize }}() {
+            return $this->{{ relation.linkedField|variablize|pluralize }};
+        }
+    {% endif %}           
 {% endmacro %}

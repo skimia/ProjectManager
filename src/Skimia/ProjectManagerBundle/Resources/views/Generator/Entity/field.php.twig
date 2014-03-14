@@ -2,37 +2,33 @@
     /**
      * @var {{ field.type }}
      * @ORM\Column(type="{{ field.type }}"{#
-#}{% if field.dbName %}, name="{{ field.dbName }}"{% endif %}
+#}{% if field.dbName %}, name="{{ field.dbName|underscore }}"{% endif %}
 {% if field.length %}, length={{ field.length }}{% endif %}
 {% if field.precision %}, precision={{ field.precision }}{% endif %}
 {% if field.scale %}, scale={{ field.scale }}{% endif %}
 {% if field.nullable %}, nullable=true{% endif %}
 {% if field.unique %}, unique=true{% endif %})        
      */
-    protected ${{ field.name }};
+    protected ${{ field.name|variablize }};
 {% endmacro %}
-   
-    
-    
     
 {% macro functions(field) %}
     /**
-     * Set {{ field.name }}
-     * @param {{ field.type }} ${{ field.name }}
-     * @return {{ field.entity.name }}
+     * Set {{ field.name|variablize }}
+     * @param {{ field.type }} ${{ field.name|variablize }}
+     * @return {{ field.entity.name|camelize }}
      */
-    public function set{{ field.name|capitalize }}(${{ field.name }}){
-        $this->{{ field.name }} = ${{ field.name }}
-
+    public function set{{ field.name|camelize }}(${{ field.name|variablize }}){
+        $this->{{ field.name|variablize }} = ${{ field.name|variablize }};
         return $this;
     }
 
     /**
-     * Get {{ field.name }}
+     * Get {{ field.name|variablize }}
      * @return {{ field.type }}
      */
-    public function get{{ field.name|capitalize }}(){
-        return $this->{{ field.name }};
+    public function get{{ field.name|camelize }}(){
+        return $this->{{ field.name|variablize }};
     }  
 {% endmacro %}
 

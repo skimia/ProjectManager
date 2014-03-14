@@ -77,7 +77,7 @@
                   </tr>
                 </thead> 
                 <tbody>
-                  <tr ng-repeat="relation in entity.linked_relations">
+                  <tr ng-repeat="relation in entity.inversed_relations">
                     <td>{{relation.linked_field}}</td>
                     <td>{{relation.main_entity.name}}</td>
                     <td>{{relation.main_field}}</td>
