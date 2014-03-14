@@ -27,10 +27,6 @@ class Group extends BaseGroup
     
     /**
      * @ORM\ManyToMany(targetEntity="Skimia\ProjectManagerBundle\Entity\User")
-     * @ORM\JoinTable(name="users_groups",
-     *      joinColumns={@ORM\JoinColumn(name="group_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")}
-     * )
      */
     protected $users;
     
