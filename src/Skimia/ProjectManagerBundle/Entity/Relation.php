@@ -242,8 +242,6 @@ class Relation {
         return $this;
     }
 
-<<<<<<< HEAD
-=======
     /**
      * Get linkedEntity
      * @return Entity
@@ -252,5 +250,4 @@ class Relation {
         
         return $this->linkedEntity;
     }
->>>>>>> origin/generation
 }

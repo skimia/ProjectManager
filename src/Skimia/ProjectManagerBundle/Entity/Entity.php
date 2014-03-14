@@ -263,8 +263,4 @@ class Entity {
         
         return $this->inversedRelations;
     }
-<<<<<<< HEAD
-
-=======
->>>>>>> origin/generation
 }
