@@ -38,9 +38,6 @@ class RelationType extends AbstractType {
                 ->add('joinColumn', null, array(
                     'required' => false
                 ))
-                ->add('joinTable', null, array(
-                    'required' => false
-                ))
         ;
     }
 

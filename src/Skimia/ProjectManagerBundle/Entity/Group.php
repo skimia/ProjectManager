@@ -26,7 +26,7 @@ class Group extends BaseGroup
     protected $main_user;
     
     /**
-     * @ORM\ManyToMany(targetEntity="Skimia\ProjectManagerBundle\Entity\User")
+     * @ORM\ManyToMany(targetEntity="Skimia\ProjectManagerBundle\Entity\User", cascade={"persist"})
      */
     protected $users;
     

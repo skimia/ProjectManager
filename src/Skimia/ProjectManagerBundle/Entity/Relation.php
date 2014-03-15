@@ -44,7 +44,7 @@ class Relation {
 
     /**
      * @var string
-     * @ORM\Column(type="string", name="join_column", length=255)
+     * @ORM\Column(type="string", name="join_column", length=255, nullable=true)
      */
     protected $joinColumn;
 
@@ -72,6 +72,7 @@ class Relation {
      * Constructor
      */
     public function __construct() {
+        $this->nullable = false;
     }
 
     /**
@@ -211,8 +212,8 @@ class Relation {
     public function setMainEntity(Entity $entity) {
         $this->mainEntity = $entity;
         
-        if (!$entity->getMainEntities()->contains($this)) {
-            $entity->addMainEntity($this);
+        if (!$entity->getMainRelations()->contains($this)) {
+            $entity->addMainRelation($this);
         }
         
         return $this;
@@ -235,8 +236,8 @@ class Relation {
     public function setLinkedEntity(Entity $entity) {
         $this->linkedEntity = $entity;
         
-        if (!$entity->getLinkedEntities()->contains($this)) {
-            $entity->addLinkedEntity($this);
+        if (!$entity->getInversedRelations()->contains($this)) {
+            $entity->addInversedRelation($this);
         }
         
         return $this;

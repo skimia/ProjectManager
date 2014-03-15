@@ -143,8 +143,8 @@ class Entity {
     public function setBundle(Bundle $bundle) {
         $this->bundle = $bundle;
         
-        if (!$bundle->getBundles()->contains($this)) {
-            $bundle->addBundle($this);
+        if (!$bundle->getEntities()->contains($this)) {
+            $bundle->addEntity($this);
         }
         
         return $this;

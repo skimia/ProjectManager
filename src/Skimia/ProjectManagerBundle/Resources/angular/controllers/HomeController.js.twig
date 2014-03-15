@@ -1,7 +1,4 @@
-{{module_var}}.controller('{{base_name}}.IndexController',['$scope','Announcements','Projects', 'Bundles',function($scope, Announcements, Projects, Bundles){
-	$scope.announcements = Announcements.query();
-    $scope.projects = Projects.query();
-    $scope.bundles = Bundles.query();
+{{module_var}}.controller('{{base_name}}.IndexController',['$scope',function($scope){
 }]);
 
 {{module_var}}.controller('{{base_name}}.AboutController',['$scope','$rootScope',function($scope, $rootScope){

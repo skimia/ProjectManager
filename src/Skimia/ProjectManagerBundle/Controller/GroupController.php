@@ -93,6 +93,13 @@ class GroupController extends FOSRestController implements ClassResourceInterfac
      */
     public function postAction(Request $request, $id) {
         $entity = $this->getEntity($id);
+        $securityContext = $this->get('security.context');
+
+        // check for edit access
+        if (false === $securityContext->isGranted('EDIT', $entity))
+        {
+            throw new AccessDeniedException();
+        }
         if($entity->getMainUser()!= $this->getUser())
             throw new \Symfony\Component\Security\Core\Exception\AccessDeniedException();
         $form = $this->createForm(new GroupType(), $entity);
@@ -135,7 +142,7 @@ class GroupController extends FOSRestController implements ClassResourceInterfac
             throw $this->createNotFoundException('Unable to find Group Entity');
         }
         if(!$entity->canDisplay($this->getUser())){
-            throw $this->createNotFoundException('Unable to find Group');
+            throw new \Symfony\Component\Security\Core\Exception\AccessDeniedException();
         }
         return $entity;
     }
