@@ -29,7 +29,7 @@
             </thead> 
             <tbody>
               <tr ng-repeat="field in entity.fields">
-                <td>{{field.name}}</td>
+                <td><a href="{{$state.href('spm.bundle.show.entity.show.field.edit',{bundleId: $stateParams.bundleId,entityId: $stateParams.entityId,fieldId: field.id})}}">{{field.name}}</a></td>
                 <td>{{field.description}}</td>
                 <td>{{field.type}}</td>
                 <td>{{field.db_name}}</td>
@@ -55,7 +55,7 @@
             </thead> 
             <tbody>
               <tr ng-repeat="relation in entity.main_relations">
-                <td>{{relation.main_field}}</td>
+                <td><a href="{{$state.href('spm.bundle.show.entity.show.relation.edit',{bundleId: $stateParams.bundleId,entityId: $stateParams.entityId,relationId: relation.id})}}">{{relation.main_field}}</a></td>
                 <td>{{relation.linked_entity.name}}</td>
                 <td>{{relation.linked_field}}</td>
                 <td>{{relation.type}}</td>
@@ -78,8 +78,8 @@
               </tr>
             </thead> 
             <tbody>
-              <tr ng-repeat="relation in entity.linked_relations">
-                <td>{{relation.linked_field}}</td>
+              <tr ng-repeat="relation in entity.inversed_relations">
+                <td><a href="{{$state.href('spm.bundle.show.entity.show.relation.edit',{bundleId: $stateParams.bundleId,entityId: $stateParams.entityId,relationId: relation.id})}}">{{relation.linked_field}}</a></td>
                 <td>{{relation.main_entity.name}}</td>
                 <td>{{relation.main_field}}</td>
                 <td>{{relation.type}}</td>

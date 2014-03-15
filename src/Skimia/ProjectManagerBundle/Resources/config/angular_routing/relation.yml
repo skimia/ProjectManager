@@ -11,7 +11,7 @@ spm_bundle_show_entity_show_relation_create:
 spm_bundle_show_entity_show_relation_edit:
     pattern: /relation/:relationId/edit
     controller: "Relation.EditController" 
-    view: "@SkimiaProjectManagerBundle:Relation:form.html.twig"
+    view: "@SkimiaProjectManagerBundle:Relation:edit.html.twig"
     title: "EDIT Relation"
     
 spm_bundle_show_entity_show_relation_delete:

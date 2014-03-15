@@ -8,7 +8,7 @@
 }]);
 
 {{module_var}}.controller('{{base_name}}.EditController',['$scope','$stateParams', '$state','Fields','mc-service',function($scope, $stateParams, $state, Fields,flash){
-	$scope.data = Fields.get({ fieldId:$stateParams.fieldId});
+	$scope.data = Fields.get({ fieldId:$stateParams.fieldId},function(){$scope.fieldEditLoaded = true});
         $scope.submit = function(){
             $scope.data.$save(function()
                 {

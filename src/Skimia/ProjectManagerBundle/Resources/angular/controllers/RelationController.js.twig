@@ -1,6 +1,6 @@
 
 {{module_var}}.controller('{{base_name}}.EditController',['$scope','$stateParams', '$state','Relations','mc-service',function($scope, $stateParams, $state, Relations,flash){
-	$scope.data = Relations.get({ relationId:$stateParams.relationId});
+	$scope.data = Relations.get({ relationId:$stateParams.relationId},function(){$scope.relationEditLoaded = true});
         $scope.submit = function(){
             $scope.data.$save(function()
                 {

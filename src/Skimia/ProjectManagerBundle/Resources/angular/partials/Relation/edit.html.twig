@@ -1,0 +1,13 @@
+<div class="row">
+	<div class="large-12 columns" ng-show="!relationEditLoaded">
+        <div class="loader">
+          	<span></span>
+          	<span></span>
+          	<span></span>
+        </div>
+    </div>
+    <div class="large-12 columns" ng-show="relationEditLoaded">
+    <h3>Edition Relation</h3>
+		{{ render_form('SkimiaProjectManagerBundle','Relation') }}
+    </div>
+</div>

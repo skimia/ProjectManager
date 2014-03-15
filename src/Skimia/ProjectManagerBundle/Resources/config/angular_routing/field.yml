@@ -11,7 +11,7 @@ spm_bundle_show_entity_show_field_create:
 spm_bundle_show_entity_show_field_edit:
     pattern: /field/:fieldId/edit
     controller: "Field.EditController" 
-    view: "@SkimiaProjectManagerBundle:Field:form.html.twig"
+    view: "@SkimiaProjectManagerBundle:Field:edit.html.twig"
     title: "EDIT Field"
     
 spm_bundle_show_entity_show_field_delete:

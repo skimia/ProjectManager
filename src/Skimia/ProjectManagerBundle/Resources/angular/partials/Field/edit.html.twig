@@ -1,0 +1,13 @@
+<div class="row">
+	<div class="large-12 columns" ng-show="!fieldEditLoaded">
+        <div class="loader">
+          	<span></span>
+          	<span></span>
+          	<span></span>
+        </div>
+    </div>
+    <div class="large-12 columns" ng-show="fieldEditLoaded">
+        <h3>Edition "{% verbatim%}{{data.name}}{%endverbatim%}"</h3>
+		{{ render_form('SkimiaProjectManagerBundle','Field') }}
+    </div>
+</div>
