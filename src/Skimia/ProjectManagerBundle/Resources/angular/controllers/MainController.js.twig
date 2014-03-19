@@ -1,20 +1,19 @@
-{{module_var}}.controller('MainCtrl',['$rootScope','$scope','s-auth','Projects','$http',function($rootScope,$scope,auth,Projects,$http){
-    $scope.projects = Projects.query();
+{{module_var}}.controller('MainCtrl',['$rootScope','$scope','s-auth','Projects','$http','$state',function($rootScope,$scope,auth,Projects,$http,$state){
     $scope.auth = {};
     var login =$('#login-holder');
-        
     $scope.$on('event:auth-loginRequired', function() {
       login.show();
     });
     $scope.$on('event:auth-loginConfirmed', function() {
       login.hide();
+      $scope.projects = Projects.query();
     });
-    $http.get('https://api.github.com/repos/skimia/ProjectManager/commits').success(function(data, status, headers, config) {
+    $http.get('https://api.github.com/repos/skimia/ProjectManager/commits?since=2014-03-19T06:00:00Z').success(function(data, status, headers, config) {
         $rootScope.commits = data;
+        $rootScope.rev = data.length;
     });
-    $rootScope.getRev = function(){
-        if($rootScope.commits != undefined)
-            return $rootScope.commits[0].sha.substring(0,10);
+    $scope.beta = function(){
+        $state.go("spm.beta",{'betaKey':$scope.key});
     }
     $scope.login = function(){
         auth.authenticate($scope.auth.ident,$scope.auth.password);

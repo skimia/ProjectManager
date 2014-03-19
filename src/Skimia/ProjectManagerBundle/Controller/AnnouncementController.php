@@ -67,7 +67,6 @@ class AnnouncementController extends FOSRestController implements ClassResourceI
      */
     public function postAction(Request $request, $id) {
         $entity = $this->getEntity($id);
-        var_dump($entity);
         $form = $this->createForm(new AnnouncementType(), $entity);
         $form->bind($request);
 

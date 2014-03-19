@@ -12,7 +12,7 @@ spm_announcement_create:
     pattern: /announcement/new
     controller: "Announcement.CreateController" 
     view: "@SkimiaProjectManagerBundle:Announcement:form.html.twig"
-    title: "Créer une Annonce"
+    title: "Poster une Annonce"
     
 spm_announcement_edit:
     pattern: /announcement/:announcementId/edit
@@ -23,5 +23,4 @@ spm_announcement_edit:
 spm_announcement_delete:
     pattern: /announcement/:announcementId/delete
     controller: "Announcement.DeleteController" 
-    view: "@SkimiaProjectManagerBundle:Announcement:show.html.twig"
-    title: "Annonces"
+    title: "Delete"

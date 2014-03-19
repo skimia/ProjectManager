@@ -2,7 +2,8 @@
 }]);
 
 {{module_var}}.controller('{{base_name}}.AboutController',['$scope','$rootScope',function($scope, $rootScope){
-    $scope.getRevision = function(link){
-        return link.split("/")[6];
-    };
+    $scope.split = function(string, nb) {
+        $scope.array = string.split('\n\n');
+        return $scope.result = $scope.array[nb];
+    }
 }]);

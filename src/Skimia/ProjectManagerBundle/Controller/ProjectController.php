@@ -12,6 +12,10 @@ use Skimia\ProjectManagerBundle\Entity\Project;
 use Symfony\Component\HttpFoundation\Request;
 use FOS\RestBundle\Util\Codes;
 
+use JMS\SecurityExtraBundle\Annotation\Secure;
+use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
+use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
+use Symfony\Component\Security\Acl\Permission\MaskBuilder;
 /**
  * Description of Project
  *
@@ -25,7 +29,7 @@ class ProjectController extends FOSRestController implements ClassResourceInterf
      * Collection get action
      * @var Request $request
      * @return array
-     *
+     * @Secure(roles="ROLE_USER")
      * @Rest\View()
      */
     public function cgetAction(Request $request) {
@@ -38,7 +42,7 @@ class ProjectController extends FOSRestController implements ClassResourceInterf
      * Get action
      * @var integer $id Id of the entity
      * @return array
-     *
+     * @Secure(roles="ROLE_USER")
      * @Rest\View()
      */
     public function getAction($id) {
@@ -47,6 +51,9 @@ class ProjectController extends FOSRestController implements ClassResourceInterf
         return $entity;
     }
 
+    /**
+     * @Secure(roles="ROLE_USER")
+     */
     public function cpostAction(Request $request) {
         $entity = new Project();
         $form = $this->createForm(new ProjectType(), $entity);
@@ -64,6 +71,9 @@ class ProjectController extends FOSRestController implements ClassResourceInterf
         );
     }
 
+    /**
+     * @Secure(roles="ROLE_USER")
+     */
     public function postAction(Request $request, $id) {
         $entity = $this->getEntity($id);
         $form = $this->createForm(new ProjectType(), $entity);
@@ -82,6 +92,9 @@ class ProjectController extends FOSRestController implements ClassResourceInterf
         );
     }
 
+    /**
+     * @Secure(roles="ROLE_USER")
+     */
     public function deleteAction($id) {
         $entity = $this->getEntity($id);
 

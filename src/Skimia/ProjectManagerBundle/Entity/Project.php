@@ -41,6 +41,13 @@ class Project
      */
     protected $bundles;
 
+    /**
+     * @var Group
+     * @ORM\ManyToOne(targetEntity="Group", inversedBy="projects")
+     * @ORM\JoinColumn(name="", referencedColumnName="id")
+     */
+    protected $group;
+
 	public function __construct()
     {
         $this->bundles = new ArrayCollection();
@@ -86,8 +93,7 @@ class Project
      */
     public function setDescription($description)
     {
-        $this->description = $description;
-    
+        $this->description = str_replace('[/code]', '</code>', str_replace('[code]', '<code>', htmlentities($description)));
         return $this;
     }
 
@@ -132,6 +138,30 @@ class Project
     public function getBundles()
     {
         return $this->bundles;
+    }
+    
+    /**
+     * Set group
+     * @param Group $group
+     * @return Project
+     */
+    public function setGroup(Group $group) {
+        $this->group = $group;
+        
+        if (!$group->getProjects()->contains($this)) {
+            $group->addProjects($this);
+        }
+        
+        return $this;
+    }
+
+    /**
+     * Get group
+     * @return Group
+     */
+    public function getGroup() {
+        
+        return $this->group;
     }
     
 }

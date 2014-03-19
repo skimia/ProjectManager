@@ -1,7 +1,7 @@
 <div class="color purple first">
   <div class="row">
     <div class="large-12 columns">
-      <h1>v {{version}}.{%verbatim%}{{getRev()}}{%endverbatim%}</h1>    
+      <h1>v {{version}}-{%verbatim%}{{rev}}{%endverbatim%}</h1>    
     </div>
     {%verbatim%}
     <div ng-repeat="revision in commits" class="large-12 columns">
@@ -11,9 +11,8 @@
           <h4>{{revision.committer.login}}</h4>
         </div>
         <div class="large-9 columns">
-          <h3>{{revision.commit.message}}</h3>
-          <h5>Commit : {{revision.sha}}</h5>
-          <p><a href="{{revision.url}}">Voir plus</a></p>
+          <h3>{{split(revision.commit.message,0)}}</h3>
+          <div markdown="split(revision.commit.message,1)"></div>
         </div>
       </div>
     </div>

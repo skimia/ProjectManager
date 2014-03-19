@@ -1,11 +1,11 @@
 
 {{module_var}}.controller('{{base_name}}.ListController',['$scope','Announcements',function($scope, Announcements){
-	$scope.announcements = Announcements.query(function(){$scope.announcementLoaded = true});
+	Announcements.query(function(a){
+        $scope.announcements = a;
+        $scope.announcementLoaded = true
+    });
 }]);
 
-{{module_var}}.controller('{{base_name}}.ShowController',['$scope','$stateParams','Announcements',function($scope, $stateParams, Announcements){
-	$scope.announcement = Announcements.get({announcementId:$stateParams.announcementId});
-}]);
 
 {{module_var}}.controller('{{base_name}}.EditController',['$scope','$stateParams', '$state','Announcements','mc-service',function($scope, $stateParams, $state, Announcements,flash){
 	$scope.data = Announcements.get({announcementId:$stateParams.announcementId},function(){$scope.announcementLoaded = true});

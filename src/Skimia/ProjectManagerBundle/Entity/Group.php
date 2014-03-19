@@ -41,6 +41,12 @@ class Group extends BaseGroup
     protected $openned;
 
     /**
+     * @var ArrayCollection
+     * @ORM\OneToMany(targetEntity="Project", mappedBy="group")
+     */
+    protected $projects;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -139,6 +145,7 @@ class Group extends BaseGroup
     {
         $this->users = new \Doctrine\Common\Collections\ArrayCollection();
         $this->roles = array();
+        $this->projects = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
     /**
@@ -172,5 +179,39 @@ class Group extends BaseGroup
     public function getUsers()
     {
         return $this->users;
+    }
+    /**
+     * Add project
+     * @param Project $project
+     * @return Group
+     */
+    public function addProject(Project $project) {
+        $this->projects[] = $project;
+        
+        if ($project->getGroup() != $this) {
+            $project->setGroup($this);
+        }
+        
+        return $this;
+    }
+
+    /**
+     * Remove project
+     * @param Project $project
+     * @return Group
+     */
+    public function removeProject(Project $project) {
+        $this->projects->removeElement($project);
+        
+        return $this;
+    }
+
+    /**
+     * Get projects
+     * @return ArrayCollection
+     */
+    public function getProjects() {
+        
+        return $this->projects;
     }
 }

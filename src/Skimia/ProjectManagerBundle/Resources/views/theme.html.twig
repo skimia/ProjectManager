@@ -8,6 +8,7 @@
   'ccss/*.css' 
   '@SkimiaAngularBundle/Resources/public/css/loading-bar.css'
   '@SkimiaAngularBundle/Resources/public/css/flash-message.css'
+  '@SkimiaAngularBundle/Resources/public/css/prettify.css'
   filter='cssrewrite' %}
   <link rel="stylesheet" href="{{ asset_url }}" />
   {% endstylesheets %}
@@ -67,12 +68,12 @@
       <!-- Left Nav Section -->
       <ul class="left">
         <li class="has-form">
-          <a href="{{$state.href('spm.about')}}" class="button">v {% endverbatim %}{{version}}{%verbatim%}.{{getRev()}}</a>
+          <a href="{{$state.href('spm.about')}}" class="button">v {% endverbatim %}{{version}}{%verbatim%}-{{rev}}</a>
         </li>
         <li class="divider"></li>
         <li><a href="{{$state.href('spm.announcement.list')}}">Annonces</a></li>
         <li class="divider"></li>
-        <li class="has-dropdown">
+        <li class="has-dropdown" ng-show="user.authenticated">
           <a href="{{$state.href('spm.project.list')}}">Projets</a>
           <ul class="dropdown">
             <li ng-repeat="project in projects">
@@ -88,12 +89,20 @@
 {% verbatim %}
 <message-center></message-center>
 {% endverbatim %}
-<div ui-view>
+<div ui-view class="spm-container">
 
 </div>
 {{app_javascript()}}
 <script>
-  $(document).foundation();
+  (function(jQuery){
+        
+  jQuery( document ).ready( function() {
+    $(document).foundation();
+    prettyPrint();
+                
+  } );
+ 
+}(jQuery))
 </script>
 </body>
 </html>
