@@ -1,9 +1,12 @@
 
-{{module_var}}.controller('{{base_name}}.ListController',['$scope','Announcements',function($scope, Announcements){
-	Announcements.query(function(a){
-        $scope.announcements = a;
-        $scope.announcementLoaded = true
-    });
+{{module_var}}.controller(
+    '{{base_name}}.ListController',
+    ['$scope','$repo',
+    function($scope, $repo){
+        
+	    $repo.model('Announcement').query().then(function(data){
+            $scope.announcements = data;
+        });
 }]);
 
 

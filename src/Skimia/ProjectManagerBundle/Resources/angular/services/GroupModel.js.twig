@@ -1,0 +1,16 @@
+{{ module_var }}.factory('Group',function($repo){
+
+	return $repo.instance({
+		$type     : 'Group',
+		$settings : {
+			$url     : "api/groups/:groupId.json",
+			$params  : {
+				groupId : "@id"
+			},
+			$load    : {
+				for : 'ROLE_USER'
+			} 
+		}
+	});
+
+});

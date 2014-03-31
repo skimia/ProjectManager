@@ -1,4 +1,18 @@
-{{module_var}}.controller('MainCtrl',['$rootScope','$scope','s-auth','Projects','$http','$state',function($rootScope,$scope,auth,Projects,$http,$state){
+{{module_var}}.controller('MainCtrl',['$rootScope','$scope','$auth','$http','$state','$repo',function($rootScope,$scope,$auth,$http,$state,$repo){
+    $repo.model('Announcement').query();
+
+    $repo.model('Commit').query(function(data){
+        $rootScope.commits = data;
+        $rootScope.rev = Object.keys(data).length;
+    });
+
+
+
+
+
+
+
+
     $scope.auth = {};
     var login =$('#login-holder');
     $scope.$on('event:auth-loginRequired', function() {
@@ -6,17 +20,14 @@
     });
     $scope.$on('event:auth-loginConfirmed', function() {
       login.hide();
-      $scope.projects = Projects.query();
-    });
-    $http.get('https://api.github.com/repos/skimia/ProjectManager/commits?since=2014-03-19T06:00:00Z').success(function(data, status, headers, config) {
-        $rootScope.commits = data;
-        $rootScope.rev = data.length;
+
+      $repo.model('Group').query();
     });
     $scope.beta = function(){
         $state.go("spm.beta",{'betaKey':$scope.key});
     }
     $scope.login = function(){
-        auth.authenticate($scope.auth.ident,$scope.auth.password);
+        $auth.connect($scope.auth.ident,$scope.auth.password);
     };
     $scope.showLogin = function(){
         $rootScope.$broadcast('event:auth-loginRequired');
@@ -25,6 +36,6 @@
         $('#login-holder').hide();
     }
     $scope.logout = function(){
-        auth.logout();
+        $auth.logout();
     };
 }]);

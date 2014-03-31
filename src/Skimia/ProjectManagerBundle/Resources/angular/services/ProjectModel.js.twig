@@ -1,0 +1,13 @@
+{{ module_var }}.factory('Project',function($repo){
+
+	return $repo.instance({
+		$type     : 'Project',
+		$settings : {
+			$url     : "api/projects/:projectId.json",
+			$params  : {
+				announcementId : "@id"
+			} 
+		}
+	});
+
+});

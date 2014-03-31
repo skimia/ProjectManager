@@ -1,10 +1,14 @@
 
-{{module_var}}.controller('{{base_name}}.ListController',['$scope','Entities',function($scope, Entities){
-	$scope.entities = Entities.query(function(){$scope.entityLoaded = true});
+{{module_var}}.controller('{{base_name}}.ListController',['$scope','$repo','$stateParams',function($scope, $repo,$stateParams){
+	$repo.model('Bundle').get($stateParams.bundleId ,function(data){
+        $scope.entities = data.entities;
+    });
 }]);
 
-{{module_var}}.controller('{{base_name}}.ShowController',['$scope','$stateParams','Entities',function($scope, $stateParams, Entities){
-	$scope.entity = Entities.get({ entityId:$stateParams.entityId},function(){$scope.entityLoaded = true});
+{{module_var}}.controller('{{base_name}}.ShowController',['$scope','$stateParams','$repo',function($scope, $stateParams, $repo){
+	$repo.model('Entity').get($stateParams.entityId, function(data){
+        $scope.entity = data;
+    });
 }]);
 
 {{module_var}}.controller('{{base_name}}.EditController',['$scope','$stateParams', '$state','Entities','mc-service',function($scope, $stateParams, $state, Entities,flash){

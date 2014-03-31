@@ -1,13 +1,6 @@
 {% verbatim %}
 <div class="row">
-	<div class="large-12 columns" ng-show="!bundleLoaded">
-        <div class="loader">
-          	<span></span>
-          	<span></span>
-          	<span></span>
-        </div>
-    </div>
-	<div class="large-12 columns" ng-show="bundleLoaded">
+	<div class="large-12 columns">
 		<nav class="breadcrumbs">
 			<li><a href="{{$state.href('spm.bundle.list')}}">Bundles</a></li>
 			<li ng-class="{ current: $state.is('spm.bundle.show') }"><a href="{{$state.href('spm.bundle.show',{bundleId: $stateParams.bundleId})}}">{{bundle.name}}</a></li>

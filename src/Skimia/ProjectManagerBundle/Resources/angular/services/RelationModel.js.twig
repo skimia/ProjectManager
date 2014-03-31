@@ -1,0 +1,13 @@
+{{ module_var }}.factory('Relation',function($repo){
+
+	return $repo.instance({
+		$type     : 'Relation',
+		$settings : {
+			$url     : "api/relations/:relationId.json",
+			$params  : {
+				announcementId : "@id"
+			} 
+		}
+	});
+
+});

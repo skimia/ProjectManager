@@ -13,6 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Project
 {
+    public static $__type = "Project";
     /**
      * @var integer
      *
@@ -149,7 +150,7 @@ class Project
         $this->group = $group;
         
         if (!$group->getProjects()->contains($this)) {
-            $group->addProjects($this);
+            $group->addProject($this);
         }
         
         return $this;
@@ -162,6 +163,10 @@ class Project
     public function getGroup() {
         
         return $this->group;
+    }
+
+    public function canDisplay(\Skimia\ProjectManagerBundle\Entity\User $user = null){
+        return $this->getGroup()->canDisplay($user);
     }
     
 }

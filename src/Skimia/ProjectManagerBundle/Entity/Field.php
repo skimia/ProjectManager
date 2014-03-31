@@ -12,6 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Field
 {
+    public static $__type = "Field";
     /**
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id

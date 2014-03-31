@@ -11,6 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Group extends BaseGroup
 {
+    public static $__type = "Group";
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -26,9 +27,9 @@ class Group extends BaseGroup
     protected $main_user;
     
     /**
-     * @ORM\ManyToMany(targetEntity="Skimia\ProjectManagerBundle\Entity\User", cascade={"persist"})
-     */
-    protected $users;
+     * @ORM\ManyToMany(targetEntity="User", mappedBy="groups", cascade={"persist"})
+     **/
+    private $users;
     
     /**
      * @ORM\Column(type="boolean")
@@ -158,6 +159,9 @@ class Group extends BaseGroup
     {
         $this->users[] = $users;
     
+        if (!$users->getGroups()->contains($this)) {
+            $users->addGroup($this);
+        }
         return $this;
     }
 

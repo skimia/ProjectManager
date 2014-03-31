@@ -13,6 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Bundle
 {
+    public static $__type = "Bundle";
     /**
      * @var integer
      *

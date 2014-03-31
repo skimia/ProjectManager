@@ -11,6 +11,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  */
 class Entity {
 
+    public static $__type = "Entity";
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")

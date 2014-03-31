@@ -8,6 +8,11 @@
           <span></span>
         </div>
     </div>
+    <div class="large-12 columns" ng-show="groupLoaded">
+      <div class="panel row marbot-20" ng-show="groups.length == 0">
+        <h2>Aucun Groupe</h2>
+      </div>
+    </div>
     <div ng-repeat="group in groups" class="large-12 columns">
       <div class="panel row marbot-20">
         <div class="large-12 columns">

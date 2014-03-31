@@ -1,1 +1,7 @@
-var SkimiaProjectManager_SPM_Services = angular.module('SkimiaProjectManager.SPM.Services',[{% for dep in deps %}'{{dep}}'{%if not loop.last %},{%endif%}{%endfor%}]);
+var SkimiaProjectManager_SPM_Services = angular.module('SkimiaProjectManager.SPM.Services',[{% for dep in deps %}'{{dep}}'{%if not loop.last %},{%endif%}{%endfor%}])
+.run(function($repo){
+	$repo.addLoads({
+		'all' : ['Announcement','Commit'],
+		'ROLE_USER' : ['Group']
+	});
+});

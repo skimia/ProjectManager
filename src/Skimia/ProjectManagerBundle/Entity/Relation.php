@@ -11,6 +11,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  */
 class Relation {
 
+    public static $__type = "Relation";
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")

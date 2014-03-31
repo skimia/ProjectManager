@@ -3,6 +3,7 @@
 namespace Skimia\ProjectManagerBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation\MaxDepth;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -14,6 +15,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Announcement {
 
+    public static $__type = "Announcement";
     /**
      * @var integer
      *
@@ -47,6 +49,7 @@ class Announcement {
     /**
      * @ORM\ManyToOne(targetEntity="User")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * @MaxDepth(1)
      */
     protected $user;
 

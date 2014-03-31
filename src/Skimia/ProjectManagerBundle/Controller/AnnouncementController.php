@@ -20,7 +20,7 @@ class AnnouncementController extends FOSRestController implements ClassResourceI
      * @var Request $request
      * @return array
      *
-     * @Rest\View()
+     * @Rest\View(serializerEnableMaxDepthChecks=true)
      */
     public function cgetAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
@@ -33,7 +33,7 @@ class AnnouncementController extends FOSRestController implements ClassResourceI
      * @var integer $id Id of the entity
      * @return array
      *
-     * @Rest\View()
+     * @Rest\View(serializerEnableMaxDepthChecks=true)
      */
     public function getAction($id) {
         $entity = $this->getEntity($id);

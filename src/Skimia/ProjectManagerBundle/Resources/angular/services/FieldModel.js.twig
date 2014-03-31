@@ -1,0 +1,13 @@
+{{ module_var }}.factory('Field',function($repo){
+
+	return $repo.instance({
+		$type     : 'Field',
+		$settings : {
+			$url     : "api/fields/:fieldId.json",
+			$params  : {
+				announcementId : "@id"
+			} 
+		}
+	});
+
+});
