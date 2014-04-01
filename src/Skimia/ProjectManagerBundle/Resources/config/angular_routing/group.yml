@@ -6,28 +6,28 @@ spm_group_list:
     pattern: /group
     controller: "Group.ListController" 
     view: "@SkimiaProjectManagerBundle:Group:list.html.twig"
-    title: "LIST Group"
+    title: "Groupes Publics"
 
 spm_group_create:
     pattern: /group/new
     controller: "Group.CreateController" 
     view: "@SkimiaProjectManagerBundle:Group:form.html.twig"
-    title: "CREATE Group"
+    title: "Fondation d'un groupe"
     
 spm_group_show:
     pattern: /group/:groupId
     controller: "Group.ShowController" 
     view: "@SkimiaProjectManagerBundle:Group:show.html.twig"
-    title: "SHOW Group "
+    title: "Visualisation d'un groupe"
     
 spm_group_edit:
     pattern: /group/:groupId/edit
     controller: "Group.EditController" 
     view: "@SkimiaProjectManagerBundle:Group:edit.html.twig"
-    title: "EDIT Group"
+    title: "Editer"
     
 spm_group_delete:
     pattern: /group/:groupId/delete
     controller: "Group.DeleteController" 
     view: "@SkimiaProjectManagerBundle:Group:show.html.twig"
-    title: "DELETE Group"
+    title: "Supprimer"

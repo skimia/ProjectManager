@@ -1,0 +1,13 @@
+{{ module_var }}.factory('Commit',function($repo){
+
+	return $repo.instance({
+		$type     : 'Commit',
+		$settings : {
+			$url     : "https://api.github.com/repos/skimia/ProjectManager/commits?since=2014-03-19T00:00:00Z",
+			$load    : {
+				for : 'all'
+			} 
+		}
+	});
+
+});

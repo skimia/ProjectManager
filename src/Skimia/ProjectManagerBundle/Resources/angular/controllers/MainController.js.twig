@@ -1,0 +1,41 @@
+{{module_var}}.controller('MainCtrl',['$rootScope','$scope','$auth','$http','$state','$repo',function($rootScope,$scope,$auth,$http,$state,$repo){
+    $repo.model('Announcement').query();
+
+    $repo.model('Commit').query(function(data){
+        $rootScope.commits = data;
+        $rootScope.rev = Object.keys(data).length;
+    });
+
+
+
+
+
+
+
+
+    $scope.auth = {};
+    var login =$('#login-holder');
+    $scope.$on('event:auth-loginRequired', function() {
+      login.show();
+    });
+    $scope.$on('event:auth-loginConfirmed', function() {
+      login.hide();
+
+      $repo.model('Group').query();
+    });
+    $scope.beta = function(){
+        $state.go("spm.beta",{'betaKey':$scope.key});
+    }
+    $scope.login = function(){
+        $auth.connect($scope.auth.ident,$scope.auth.password);
+    };
+    $scope.showLogin = function(){
+        $rootScope.$broadcast('event:auth-loginRequired');
+    }
+    $scope.hideLogin = function(){
+        $('#login-holder').hide();
+    }
+    $scope.logout = function(){
+        $auth.logout();
+    };
+}]);

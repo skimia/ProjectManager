@@ -12,6 +12,10 @@ use Skimia\ProjectManagerBundle\Entity\Project;
 use Symfony\Component\HttpFoundation\Request;
 use FOS\RestBundle\Util\Codes;
 
+use JMS\SecurityExtraBundle\Annotation\Secure;
+use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
+use Symfony\Component\Security\Acl\Domain\RoleSecurityIdentity;
+use Symfony\Component\Security\Acl\Permission\MaskBuilder;
 /**
  * Description of Project
  *
@@ -25,7 +29,7 @@ class ProjectController extends FOSRestController implements ClassResourceInterf
      * Collection get action
      * @var Request $request
      * @return array
-     *
+     * @Secure(roles="ROLE_USER")
      * @Rest\View()
      */
     public function cgetAction(Request $request) {
@@ -38,7 +42,7 @@ class ProjectController extends FOSRestController implements ClassResourceInterf
      * Get action
      * @var integer $id Id of the entity
      * @return array
-     *
+     * @Secure(roles="ROLE_USER")
      * @Rest\View()
      */
     public function getAction($id) {
@@ -47,6 +51,9 @@ class ProjectController extends FOSRestController implements ClassResourceInterf
         return $entity;
     }
 
+    /**
+     * @Secure(roles="ROLE_USER")
+     */
     public function cpostAction(Request $request) {
         $entity = new Project();
         $form = $this->createForm(new ProjectType(), $entity);
@@ -56,6 +63,16 @@ class ProjectController extends FOSRestController implements ClassResourceInterf
             $em->persist($entity);
             $em->flush();
 
+            //Security don des droits d'access au main_user
+            $aclProvider = $this->get('security.acl.provider');
+            $objectIdentity = ObjectIdentity::fromDomainObject($entity);
+            $acl = $aclProvider->createAcl($objectIdentity);
+
+            $securityContext = $this->get('security.context');
+            $securityIdentity = new RoleSecurityIdentity($entity->getGroup()->getRoles()[0]);
+
+            $acl->insertObjectAce($securityIdentity, MaskBuilder::MASK_OWNER);
+            $aclProvider->updateAcl($acl);
             return $entity;
         }
 
@@ -64,8 +81,19 @@ class ProjectController extends FOSRestController implements ClassResourceInterf
         );
     }
 
+    /**
+     * @Secure(roles="ROLE_USER")
+     */
     public function postAction(Request $request, $id) {
         $entity = $this->getEntity($id);
+        $securityContext = $this->get('security.context');
+
+        // check for edit access
+        if (false === $securityContext->isGranted('EDIT', $entity))
+        {
+            throw new \Symfony\Component\Security\Core\Exception\AccessDeniedException();
+        }
+
         $form = $this->createForm(new ProjectType(), $entity);
         $form->bind($request);
 
@@ -82,6 +110,9 @@ class ProjectController extends FOSRestController implements ClassResourceInterf
         );
     }
 
+    /**
+     * @Secure(roles="ROLE_USER")
+     */
     public function deleteAction($id) {
         $entity = $this->getEntity($id);
 
@@ -103,7 +134,10 @@ class ProjectController extends FOSRestController implements ClassResourceInterf
         $entity = $em->getRepository('SkimiaProjectManagerBundle:Project')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find announcement entity');
+            throw $this->createNotFoundException('Unable to find Project entity');
+        }
+        if(!$entity->canDisplay($this->getUser())){
+            throw new \Symfony\Component\Security\Core\Exception\AccessDeniedException();
         }
 
         return $entity;

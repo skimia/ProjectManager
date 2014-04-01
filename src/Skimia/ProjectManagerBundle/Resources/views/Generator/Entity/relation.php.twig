@@ -184,8 +184,8 @@
         public function set{{ relation.mainField|camelize }}({{ linkedName|camelize }} ${{ linkedName }}){
             $this->{{ relation.mainField|variablize }} = ${{ linkedName }};
             {% if relation.bidirectionnal %}
-                if(!${{ linkedName }}->get{{ relation.linkedName|camelize|pluralize }}()->contains($this)){
-                    ${{ linkedName }}->add{{ relation.linkedName|camelize }}($this);
+                if(!${{ linkedName }}->get{{ relation.linkedField|camelize|pluralize }}()->contains($this)){
+                    ${{ linkedName }}->add{{ relation.linkedField|camelize }}($this);
                 }
             {% endif %}
 

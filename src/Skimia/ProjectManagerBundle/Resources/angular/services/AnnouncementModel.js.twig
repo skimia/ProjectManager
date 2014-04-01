@@ -1,0 +1,16 @@
+{{ module_var }}.factory('Announcement',function($repo){
+
+	return $repo.instance({
+		$type     : 'Announcement',
+		$settings : {
+			$url     : "api/announcements/:announcementId.json",
+			$params  : {
+				announcementId : "@id"
+			},
+			$load    : {
+				for : 'all'
+			} 
+		}
+	});
+
+});

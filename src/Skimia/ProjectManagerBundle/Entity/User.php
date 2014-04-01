@@ -11,6 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class User extends BaseUser
 {
+    public static $__type = "User";
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -19,14 +20,16 @@ class User extends BaseUser
     protected $id;
 
      /**
-     * @ORM\ManyToMany(targetEntity="Skimia\ProjectManagerBundle\Entity\Group", cascade={"persist"})
-     */
+     * @ORM\ManyToMany(targetEntity="Group", inversedBy="users", cascade={"persist"})
+     * @ORM\JoinTable(name="users_groups")
+     **/
     protected $groups;
     
     public function __construct()
     {
         parent::__construct();
-        // your own logic
+
+        $this->groups = new \Doctrine\Common\Collections\ArrayCollection();
     }
     public function getJson(){
         return array(

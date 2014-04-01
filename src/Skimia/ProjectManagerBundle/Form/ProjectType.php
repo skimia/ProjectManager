@@ -19,6 +19,10 @@ class ProjectType extends AbstractType
         $builder
             ->add('name')
             ->add('description')
+            ->add('group','entity', array(
+                    'class' => 'SkimiaProjectManagerBundle:Group',
+                    'property' => 'name',
+            ))
             ->add('bundles', 'multiselect', array(
                 'label' => 'Bundles',
                 'class' => 'SkimiaProjectManagerBundle:Bundle',

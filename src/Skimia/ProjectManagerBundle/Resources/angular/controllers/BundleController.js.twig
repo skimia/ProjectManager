@@ -1,9 +1,13 @@
-{{module_var}}.controller('{{base_name}}.ListController',['$scope','Bundles',function($scope, Bundles){
-	$scope.bundles = Bundles.query(function(){$scope.bundleLoaded = true});
+{{module_var}}.controller('{{base_name}}.ListController',['$scope','$repo',function($scope, $repo){
+	$repo.model('Bundle').query().then(function(data){
+        $scope.bundles = data;
+    });
 }]);
 
-{{module_var}}.controller('{{base_name}}.ShowController',['$scope','$stateParams','Bundles',function($scope, $stateParams, Bundles){
-	$scope.bundle = Bundles.get({bundleId:$stateParams.bundleId},function(){$scope.bundleLoaded = true});
+{{module_var}}.controller('{{base_name}}.ShowController',['$scope','$stateParams','$repo',function($scope, $stateParams, $repo){
+	$repo.model('Bundle').get($stateParams.bundleId, function(data){
+        $scope.bundle = data;
+    });
 }]);
 
 {{module_var}}.controller('{{base_name}}.EditController',['$scope','$stateParams', '$state','Bundles','Projects','mc-service',function($scope, $stateParams, $state, Bundles,Projects,flash){

@@ -134,8 +134,14 @@ class WordTransformerExtension extends \Twig_Extension{
     } 
     
     function variablizeFilter($word){ 
-        $word = $this->camelizeFilter($word); 
-        return strtolower($word[0]) . substr($word, 1); 
+        if(isset($word[0])&& isset($word[1])){
+            $word = $this->camelizeFilter($word); 
+            return strtolower($word[0]) . substr($word, 1); 
+        }elseif(isset($word[0])){
+            return strtolower($word[0]);
+        }
+        return '';
+        
     } 
     
     public function getName() {

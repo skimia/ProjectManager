@@ -1,0 +1,13 @@
+{{ module_var }}.factory('Entity',function($repo){
+
+	return $repo.instance({
+		$type     : 'Entity',
+		$settings : {
+			$url     : "api/entities/:entityId.json",
+			$params  : {
+				announcementId : "@id"
+			} 
+		}
+	});
+
+});

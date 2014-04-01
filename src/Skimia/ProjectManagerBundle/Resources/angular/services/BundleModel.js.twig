@@ -1,0 +1,13 @@
+{{ module_var }}.factory('Bundle',function($repo){
+
+	return $repo.instance({
+		$type     : 'Bundle',
+		$settings : {
+			$url     : "api/bundles/:bundleId.json",
+			$params  : {
+				bundleId : "@id"
+			} 
+		}
+	});
+
+});

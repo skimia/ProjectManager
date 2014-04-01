@@ -66,6 +66,10 @@ class GroupController extends FOSRestController implements ClassResourceInterfac
             $entity->setMainUser($this->getUser());
             $entity->addRole('ROLE_GROUP_'.md5($entity->getName().microtime()));
             $em->persist($entity);
+            $users = $entity->getUsers();
+            foreach($users as $user){
+                $em->persist($user);
+            }
             $em->flush();
             //Security don des droits d'access au main_user
             $aclProvider = $this->get('security.acl.provider');

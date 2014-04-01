@@ -65,7 +65,7 @@ class RelationController extends FOSRestController implements ClassResourceInter
     }
 
     public function postAction(Request $request, $id) {
-        $entity = $this->getRelation($id);
+        $entity = $this->getEntity($id);
         $form = $this->createForm(new RelationType(), $entity);
         $form->bind($request);
 

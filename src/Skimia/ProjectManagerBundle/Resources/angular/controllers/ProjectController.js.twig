@@ -1,13 +1,17 @@
 
-{{module_var}}.controller('{{base_name}}.ListController',['$scope','Projects',function($scope, Projects){
-	$scope.projects = Projects.query(function(){$scope.projectLoaded = true});
+{{module_var}}.controller('{{base_name}}.ListController',['$scope','$repo',function($scope, $repo){
+	$repo.model('Project').query().then(function(data){
+        $scope.projects = data;
+    });
 }]);
 
-{{module_var}}.controller('{{base_name}}.ShowController',['$scope','$stateParams','Projects',function($scope, $stateParams, Projects){
-	$scope.project = Projects.get({projectId:$stateParams.projectId},function(){$scope.projectLoaded = true});
+{{module_var}}.controller('{{base_name}}.ShowController',['$scope','$stateParams','$repo',function($scope, $stateParams, $repo){
+    $repo.model('Project').get($stateParams.projectId, function(data){
+        $scope.project = data;
+    });
 }]);
 
-{{module_var}}.controller('{{base_name}}.EditController',['$scope','$stateParams', '$state','Bundles','Projects','mc-service',function($scope, $stateParams, $state,Bundles, Projects,flash){
+{{module_var}}.controller('{{base_name}}.EditController',['$scope','$stateParams', '$state','$repo','mc-service',function($scope, $stateParams, $state,$repo,flash){
         $scope.data = Projects.get({projectId:$stateParams.projectId},function(){
             Bundles.query({},function(data){
                 $scope.bundles = data;
@@ -25,7 +29,7 @@
         }
 }]);
 
-{{module_var}}.controller('{{base_name}}.CreateController',['$scope','$stateParams','$state','Bundles','Projects','mc-service',function($scope, $stateParams, $state, Bundles, Projects,flash){
+{{module_var}}.controller('{{base_name}}.CreateController',['$scope','$stateParams','$state','$repo','mc-service',function($scope, $stateParams, $state,$repo,flash){
 	Bundles.query({},function(data){
             $scope.bundles = data;
             $scope.projectLoaded = true;
@@ -42,7 +46,7 @@
         }
 }]);
 
-{{module_var}}.controller('{{base_name}}.DeleteController',['$scope','$stateParams','$state','Projects','mc-service',function($scope, $stateParams, $state, Projects,flash){
+{{module_var}}.controller('{{base_name}}.DeleteController',['$scope','$stateParams','$state','$repo','mc-service',function($scope, $stateParams, $state, $repo,flash){
     Projects.delete({projectId:$stateParams.projectId},function()
                 {
                     $state.go('^.list');
@@ -58,6 +62,6 @@
     
 });
 
-{{module_var}}.controller('{{base_name}}.BundlesController',['$scope', '$http', 'Bundles', function($scope, $http, Bundles){
+{{module_var}}.controller('{{base_name}}.BundlesController',['$scope', '$http', '$repo', function($scope, $http, $repo){
 
 }]);

@@ -11,6 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Group extends BaseGroup
 {
+    public static $__type = "Group";
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -26,9 +27,9 @@ class Group extends BaseGroup
     protected $main_user;
     
     /**
-     * @ORM\ManyToMany(targetEntity="Skimia\ProjectManagerBundle\Entity\User", cascade={"persist"})
-     */
-    protected $users;
+     * @ORM\ManyToMany(targetEntity="User", mappedBy="groups", cascade={"persist"})
+     **/
+    private $users;
     
     /**
      * @ORM\Column(type="boolean")
@@ -39,6 +40,12 @@ class Group extends BaseGroup
      * @ORM\Column(type="boolean")
      */
     protected $openned;
+
+    /**
+     * @var ArrayCollection
+     * @ORM\OneToMany(targetEntity="Project", mappedBy="group")
+     */
+    protected $projects;
 
     /**
      * Get id
@@ -139,6 +146,7 @@ class Group extends BaseGroup
     {
         $this->users = new \Doctrine\Common\Collections\ArrayCollection();
         $this->roles = array();
+        $this->projects = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
     /**
@@ -151,6 +159,9 @@ class Group extends BaseGroup
     {
         $this->users[] = $users;
     
+        if (!$users->getGroups()->contains($this)) {
+            $users->addGroup($this);
+        }
         return $this;
     }
 
@@ -172,5 +183,39 @@ class Group extends BaseGroup
     public function getUsers()
     {
         return $this->users;
+    }
+    /**
+     * Add project
+     * @param Project $project
+     * @return Group
+     */
+    public function addProject(Project $project) {
+        $this->projects[] = $project;
+        
+        if ($project->getGroup() != $this) {
+            $project->setGroup($this);
+        }
+        
+        return $this;
+    }
+
+    /**
+     * Remove project
+     * @param Project $project
+     * @return Group
+     */
+    public function removeProject(Project $project) {
+        $this->projects->removeElement($project);
+        
+        return $this;
+    }
+
+    /**
+     * Get projects
+     * @return ArrayCollection
+     */
+    public function getProjects() {
+        
+        return $this->projects;
     }
 }

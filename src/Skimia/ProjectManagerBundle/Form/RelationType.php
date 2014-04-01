@@ -6,6 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Skimia\ProjectManagerBundle\Entity\EntityPMRepository;
+use Skimia\AngularBundle\Form\EventListener\ResourceFormSubscriber;
 
 class RelationType extends AbstractType {
 
@@ -39,6 +40,7 @@ class RelationType extends AbstractType {
                     'required' => false
                 ))
         ;
+        $builder->addEventSubscriber(new ResourceFormSubscriber());
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver) {

@@ -1,13 +1,6 @@
 {% verbatim %}
 <div class="row">
-	<div class="large-12 columns" ng-show="!projectLoaded">
-        <div class="loader">
-          	<span></span>
-          	<span></span>
-          	<span></span>
-        </div>
-    </div>
-	<div class="large-12 columns" ng-show="projectLoaded">
+	<div class="large-12 columns">
 		<nav class="breadcrumbs">
 			<li><a href="{{$state.href('spm.project.list')}}">Projects</a></li>
 			<li class="current">{{project.name}}</li>
@@ -29,8 +22,7 @@
 	        <div ui-view>
 	        	<div class="row project-overview">
 	        		<div class="large-9 columns">
-	        			<h3>Description</h3>
-						<p>{{project.description}}</p>	
+						<div markdown="project.description"></div>	
 					</div>
 	        		<div class="large-3 columns">
 	        			<div class="project-side">

@@ -1,13 +1,17 @@
 
 {{module_var}}.controller('{{base_name}}.EditController',['$scope','$stateParams', '$state','Relations','mc-service',function($scope, $stateParams, $state, Relations,flash){
-	$scope.data = Relations.get({ relationId:$stateParams.relationId},function(){$scope.relationEditLoaded = true});
-        $scope.submit = function(){
-            $scope.data.$save(function()
-                {
-                    $state.go('^.^');
-                    flash.add('success','Message success Edit');
-                });
-        }
+	$scope.data = {};
+    Relations.get({ relationId:$stateParams.relationId},function(data){
+        $scope.data = data;
+        $scope.relationEditLoaded = true
+    });
+    $scope.submit = function(){
+        $scope.data.$save(function()
+            {
+                $state.go('^.^',{},{reload:true});
+                flash.add('success','Message success Edit');
+            });
+    }
 }]);
 
 {{module_var}}.controller('{{base_name}}.CreateController',['$scope','$stateParams','$state','Relations','mc-service',function($scope, $stateParams, $state, Relations,flash){
@@ -15,7 +19,7 @@
         $scope.submit = function(){
            var saved = Relations.save($scope.data,function()
                 {
-                    $state.go('^.^');
+                    $state.go('^.^',{},{reload:true});
                     flash.add('success','Message success Create');
                 }
             );
