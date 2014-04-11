@@ -1,19 +1,17 @@
 {%verbatim%}
 <div class="row bundle-entities">
-  <div class="large-2 columns entity-side">
+  <div class="col-md-2 columns entity-side">
     <h4>Entitées</h4>
-    <ul class="side-nav">
-     <li><a href="#/bundle/{{bundle.id}}/entity/new">Ajouter</a></li>
+    <ul class="nav nav-pills nav-stacked">
+      <li><a href="{{$state.href('spm.bundle.show.entity.create',{bundleId:bundle.id})}}">Ajouter</a></li>
     </ul>
   </div>
-    <div class="large-10 columns">
+    <div class="col-md-10">
     	<article ng-repeat="entity in entities" class="entity">
-        <h4><a href="#/bundle/{{bundle.id}}/entity/{{entity.id}}">{{entity.name}}</a><hr></h4>
-      	<p>
-      			{{entity.description}}
-      	</p>
+        <h4><a href="{{$state.href('spm.bundle.show.entity.show',{bundleId:bundle.id,entityId:entity.id})}}">{{entity.name}}</a><hr></h4>
+        <div markdown="entity.description"></div>
         <hr>
-        <ul class="inline-list icons">
+        <ul class="list-inline icons">
           <li><i class="fa fa-list"></i> {{entity.fields.length}} Champs</li>
           <li><i class="fa fa-exchange"></i> {{entity.main_relations.length}} Relations</li>
         </ul>

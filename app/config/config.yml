@@ -107,6 +107,10 @@ fos_user:
     user_class:    Skimia\ProjectManagerBundle\Entity\User 
     group:
         group_class: Skimia\ProjectManagerBundle\Entity\Group
+
+    registration:
+        form:
+            type: spm_registration
     
 skimia_angular:
     app_name: "SkimiaProjectManager"
@@ -114,8 +118,9 @@ skimia_angular:
     dependencies: 
         #Inclue simplement un fichier
         - {resource: "@SkimiaProjectManagerBundle/Resources/public/js/lib/jquery.min.js"}
-        - {resource: "@SkimiaProjectManagerBundle/Resources/public/js/lib/foundation.min.js"}
-        - {resource: "@SkimiaProjectManagerBundle/Resources/public/js/lib/foundation/foundation.topbar.js"}
+        - {resource: "@SkimiaProjectManagerBundle/Resources/public/js/lib/bootstrap.min.js"}
+        - {name: 'ui.bootstrap', resource: "@SkimiaProjectManagerBundle/Resources/public/js/lib/ui-bootstrap.min.js"}
+        - {name: 'konami-code', resource: "@SkimiaProjectManagerBundle/Resources/public/js/lib/angular-konami.js"}
         
     #activer angular sur le bundle SkimiaProjectManager et son fichier de configuration
     bundles:

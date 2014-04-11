@@ -1,118 +1,90 @@
 <?php
-
+ 
 namespace Skimia\ProjectManagerBundle\Entity;
-
+ 
 use Doctrine\ORM\Mapping as ORM;
-
+use Doctrine\Common\Collections\ArrayCollection;
+ 
 /**
- * Field
- *
+ * Champ d'entité Symfony2
+ * @ORM\Entity
  * @ORM\Table(name="fields")
- * @ORM\Entity(repositoryClass="Skimia\ProjectManagerBundle\Entity\FieldRepository")
  */
-class Field
-{
+class Field {
+ 
     public static $__type = "Field";
     /**
-     * @ORM\Column(name="id", type="integer")
      * @ORM\Id
+     * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
-    
+    protected $id;
+ 
+    /**
+     * Nom du champ
+     * @var string
+     * @ORM\Column(type="string", name="name", length=255)
+     */
+    protected $name;
+ 
+    /**
+     * Description du champ
+     * @var text
+     * @ORM\Column(type="text", name="description", nullable=true)
+     */
+    protected $description;
+ 
+    /**
+     * Nom du champ en bdd
+     * @var string
+     * @ORM\Column(type="string", name="db_name", length=255, nullable=true)
+     */
+    protected $dbName;
+ 
+    /**
+     * Type de champ
+     * @var string
+     * @ORM\Column(type="string", name="type", length=255)
+     */
+    protected $type;
+ 
+    /**
+     *
+     * @var array
+     * @ORM\Column(type="array", name="options")
+     */
+    protected $options;
+ 
+    /**
+     *
+     * @var array
+     * @ORM\Column(type="array", name="code", nullable=true)
+     */
+    protected $code;
+ 
     /**
      * @var Entity
      * @ORM\ManyToOne(targetEntity="Entity", inversedBy="fields")
      * @ORM\JoinColumn(name="entity_id", referencedColumnName="id")
      */
-    private $entity;
-
+    protected $entity;
+ 
     /**
-     * @var string
-     * @ORM\Column(type="text", nullable=true)
+     * Constructor
      */
-    private $description;
-
-    /**
-     * @var string
-     * @ORM\Column(type="string")
-     */
-    private $name;
-
-    /**
-     * @var string
-     * @ORM\Column(name="db_name", type="string", nullable=true)
-     */
-    private $dbName;
-
-    /**
-     * @var string
-     * @ORM\Column(type="string")
-     */
-    private $type;
-
-    /**
-     * @var boolean
-     * @ORM\Column(name="is_nullable",type="boolean")
-     */
-    private $nullable;  
-        
-    /**
-     * @var string
-     * @ORM\Column(name="is_unique", type="boolean")
-     */
-    private $unique;
-    
-    /**
-     * @var integer
-     * @ORM\Column(name="string_length", type="integer", nullable=true)
-     */
-    private $length;
-    
-    /**
-     * @var integer
-     * @ORM\Column(name="decimal_precision", type="integer", nullable=true)
-     */
-    private $precision;
-    
-    /**
-     * @var integer
-     * @ORM\Column(name="decimal_scale", type="integer", nullable=true)
-     */
-    private $scale;
-
     public function __construct() {
-        $this->nullable = false;
-        $this->unique = false;
+        $this->options = array();
     }
-
+ 
     /**
      * Get id
-     * @return integer 
+     * @return integer
      */
     public function getId() {
+         
         return $this->id;
     }
-
-    /**
-     * Set description
-     * @param string $description
-     * @return Field
-     */
-    public function setDescription($description) {
-        $this->description = $description;
-
-        return $this;
-    }
-
-    /**
-     * Get description
-     * @return string 
-     */
-    public function getDescription() {
-        return $this->description;
-    }
-
+ 
     /**
      * Set name
      * @param string $name
@@ -120,77 +92,39 @@ class Field
      */
     public function setName($name) {
         $this->name = $name;
-
+         
         return $this;
     }
-
+ 
     /**
      * Get name
-     * @return string 
-     */
-    public function getName() {
-        return $this->name;
-    }
-
-    /**
-     * Set entity
-     * @param Entity $entity
-     * @return Field
-     */
-    public function setEntity(Entity $entity) {
-        $this->entity = $entity;
-        if(!$entity->getFields()->contains($this))
-            $entity->addField ($this);
-
-        return $this;
-    }
-
-    /**
-     * Get entity
-     * @return Entity
-     */
-    public function getEntity() {
-        return $this->entity;
-    }
-
-    /**
-     * Set type
-     * @param string $type
-     * @return Field
-     */
-    public function setType($type) {
-        $this->type = $type;
-
-        return $this;
-    }
-
-    /**
-     * Get type
      * @return string
      */
-    public function getType() {
-        return $this->type;
+    public function getName() {
+         
+        return $this->name;
     }
-
+ 
     /**
-     * Set isNullable
-     * @param boolean $nullable
+     * Set description
+     * @param text $description
      * @return Field
      */
-    public function setNullable($nullable) {
-        $this->nullable = $nullable;
-
+    public function setDescription($description) {
+        $this->description = $description;
+         
         return $this;
     }
-
+ 
     /**
-     * Get nullable
-     * @return boolean
+     * Get description
+     * @return text
      */
-    public function getNullable() {
-        return $this->nullable;
+    public function getDescription() {
+         
+        return $this->description;
     }
-    
+ 
     /**
      * Set dbName
      * @param string $dbName
@@ -198,91 +132,100 @@ class Field
      */
     public function setDbName($dbName) {
         $this->dbName = $dbName;
-
+         
         return $this;
     }
-
+ 
     /**
      * Get dbName
      * @return string
      */
     public function getDbName() {
+         
         return $this->dbName;
     }
-    
+ 
     /**
-     * Set unique
-     * @param boolean $unique
+     * Set type
+     * @param string $type
      * @return Field
      */
-    public function setUnique($unique) {
-        $this->unique = $unique;
-
+    public function setType($type) {
+        $this->type = $type;
+         
         return $this;
     }
-
+ 
     /**
-     * Get unique
-     * @return boolean
+     * Get type
+     * @return string
      */
-    public function getUnique() {
-        return $this->unique;
+    public function getType() {
+         
+        return $this->type;
     }
-    
+ 
     /**
-     * Set length
-     * @param integer $length
+     * Set options
+     * @param array $options
      * @return Field
      */
-    public function setLength($length) {
-        $this->length = $length;
-
+    public function setOptions(array $options) {
+        $this->options = $options;
+         
         return $this;
     }
-
+ 
     /**
-     * Get length
-     * @return integer
+     * Get options
+     * @return array
      */
-    public function getLength() {
-        return $this->length;
+    public function getOptions() {
+         
+        return $this->options;
     }
-    
+ 
     /**
-     * Set precision
-     * @param integer $precision
+     * Set code
+     * @param array $code
      * @return Field
      */
-    public function setPrecision($precision) {
-        $this->precision = $precision;
-
+    public function setCode(array $code) {
+        $this->code = $code;
+         
         return $this;
     }
-
+ 
     /**
-     * Get precision
-     * @return integer
+     * Get code
+     * @return array
      */
-    public function getPrecision() {
-        return $this->precision;
+    public function getCode() {
+         
+        return $this->code;
     }
-    
+ 
     /**
-     * Set scale
-     * @param integer $scale
+     * Set entity
+     * @param Entity $entity
      * @return Field
      */
-    public function setScale($scale) {
-        $this->scale = $scale;
-
+    public function setEntity(Entity $entity) {
+        $this->entity = $entity;
+         
+        if (!$entity->getFields()->contains($this)) {
+            $entity->addField($this);
+        }
+         
         return $this;
     }
-
+ 
     /**
-     * Get scale
-     * @return integer
+     * Get entity
+     * @return Entity
      */
-    public function getScale() {
-        return $this->scale;
-    }  
+    public function getEntity() {
+         
+        return $this->entity;
+    }
 }

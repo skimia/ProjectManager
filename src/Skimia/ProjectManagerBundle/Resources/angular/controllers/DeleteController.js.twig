@@ -1,0 +1,20 @@
+var DeleteInstanceCtrl = function($scope, $modalInstance, $repo, $flash, $state, infos){
+	$scope.infos = infos;
+	$scope.ok = function(){
+		$repo.model(infos.model).delete(infos.id,function(){
+
+			if(angular.isDefined(infos.redirectState)){
+				if(angular.isDefined(infos.redirectParams)){
+					$state.go(infos.redirectState, infos.redirectParams, {'reload':true});
+				}else{
+					$state.go(infos.redirectState, {}, {'reload':true});
+				}
+			}
+			$modalInstance.close(infos.id);
+		});
+	};
+
+	$scope.cancel = function () {
+    	$modalInstance.dismiss('cancel');
+  	};
+};

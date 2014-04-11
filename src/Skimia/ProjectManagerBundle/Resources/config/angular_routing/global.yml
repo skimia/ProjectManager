@@ -9,3 +9,9 @@ spm_about:
     controller: "Home.AboutController"
     view: "@SkimiaProjectManagerBundle:Home:about.html.twig"
     title: "A propos"
+
+spm_beta:
+    pattern: "/beta/:betaKey"
+    controller: "Home.BetaController"
+    view: "@SkimiaProjectManagerBundle:Home:beta.html.twig"
+    title: "Inscription à la bêta"

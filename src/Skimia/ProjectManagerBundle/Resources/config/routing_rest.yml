@@ -25,3 +25,7 @@ relation:
 group:
     type: rest
     resource: Skimia\ProjectManagerBundle\Controller\GroupController
+    
+betakey:
+    type: rest
+    resource: Skimia\ProjectManagerBundle\Controller\BetakeyController

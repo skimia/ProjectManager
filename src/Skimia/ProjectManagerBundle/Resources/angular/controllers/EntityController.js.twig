@@ -1,45 +1,46 @@
 
-{{module_var}}.controller('{{base_name}}.ListController',['$scope','$repo','$stateParams',function($scope, $repo,$stateParams){
-	$repo.model('Bundle').get($stateParams.bundleId ,function(data){
-        $scope.entities = data.entities;
+{{module_var}}.controller('{{base_name}}.ListController',['$scope','$repo','$flash',function($scope, $repo, $flash){
+    $repo.model('Entity').query(function(data){
+        $scope.entities = data;
     });
 }]);
 
-{{module_var}}.controller('{{base_name}}.ShowController',['$scope','$stateParams','$repo',function($scope, $stateParams, $repo){
+{{module_var}}.controller('{{base_name}}.ShowController',['$scope','$stateParams','$repo','$flash',function($scope, $stateParams, $repo, $flash){
 	$repo.model('Entity').get($stateParams.entityId, function(data){
         $scope.entity = data;
     });
+    $scope.delete = function(){
+        $repo.model('Entity').delete($stateParams.entityId,function(){
+            $flash.add('success','Message success Delete');
+        });
+    }
 }]);
 
-{{module_var}}.controller('{{base_name}}.EditController',['$scope','$stateParams', '$state','Entities','mc-service',function($scope, $stateParams, $state, Entities,flash){
-	$scope.data = Entities.get({ entityId:$stateParams.entityId},function(){$scope.entityEditLoaded = true});
-        $scope.submit = function(){
-            $scope.data.$save(function()
-                {
-                    $state.go('^.show',{entityId:$scope.data.id},{'reload':true});
-                    flash.add('success','Message success Edit');
-                });
-        }
+{{module_var}}.controller('{{base_name}}.EditController',['$scope','$stateParams', '$state','$repo','$flash',function($scope, $stateParams, $state, $repo,$flash){
+    $repo.model('Entity').get($stateParams.entityId,function(data){
+        $scope.data = data.$beginEdit();         
+    });
+    $scope.submit = function(){
+        $scope.data.$save(function()
+        {
+            $state.go('^.show',{ entityId:$scope.data.id},{'reload':true});
+            $flash.add('success','Message success Edit');
+        });
+    }
 }]);
 
-{{module_var}}.controller('{{base_name}}.CreateController',['$scope','$stateParams','$state','Entities','mc-service',function($scope, $stateParams, $state, Entities,flash){
-	$scope.data = {};
-    $scope.data.bundle = $stateParams.bundleId;
+{{module_var}}.controller('{{base_name}}.CreateController',['$scope','$stateParams','$state','$repo','$flash',function($scope, $stateParams, $state, $repo, $flash){
+    $scope.data = $repo.model('Entity').$beginEdit();
         $scope.submit = function(){
-           var saved = Entities.save($scope.data,function()
-                {
-                    $state.go('^.show',{entityId:saved.id});
-                    flash.add('success','Message success Create');
-                }
+            $repo.model('Bundle').get($stateParams.bundleId,function(bundle){
+                $scope.data.bundle = bundle;
+            });
+            $scope.data.$save(function(saved)
+            {
+                $state.go('^.show',{ entityId:saved.id});
+                $flash.add('success','Message success Create');
+            }
             );
         }
-}]);
-
-{{module_var}}.controller('{{base_name}}.DeleteController',['$scope','$stateParams','$state','Entities','mc-service',function($scope, $stateParams, $state, Entities,flash){
-    Entities.delete({ entityId:$stateParams.entityId},function()
-                {
-                    $state.go('^.list');
-                    flash.add('success','Message success Delete');
-                });
 }]);
 

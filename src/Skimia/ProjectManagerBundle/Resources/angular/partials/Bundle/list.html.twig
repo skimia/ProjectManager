@@ -1,20 +1,31 @@
 {% verbatim %}
-<div class="row">
-    <div class="large-9 large-push-3 columns">
-    	<article ng-repeat="bundle in bundles">
-            <h1><a href="{{$state.href('spm.bundle.show',{bundleId: bundle.id})}}">{{bundle.name}}</a></h1>
-      		<div class="panel">
-      			{{bundle.description}}
-      		</div>
-      	</article>
+<div class="color red first">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="well" ng-show="bundles.length == 0">
+        <h2>Aucun Bundle</h2>
+      </div>
     </div>
-    <div class="large-3 columns large-pull-9">
-      <div class="panel">
-      	<ul class="side-nav">
-          <li class="active">Operations</li>
-          <li><a href="{{$state.href('spm.bundle.create')}}">Ajouter</a></li>
+    <div ng-repeat="bundle in bundles" class="col-md-12">
+      <div class="well row marbot-20">
+        <div class="col-md-12">
+          <h3><a href="{{$state.href('spm.bundle.show',{bundleId: bundle.id})}}">{{bundle.name}}</a></h3>
+          <div markdown="bundle.description| limitTo:666"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="linen">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="well">
+      <h4>Operations</h4>
+        <ul class="nav nav-pills">   
+          <li><a href="{{$state.href('spm.bundle.create')}}">Creer un Bundle</a></li>
         </ul>
       </div>
     </div>
+  </div>
 </div>
 {% endverbatim %}

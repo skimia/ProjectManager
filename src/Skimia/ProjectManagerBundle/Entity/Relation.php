@@ -1,16 +1,17 @@
 <?php
-
+ 
 namespace Skimia\ProjectManagerBundle\Entity;
-
+ 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
-
+ 
 /**
+ * Relation Symfony2
  * @ORM\Entity
  * @ORM\Table(name="relations")
  */
 class Relation {
-
+ 
     public static $__type = "Relation";
     /**
      * @ORM\Id
@@ -18,73 +19,57 @@ class Relation {
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
-
+ 
     /**
+     * Type de relation
      * @var string
      * @ORM\Column(type="string", name="type", length=255)
      */
     protected $type;
-
+ 
     /**
-     * @var string
-     * @ORM\Column(type="string", name="main_field", length=255)
+     *
+     * @var array
+     * @ORM\Column(type="array", name="options")
      */
-    protected $mainField;
-
+    protected $options;
+ 
     /**
-     * @var string
-     * @ORM\Column(type="string", name="linked_field", length=255, nullable=true)
+     *
+     * @var array
+     * @ORM\Column(type="array", name="code", nullable=true)
      */
-    protected $linkedField;
-
-    /**
-     * @var boolean
-     * @ORM\Column(type="boolean", name="bidirectionnal")
-     */
-    protected $bidirectionnal;
-
-    /**
-     * @var string
-     * @ORM\Column(type="string", name="join_column", length=255, nullable=true)
-     */
-    protected $joinColumn;
-
-    /**
-     * @var boolean
-     * @ORM\Column(type="boolean", name="is_nullable")
-     */
-    protected $nullable;
-
+    protected $code;
+ 
     /**
      * @var Entity
      * @ORM\ManyToOne(targetEntity="Entity", inversedBy="mainRelations")
      * @ORM\JoinColumn(name="main_entity_id", referencedColumnName="id")
      */
     protected $mainEntity;
-
+ 
     /**
      * @var Entity
      * @ORM\ManyToOne(targetEntity="Entity", inversedBy="inversedRelations")
-     * @ORM\JoinColumn(name="linked_entity_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="inversed_entity_id", referencedColumnName="id")
      */
-    protected $linkedEntity;
-
+    protected $inversedEntity;
+ 
     /**
      * Constructor
      */
     public function __construct() {
-        $this->nullable = false;
     }
-
+ 
     /**
      * Get id
      * @return integer
      */
     public function getId() {
-        
+         
         return $this->id;
     }
-
+ 
     /**
      * Set type
      * @param string $type
@@ -92,119 +77,59 @@ class Relation {
      */
     public function setType($type) {
         $this->type = $type;
-        
+         
         return $this;
     }
-
+ 
     /**
      * Get type
      * @return string
      */
     public function getType() {
-        
+         
         return $this->type;
     }
-
+ 
     /**
-     * Set mainField
-     * @param string $mainField
+     * Set options
+     * @param array $options
      * @return Relation
      */
-    public function setMainField($mainField) {
-        $this->mainField = $mainField;
-        
+    public function setOptions(array $options) {
+        $this->options = $options;
+         
         return $this;
     }
-
+ 
     /**
-     * Get mainField
-     * @return string
+     * Get options
+     * @return array
      */
-    public function getMainField() {
-        
-        return $this->mainField;
+    public function getOptions() {
+         
+        return $this->options;
     }
-
+ 
     /**
-     * Set linkedField
-     * @param string $linkedField
+     * Set code
+     * @param array $code
      * @return Relation
      */
-    public function setLinkedField($linkedField) {
-        $this->linkedField = $linkedField;
-        
+    public function setCode(array $code) {
+        $this->code = $code;
+         
         return $this;
     }
-
+ 
     /**
-     * Get linkedField
-     * @return string
+     * Get code
+     * @return array
      */
-    public function getLinkedField() {
-        
-        return $this->linkedField;
+    public function getCode() {
+         
+        return $this->code;
     }
-
-    /**
-     * Set bidirectionnal
-     * @param boolean $bidirectionnal
-     * @return Relation
-     */
-    public function setBidirectionnal($bidirectionnal) {
-        $this->bidirectionnal = $bidirectionnal;
-        
-        return $this;
-    }
-
-    /**
-     * Get bidirectionnal
-     * @return boolean
-     */
-    public function getBidirectionnal() {
-        
-        return $this->bidirectionnal;
-    }
-
-    /**
-     * Set joinColumn
-     * @param string $joinColumn
-     * @return Relation
-     */
-    public function setJoinColumn($joinColumn) {
-        $this->joinColumn = $joinColumn;
-        
-        return $this;
-    }
-
-    /**
-     * Get joinColumn
-     * @return string
-     */
-    public function getJoinColumn() {
-        
-        return $this->joinColumn;
-    }
-
-    /**
-     * Set nullable
-     * @param boolean $nullable
-     * @return Relation
-     */
-    public function setNullable($nullable) {
-        $this->nullable = $nullable;
-        
-        return $this;
-    }
-
-    /**
-     * Get nullable
-     * @return boolean
-     */
-    public function getNullable() {
-        
-        return $this->nullable;
-    }
-
+ 
     /**
      * Set mainEntity
      * @param Entity $entity
@@ -212,44 +137,44 @@ class Relation {
      */
     public function setMainEntity(Entity $entity) {
         $this->mainEntity = $entity;
-        
+         
         if (!$entity->getMainRelations()->contains($this)) {
             $entity->addMainRelation($this);
         }
-        
+         
         return $this;
     }
-
+ 
     /**
      * Get mainEntity
      * @return Entity
      */
     public function getMainEntity() {
-        
+         
         return $this->mainEntity;
     }
-
+ 
     /**
-     * Set linkedEntity
+     * Set inversedEntity
      * @param Entity $entity
      * @return Relation
      */
-    public function setLinkedEntity(Entity $entity) {
-        $this->linkedEntity = $entity;
-        
+    public function setInversedEntity(Entity $entity) {
+        $this->inversedEntity = $entity;
+         
         if (!$entity->getInversedRelations()->contains($this)) {
             $entity->addInversedRelation($this);
         }
-        
+         
         return $this;
     }
-
+ 
     /**
-     * Get linkedEntity
+     * Get inversedEntity
      * @return Entity
      */
-    public function getLinkedEntity() {
-        
-        return $this->linkedEntity;
+    public function getInversedEntity() {
+         
+        return $this->inversedEntity;
     }
 }

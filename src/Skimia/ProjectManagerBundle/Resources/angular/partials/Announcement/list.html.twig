@@ -1,22 +1,22 @@
 {% verbatim %}
 <div class="color red first">
   <div class="row">
-    <div class="large-12 columns">
-      <div class="panel row marbot-20" ng-show="announcements.length == 0">
+    <div class="col-md-12">
+      <div class="well" ng-show="announcements.length == 0">
         <h2>Aucune Annonce</h2>
       </div>
     </div>
-    <div ng-repeat="announcement in announcements" class="large-12 columns">
-      <div class="panel row marbot-20">
-        <div class="large-9 columns">
+    <div ng-repeat="announcement in announcements" class="col-md-12 columns">
+      <div class="well row marbot-20">
+        <div class="col-md-9">
           <h3>{{announcement.title}}</h3>
-          <ul class="inline-list" ng-show="user.isGranted('ROLE_SUPER_ADMIN')">
+          <ul class="list-inline" ng-show="user.isGranted('ROLE_SUPER_ADMIN')">
             <li><a href="{{$state.href('spm.announcement.edit',{announcementId: announcement.id})}}">Editer</a></li>
-            <li><a href="{{$state.href('spm.announcement.delete',{announcementId: announcement.id})}}">Supprimer</a></li>
+            <li><a ng-click="repoDelete(announcement);">Supprimer</a></li>
           </ul>
           <p>{{announcement.content}}</p>
         </div>
-        <div class="large-3 columns author">
+        <div class="col-md-3 author">
           <img class="avatar" gravatar-src="announcement.user.email" gravatar-size="100"/>
           <h4>{{announcement.user.username}}</h4>
         </div>
@@ -26,10 +26,10 @@
 </div>
 <div class="linen" ng-show="user.isGranted('ROLE_SUPER_ADMIN')">
   <div class="row">
-    <div class="large-12 columns">
-      <div class="panel">
-        <ul class="side-nav">
-          <li class="active">Operations</li>
+    <div class="col-md-12">
+      <div class="well">
+        <h4>Operations</h4>
+        <ul class="nav nav-pills"> 
           <li><a href="{{$state.href('spm.announcement.create')}}">Ajouter</a></li>
         </ul>
       </div>

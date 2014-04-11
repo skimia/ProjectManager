@@ -1,4 +1,4 @@
-{{module_var}}.controller('MainCtrl',['$rootScope','$scope','$auth','$http','$state','$repo',function($rootScope,$scope,$auth,$http,$state,$repo){
+{{module_var}}.controller('MainCtrl',['$rootScope','$scope','$auth','$http','$state','$repo','$modal','authService',function($rootScope,$scope,$auth,$http,$state,$repo,$modal, $authService){
     $repo.model('Announcement').query();
 
     $repo.model('Commit').query(function(data){
@@ -7,35 +7,115 @@
     });
 
 
-
-
-
-
-
-
-    $scope.auth = {};
-    var login =$('#login-holder');
-    $scope.$on('event:auth-loginRequired', function() {
-      login.show();
-    });
-    $scope.$on('event:auth-loginConfirmed', function() {
-      login.hide();
-
-      $repo.model('Group').query();
-    });
-    $scope.beta = function(){
-        $state.go("spm.beta",{'betaKey':$scope.key});
+    $scope.beta = function(key){
+        $state.go("spm.beta",{betaKey:key});
     }
+    
+
+
+
+
     $scope.login = function(){
-        $auth.connect($scope.auth.ident,$scope.auth.password);
-    };
-    $scope.showLogin = function(){
-        $rootScope.$broadcast('event:auth-loginRequired');
+        var modalInstance = $modal.open({
+            templateUrl: 'partials/SPM/Home/login.html',
+            controller: LoginCtrl,
+            resolve: {
+                title: function () {
+                    return 'security.login.submit';
+                }
+            }
+        });
     }
-    $scope.hideLogin = function(){
-        $('#login-holder').hide();
-    }
+
     $scope.logout = function(){
         $auth.logout();
+    };
+
+    var LoginCtrl = function($rootScope, $scope, $repo, $auth, $modalInstance, title){
+        $scope.auth = {};
+        $scope.title = title;
+        $scope.login = function(){
+            $auth.connect($scope.auth.ident,$scope.auth.password,$scope.auth.remember);
+        };
+
+        $scope.$on('event:auth-loginConfirmed', function() {
+            $repo.model('Group').query();
+            $modalInstance.close();
+        });
+    };
+
+    var ErrorCtrl = function($modalInstance, $scope){
+        $scope.ok = function(){
+            $modalInstance.close();
+        }
+        
+    }
+    $rootScope.$on('event:auth-loginRequired', function() {
+      var modalInstance = $modal.open({
+            templateUrl: 'partials/SPM/Home/login.html',
+            controller: LoginCtrl,
+            resolve: {
+                title: function () {
+                    return 'Contenu Protégé';
+                }
+            }
+        });
+      modalInstance.result.then(function () {},function(){
+        $state.go('spm.homepage');
+        $authService.loginCancelled('401','Unauthorized');
+        $modal.open({
+            templateUrl: 'partials/SPM/Home/error.html',
+            controller: ErrorCtrl,
+            resolve:{
+                title: function(){
+                    return 'Erreur 401 (Unauthorized)';
+                }
+            }
+        });
+      });
+    });
+
+    $rootScope.repoDelete = function (entity, state, params) {
+        var modalInstance = $modal.open({
+          templateUrl: 'partials/SPM/Home/modalDelete.html',
+          controller: DeleteInstanceCtrl,
+          resolve: {
+            infos: function () {
+                var infos = {
+                    'entity' : entity,
+                    'model' : entity.__type,
+                    'id' : entity.id
+                };
+                if(typeof state !== 'undefined'){
+                    infos.redirectState = state;
+                }
+                if(typeof params !== 'undefined'){
+                    infos.redirectParams = params;
+                }
+                return infos;
+            }
+          }
+        });
+
+    };
+    
+    var konamiBetaCtrl = function($scope,$repo){
+        $scope.ukey = "undefined ?";
+        $repo.model('BetaKey').get(1,function(key){
+            $scope.key = key.key;
+        });
+    };
+    $rootScope.ekonami = false;
+    $rootScope.konami = function () {
+        if($auth.connected){
+            alert('konami true');
+            $rootScope.ekonami = true;
+        }else{
+            var modalInstance = $modal.open({
+              templateUrl: 'partials/SPM/Home/konamiBeta.html',
+              controller: konamiBetaCtrl
+            });
+        }
+
     };
 }]);

@@ -1,0 +1,13 @@
+{{ module_var }}.factory('BetaKey',function($repo){
+
+	return $repo.instance({
+		$type     : 'BetaKey',
+		$settings : {
+			$url     : "api/betakeys/:betakeyId.json",
+			$params  : {
+				betakeyId : "@id"
+			} 
+		}
+	});
+
+});

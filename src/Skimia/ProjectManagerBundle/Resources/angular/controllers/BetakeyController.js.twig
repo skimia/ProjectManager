@@ -1,0 +1,43 @@
+
+{{module_var}}.controller('{{base_name}}.ListController',['$scope','$repo','$flash',function($scope, $repo, $flash){
+    $repo.model('Betakey').query(function(data){
+        $scope.betakeys = data;
+    });
+}]);
+
+{{module_var}}.controller('{{base_name}}.ShowController',['$scope','$stateParams','$repo','$flash',function($scope, $stateParams, $repo, $flash){
+	$repo.model('Betakey').get($stateParams.betakeyId, function(data){
+        $scope.betakey = data;
+    });
+    $scope.delete = function(){
+        $repo.model('Betakey').delete($stateParams.betakeyId,function(){
+            $flash.add('success','Message success Delete');
+        });
+    }
+}]);
+
+{{module_var}}.controller('{{base_name}}.EditController',['$scope','$stateParams', '$state','$repo','$flash',function($scope, $stateParams, $state, $repo,$flash){
+    $repo.model('Betakey').get($stateParams.betakeyId,function(data){
+        $scope.data = data.$beginEdit();         
+    });
+    $scope.submit = function(){
+        $scope.data.$save(function()
+        {
+            $state.go('^.show',{ betakeyId:$scope.data.id},{'reload':true});
+            $flash.add('success','Message success Edit');
+        });
+    }
+}]);
+
+{{module_var}}.controller('{{base_name}}.CreateController',['$scope','$stateParams','$state','$repo','$flash',function($scope, $stateParams, $state, $repo, $flash){
+    $scope.data = $repo.model('Betakey').$beginEdit();
+        $scope.submit = function(){
+           $scope.data.$save(function(saved)
+                {
+                    $state.go('^.show',{ betakeyId:saved.id});
+                    $flash.add('success','Message success Create');
+                }
+            );
+        }
+}]);
+

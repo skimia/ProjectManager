@@ -43,7 +43,7 @@ class Group extends BaseGroup
 
     /**
      * @var ArrayCollection
-     * @ORM\OneToMany(targetEntity="Project", mappedBy="group")
+     * @ORM\OneToMany(targetEntity="Project", mappedBy="group",cascade={"persist","remove"})
      */
     protected $projects;
 

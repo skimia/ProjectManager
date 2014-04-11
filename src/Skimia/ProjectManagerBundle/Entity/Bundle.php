@@ -1,202 +1,352 @@
 <?php
-
+ 
 namespace Skimia\ProjectManagerBundle\Entity;
-
-use Doctrine\Common\Collections\ArrayCollection;
+ 
 use Doctrine\ORM\Mapping as ORM;
-
+use Doctrine\Common\Collections\ArrayCollection;
+ 
 /**
- * Bundle
- *
+ * Bundle Symfony2
+ * @ORM\Entity
  * @ORM\Table(name="bundles")
- * @ORM\Entity(repositoryClass="Skimia\ProjectManagerBundle\Entity\BundleRepository")
  */
-class Bundle
-{
+class Bundle {
+ 
     public static $__type = "Bundle";
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="id", type="integer")
      * @ORM\Id
+     * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
-
+    protected $id;
+ 
     /**
+     * Nom du bundle
      * @var string
-     *
-     * @ORM\Column(name="name", type="string", length=255)
+     * @ORM\Column(type="string", name="name", length=255)
      */
-    private $name;
-
+    protected $name;
+ 
     /**
+     * Description du bundle
+     * @var text
+     * @ORM\Column(type="text", name="description", nullable=true)
+     */
+    protected $description;
+ 
+    /**
+     * Namespace du bundle
      * @var string
-     *
-     * @ORM\Column(name="description", type="text")
+     * @ORM\Column(type="string", name="namespace", length=255)
      */
-    private $description;
-
-
+    protected $namespace;
+ 
     /**
-     * @ORM\ManyToMany(targetEntity="Project", mappedBy="bundles", cascade={"persist"})
+     * @var ArrayCollection
+     * @ORM\ManyToMany(targetEntity="Project", inversedBy="bundles")
      */
     protected $projects;
-
-
+ 
     /**
-     * @ORM\OneToMany(targetEntity="Entity", mappedBy="bundle",cascade={"persist", "remove"})
+     * @var ArrayCollection
+     * @ORM\OneToMany(targetEntity="Entity", mappedBy="bundle",cascade={"remove"})
      */
     protected $entities;
-
-	public function __construct()
-    {
+ 
+    /**
+     * @var ArrayCollection
+     * @ORM\OneToMany(targetEntity="Form", mappedBy="bundle",cascade={"remove"})
+     */
+    protected $forms;
+ 
+    /**
+     * @var ArrayCollection
+     * @ORM\OneToMany(targetEntity="Controller", mappedBy="bundle",cascade={"remove"})
+     */
+    protected $controllers;
+ 
+    /**
+     * @var ArrayCollection
+     * @ORM\OneToMany(targetEntity="Route", mappedBy="bundle",cascade={"remove"})
+     */
+    protected $routes;
+ 
+    /**
+     * Constructor
+     */
+    public function __construct() {
         $this->projects = new ArrayCollection();
-        $this->entities = new ArrayCollection();        
+        $this->entities = new ArrayCollection();
+        $this->forms = new ArrayCollection();
+        $this->controllers = new ArrayCollection();
+        $this->routes = new ArrayCollection();
     }
+ 
     /**
      * Get id
-     *
-     * @return integer 
+     * @return integer
      */
-    public function getId()
-    {
+    public function getId() {
+         
         return $this->id;
     }
-
+ 
     /**
      * Set name
-     *
      * @param string $name
      * @return Bundle
      */
-    public function setName($name)
-    {
+    public function setName($name) {
         $this->name = $name;
-    
+         
         return $this;
     }
-
+ 
     /**
      * Get name
-     *
-     * @return string 
+     * @return string
      */
-    public function getName()
-    {
+    public function getName() {
+         
         return $this->name;
     }
-
+ 
     /**
      * Set description
-     *
-     * @param string $description
+     * @param text $description
      * @return Bundle
      */
-    public function setDescription($description)
-    {
+    public function setDescription($description) {
         $this->description = $description;
-    
+         
         return $this;
     }
-
+ 
     /**
      * Get description
-     *
-     * @return string 
+     * @return text
      */
-    public function getDescription()
-    {
+    public function getDescription() {
+         
         return $this->description;
     }
-
+ 
     /**
-     * Add projects
-     *
-     * @param \Skimia\ProjectManagerBundle\Entity\Project $projects
+     * Set namespace
+     * @param string $namespace
      * @return Bundle
      */
-    public function addProject(\Skimia\ProjectManagerBundle\Entity\Project $project)
-    {
-        $this->projects[] = $project;
-    
+    public function setNamespace($namespace) {
+        $this->
+        namespace = $namespace;
+ 
+         
         return $this;
     }
-
+ 
     /**
-     * Remove projects
-     *
-     * @param \Skimia\ProjectManagerBundle\Entity\Project $projects
+     * Get namespace
+     * @return string
      */
-    public function removeProject(\Skimia\ProjectManagerBundle\Entity\Project $projects)
-    {
-        $this->projects->removeElement($projects);
+    public function getNamespace() {
+         
+        return $this->
+        namespace;
+ 
     }
-
+ 
+    /**
+     * Add project
+     * @param Project $project
+     * @return Bundle
+     */
+    public function addProject(Project $project) {
+        $this->projects[] = $project;
+         
+        if ($project->getBundles()->contains($this)) {
+            $project->addBundle($this);
+        }
+         
+        return $this;
+    }
+ 
+    /**
+     * Remove project
+     * @param Project $project
+     * @return Bundle
+     */
+    public function removeProject(Project $project) {
+        $this->projects->removeElement($project);
+         
+        if ($project->getBundles()->contains($this)) {
+            $project->removeBundle($this);
+        }
+         
+        return $this;
+    }
+ 
     /**
      * Get projects
-     *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return ArrayCollection
      */
-    public function getProjects()
-    {
+    public function getProjects() {
+         
         return $this->projects;
     }
-    
-
+ 
     /**
-     * Add entities
-     *
-     * @param \Skimia\ProjectManagerBundle\Entity\Entity $entities
+     * Add entity
+     * @param Entity $entity
      * @return Bundle
      */
-    public function addEntity(\Skimia\ProjectManagerBundle\Entity\Entity $entity)
-    {
+    public function addEntity(Entity $entity) {
         $this->entities[] = $entity;
-    
+         
+        if ($entity->getBundle() != $this) {
+            $entity->setBundle($this);
+        }
+         
         return $this;
     }
-
+ 
     /**
-     * Remove entities
-     *
-     * @param \Skimia\ProjectManagerBundle\Entity\Entity $entities
+     * Remove entity
+     * @param Entity $entity
+     * @return Bundle
      */
-    public function removeEntity(\Skimia\ProjectManagerBundle\Entity\Entity $entities)
-    {
-        $this->entities->removeElement($entities);
+    public function removeEntity(Entity $entity) {
+        $this->entities->removeElement($entity);
+         
+        if ($entity->getBundle() != $this) {
+            $entity->setBundle($this);
+        }
+         
+        return $this;
     }
-
+ 
     /**
-     * Get entities
-     *
-     * @return \Doctrine\Common\Collections\Collection 
+     * Get entity
+     * @return ArrayCollection
      */
-    public function getEntities()
-    {
+    public function getEntities() {
+         
         return $this->entities;
     }
-
+ 
     /**
-     * Add entities
-     *
-     * @param \Skimia\ProjectManagerBundle\Entity\Entity $entities
+     * Add form
+     * @param Form $form
      * @return Bundle
      */
-    public function addEntitie(\Skimia\ProjectManagerBundle\Entity\Entity $entities)
-    {
-        $this->entities[] = $entities;
-    
+    public function addForm(Form $form) {
+        $this->forms[] = $form;
+         
+        if ($form->getBundle() != $this) {
+            $form->setBundle($this);
+        }
+         
         return $this;
     }
-
+ 
     /**
-     * Remove entities
-     *
-     * @param \Skimia\ProjectManagerBundle\Entity\Entity $entities
+     * Remove form
+     * @param Form $form
+     * @return Bundle
      */
-    public function removeEntitie(\Skimia\ProjectManagerBundle\Entity\Entity $entities)
-    {
-        $this->entities->removeElement($entities);
+    public function removeForm(Form $form) {
+        $this->forms->removeElement($form);
+         
+        if ($form->getBundle() != $this) {
+            $form->setBundle($this);
+        }
+         
+        return $this;
+    }
+ 
+    /**
+     * Get forms
+     * @return ArrayCollection
+     */
+    public function getForms() {
+         
+        return $this->forms;
+    }
+ 
+    /**
+     * Add controller
+     * @param Controller $controller
+     * @return Bundle
+     */
+    public function addController(Controller $controller) {
+        $this->controllers[] = $controller;
+         
+        if ($controller->getBundle() != $this) {
+            $controller->setBundle($this);
+        }
+         
+        return $this;
+    }
+ 
+    /**
+     * Remove controller
+     * @param Controller $controller
+     * @return Bundle
+     */
+    public function removeController(Controller $controller) {
+        $this->controllers->removeElement($controller);
+         
+        if ($controller->getBundle() != $this) {
+            $controller->setBundle($this);
+        }
+         
+        return $this;
+    }
+ 
+    /**
+     * Get controllers
+     * @return ArrayCollection
+     */
+    public function getControllers() {
+         
+        return $this->controllers;
+    }
+ 
+    /**
+     * Add route
+     * @param Route $route
+     * @return Bundle
+     */
+    public function addRoute(Route $route) {
+        $this->routes[] = $route;
+         
+        if ($route->getBundle() != $this) {
+            $route->setBundle($this);
+        }
+         
+        return $this;
+    }
+ 
+    /**
+     * Remove route
+     * @param Route $route
+     * @return Bundle
+     */
+    public function removeRoute(Route $route) {
+        $this->routes->removeElement($route);
+         
+        if ($route->getBundle() != $this) {
+            $route->setBundle($this);
+        }
+         
+        return $this;
+    }
+ 
+    /**
+     * Get routes
+     * @return ArrayCollection
+     */
+    public function getRoutes() {
+         
+        return $this->routes;
     }
 }

@@ -1,16 +1,16 @@
 <div class="color purple first">
   <div class="row">
-    <div class="large-12 columns">
+    <div class="col-md-12">
       <h1>v {{version}}-{%verbatim%}{{rev}}{%endverbatim%}</h1>    
     </div>
-    {%verbatim%}
-    <div ng-repeat="revision in commits" class="large-12 columns">
-      <div class="panel row martop-10">
-        <div class="large-3 columns author">
-          <img class="avatar" src="{{revision.author.avatar_url}}&s=100"/>
+    {% verbatim %}
+    <div ng-repeat="revision in commits" class="col-md-12">
+      <div class="well row">
+        <div class="col-md-3 author">
+          <img class="avatar" gravatar-src="revision.commit.committer.email" gravatar-size="100"/>
           <h4>{{revision.committer.login}}</h4>
         </div>
-        <div class="large-9 columns">
+        <div class="col-md-9">
           <h3>{{split(revision.commit.message,0)}}</h3>
           <div markdown="split(revision.commit.message,1)"></div>
         </div>

@@ -102,7 +102,7 @@ class ProjectController extends FOSRestController implements ClassResourceInterf
             $em->persist($entity);
             $em->flush();
 
-            return $this->view(null, Codes::HTTP_NO_CONTENT);
+            return $entity;
         }
 
         return array(

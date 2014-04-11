@@ -1,49 +1,38 @@
-{{module_var}}.controller('{{base_name}}.ListController',['$scope','$repo',function($scope, $repo){
-	$repo.model('Bundle').query().then(function(data){
+
+{{module_var}}.controller('{{base_name}}.ListController',['$scope','$repo','$flash',function($scope, $repo, $flash){
+    $repo.model('Bundle').query(function(data){
         $scope.bundles = data;
     });
 }]);
 
-{{module_var}}.controller('{{base_name}}.ShowController',['$scope','$stateParams','$repo',function($scope, $stateParams, $repo){
+{{module_var}}.controller('{{base_name}}.ShowController',['$scope','$stateParams','$repo','$flash',function($scope, $stateParams, $repo, $flash){
 	$repo.model('Bundle').get($stateParams.bundleId, function(data){
         $scope.bundle = data;
     });
 }]);
 
-{{module_var}}.controller('{{base_name}}.EditController',['$scope','$stateParams', '$state','Bundles','Projects','mc-service',function($scope, $stateParams, $state, Bundles,Projects,flash){
-        $scope.data = Bundles.get({bundleId:$stateParams.bundleId},function(){$scope.bundleEditLoaded = true});
-        	
-        
-
-        $scope.submit = function(){
-            $scope.data.$save(function()
-                {
-                    $state.go('^',$stateParams,{'reload':true});
-                    flash.add('success','Votre bundle "'+$scope.data.name+'" est bien modifié !');
-                });
-        }
+{{module_var}}.controller('{{base_name}}.EditController',['$scope','$stateParams', '$state','$repo','$flash',function($scope, $stateParams, $state, $repo,$flash){
+    $repo.model('Bundle').get($stateParams.bundleId,function(data){
+        $scope.data = data.$beginEdit();         
+    });
+    $scope.submit = function(){
+        $scope.data.$save(function()
+        {
+            $state.go('^',{ bundleId:$scope.data.id},{'reload':true});
+            $flash.add('success','Message success Edit');
+        });
+    }
 }]);
 
-{{module_var}}.controller('{{base_name}}.CreateController',['$scope','$stateParams','$state','Projects','Bundles','mc-service',function($scope, $stateParams, $state, Projects, Bundles,flash){
-	Projects.query({},function(data){
-            $scope.projects = data;
-        });
-        $scope.data = {};
-                    
+{{module_var}}.controller('{{base_name}}.CreateController',['$scope','$stateParams','$state','$repo','$flash',function($scope, $stateParams, $state, $repo, $flash){
+    $scope.data = $repo.model('Bundle').$beginEdit();
         $scope.submit = function(){
-           var saved = Bundles.save($scope.data,function()
+           $scope.data.$save(function(saved)
                 {
-                    $state.go('^.show',{bundleId:saved.id});
-                    flash.add('success','Votre bundle "'+$scope.data.name+'" est bien posté !');
+                    $state.go('^.show',{ bundleId:saved.id});
+                    $flash.add('success','Message success Create');
                 }
             );
         }
 }]);
 
-{{module_var}}.controller('{{base_name}}.DeleteController',['$scope','$stateParams','$state','Bundles','mc-service',function($scope, $stateParams, $state, Bundles,flash){
-    Bundles.delete({bundleId:$stateParams.bundleId},function()
-                {
-                    $state.go('^.list');
-                    flash.add('success','Bundle bien supprimé !');
-                });
-}]);

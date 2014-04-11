@@ -14,169 +14,66 @@
   {% endstylesheets %}
 </head>
 <body ng-controller="MainCtrl">
-  <div id="init-holder">
-    <div class="init-container">
-      <div class="init-header">
-        <h1 class="animated fadeInDown">Skimia Project Manager</h1>
-        <p class="animated bounceIn">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-      </div>
-      <div class="init-main">
-        <div class="radial-progress" data-progress="79">
-          <div class="circle">
-            <div class="mask full">
-              <div class="fill"></div>
+  {% include 'SkimiaAngularBundle:Components:loginHolder.html.twig' %}
+  {% include 'SkimiaAngularBundle:Components:initHolder.html.twig' %}
+  <div class="body" konami="konami()">
+    {% verbatim %}
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="{{$state.href('spm.homepage')}}">Skimia Project Manager</a>
+        </div>
+        <div class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <div class="navbar-form navbar-left">
+              <a class="btn btn-primary" href="{{$state.href('spm.about')}}"><i class="fa fa-refresh"></i> {% endverbatim %}{{version}}{%verbatim%}-{{rev}}</a>
             </div>
-            <div class="mask half">
-              <div class="fill"></div>
-              <div class="fill fix"></div>
-            </div>
-            <div class="shadow"></div>
-          </div>
-          <div class="inset">
-            <div class="percentage">
-              <div class="numbers"><span>-</span><span>0%</span><span>1%</span><span>2%</span><span>3%</span><span>4%</span><span>5%</span><span>6%</span><span>7%</span><span>8%</span><span>9%</span><span>10%</span><span>11%</span><span>12%</span><span>13%</span><span>14%</span><span>15%</span><span>16%</span><span>17%</span><span>18%</span><span>19%</span><span>20%</span><span>21%</span><span>22%</span><span>23%</span><span>24%</span><span>25%</span><span>26%</span><span>27%</span><span>28%</span><span>29%</span><span>30%</span><span>31%</span><span>32%</span><span>33%</span><span>34%</span><span>35%</span><span>36%</span><span>37%</span><span>38%</span><span>39%</span><span>40%</span><span>41%</span><span>42%</span><span>43%</span><span>44%</span><span>45%</span><span>46%</span><span>47%</span><span>48%</span><span>49%</span><span>50%</span><span>51%</span><span>52%</span><span>53%</span><span>54%</span><span>55%</span><span>56%</span><span>57%</span><span>58%</span><span>59%</span><span>60%</span><span>61%</span><span>62%</span><span>63%</span><span>64%</span><span>65%</span><span>66%</span><span>67%</span><span>68%</span><span>69%</span><span>70%</span><span>71%</span><span>72%</span><span>73%</span><span>74%</span><span>75%</span><span>76%</span><span>77%</span><span>78%</span><span>79%</span><span>80%</span><span>81%</span><span>82%</span><span>83%</span><span>84%</span><span>85%</span><span>86%</span><span>87%</span><span>88%</span><span>89%</span><span>90%</span><span>91%</span><span>92%</span><span>93%</span><span>94%</span><span>95%</span><span>96%</span><span>97%</span><span>98%</span><span>99%</span><span>100%</span></div>
-            </div>
-          </div>
+            <li><a href="{{$state.href('spm.announcement.list')}}">Annonces</a></li>
+            <li ng-show="user.authenticated">
+              <a href="{{$state.href('spm.group.list')}}">Groupes</a>
+            </li>
+            <li ng-show="user.authenticated">
+              <a href="{{$state.href('spm.project.list')}}">Projets</a>
+            </li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li><img ng-show="user.authenticated" gravatar-src="user.email" gravatar-size="50" class="avatar"></li>
+            <li class="dropdown" ng-show="user.authenticated">   
+              <a class="dropdown-toggle" data-toggle="dropdown">{{user.name}} <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li class="divider"></li>
+                <li><a ng-click="logout()"><i class="fa fa-user"></i> Déconnecter</a></li>
+              </ul>
+            </li>
+            <li ng-show="!user.authenticated" class="active">
+              <a ng-click="login()"><i class="fa fa-user"></i> Connexion</a>
+            </li>
+          </ul>
         </div>
       </div>
-      <div class="init-footer">
-        <p class="init-message animated fadeInRight"></p>
-      </div>
-    </div>
-  </div>
-  <div id="login-holder">
-    <div class="modal-bg" ng-click="hideLogin()">
-    </div>
-    <div class="modal-container">
-      <div class="modal-dialog">
-        <form ng-submit="login()">
-          <div class="modal-header">
-            <h4>Contenu Protégé</h4>
-          </div>
-          <div class="modal-body">
-            <label for="ident">Username</label>
-            <input id="ident" type="text" ng-model="auth['ident']"/>
-            <label for="password">Password</label>
-            <input id="password" type="password" ng-model="auth['password']"/>
-          </div>
-          <div class="modal-footer">
-            <input type="submit" class="modal-submit"/>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-  <div class="body">
-    {% verbatim %}
-      <nav class="top-bar" data-topbar data-options="is_hover: false">
-        <ul class="title-area">
-          <li class="name">
-            <h1><a href="{{$state.href('spm.homepage')}}">Skimia Project Manager</a></h1>
-          </li>
-          <li class="toggle-topbar menu-icon"><a>Menu</a></li>
-        </ul>
-
-        <section class="top-bar-section">
-          
-          <!-- Right Nav Section -->
-          <ul class="right">
-            <div ng-show="user.authenticated">
-              <li class="has-dropdown active">
-                <a>{{user.name}}</a>
-                <ul class="dropdown">
-                  <li><a class="button"  ng-click="logout()">Déconnecter</a></li>
-                </ul>
-              </li>
-            </div>
-            <div ng-show="!user.authenticated">
-              <li class=" active">
-                <a ng-click="showLogin()">Connexion</a>
-              </li>
-            </div>
-          </ul>
-        
-        
-        <!-- Left Nav Section -->
-        <ul class="left">
-          <li class="has-form">
-            <a href="{{$state.href('spm.about')}}" class="button">v {% endverbatim %}{{version}}{%verbatim%}-{{rev}}</a>
-          </li>
-          <li class="divider"></li>
-          <li><a href="{{$state.href('spm.announcement.list')}}">Annonces</a></li>
-          <li class="divider"></li>
-          <li ng-show="user.authenticated">
-            <a href="{{$state.href('spm.group.list')}}">Groupes</a>
-          </li>
-          <li class="divider" ng-show="user.authenticated"></li>
-          <li class="has-dropdown" ng-show="user.authenticated">
-            <a href="{{$state.href('spm.project.list')}}">Projets</a>
-            <ul class="dropdown">
-              <li ng-repeat="project in projects">
-                <a href="{{$state.href('spm.project.show',{projectId : project.id})}}">{{project.name}}</a>
-              </li>
-            </ul>
-          </li>
-
-        </ul>
-      </section>
     </nav>
     {% endverbatim %}
-    {% verbatim %}
     <message-center></message-center>
-    {% endverbatim %}
-    <div ui-view class="spm-container">
+    <div ui-view style="margin-top:50px">
 
     </div>
   </div>
-  <script type="text/javascript">
-    function getPercent(){
-      var el = document.querySelector(".radial-progress");
-      return parseInt(el.getAttribute('data-progress'));
-    }
-    function setPercent($p){
-      $p = Math.round($p);
-      if($p > 100)
-        return;
-      var el = document.querySelector(".radial-progress");
-      el.setAttribute('data-progress', $p);
-
-      if($p == 100){
-        setTimeout(function() {
-          document.querySelector(".body").setAttribute('style', "display:block;");
-          document.querySelector("#init-holder").setAttribute('style', "display:none;");
-          document.querySelector("body").setAttribute('style', "");
-          
-        }, 1000);
-      }
-    }
-    function initPercent($p,$message){
-      setPercent($p);
-
-      var el = document.querySelector(".init-message");
-      el.setAttribute("class", "init-message animated fadeOutLeft");
-      setTimeout(function() {
-        el.innerHTML = $message;
-        el.setAttribute("class", "init-message animated fadeInRight");
-      }, 500);
-      
-      
-    }
-    setInterval(function(){setPercent(getPercent()+1)},800);
-    initPercent(0,'Chargement de l\'application');
-    document.querySelector("#init-holder").setAttribute('style', "display:block;");
-    document.querySelector("body").setAttribute('style', "background-color:rgb(50,50,50);");
-  </script>
   {{app_javascript()}}
-<script>
-  (function(jQuery){
+  <script>
+    (function(jQuery){
         
-  jQuery( document ).ready( function() {
-    $(document).foundation();
-    prettyPrint();
+      jQuery( document ).ready( function() {
+        prettyPrint();
                 
-  } );
+      });
  
-}(jQuery))
-</script>
+    }(jQuery))
+  </script>
 </body>
 </html>

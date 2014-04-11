@@ -10,13 +10,32 @@ class EntityType extends AbstractType {
 
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
-                ->add('name')
-                ->add('tableName', 'text', array(
-                    'required' => false,
-                ))
-                ->add('description', 'textarea', array(
-                    'required' => false,
-                ))
+            ->add('name')
+            ->add('description')
+            ->add('tableName')
+            ->add('repository','entity', array(
+                'class' => 'SkimiaProjectManagerBundle:Repository',
+                'property' => 'name',
+            ))
+            ->add('bundle','entity', array(
+                    'class' => 'SkimiaProjectManagerBundle:Bundle',
+                    'property' => 'name',
+                    'attr'=> array(
+                        'class'=>'hide'
+                        )
+            ))
+            ->add('form','entity', array(
+                    'class' => 'SkimiaProjectManagerBundle:Form',
+                    'property' => 'name',
+            ))
+            ->add('functions','entity', array(
+                    'class' => 'SkimiaProjectManagerBundle:SimpleFunction',
+                    'property' => 'name',
+            ))
+            ->add('lifecycleCallbacks','entity', array(
+                    'class' => 'SkimiaProjectManagerBundle:LifecycleCallback',
+                    'property' => 'name',
+            ))
         ;
     }
 

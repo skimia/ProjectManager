@@ -29,7 +29,6 @@ class ProjectType extends AbstractType
                 'property' => 'name',
                 ))
         ;
-        $builder->addEventSubscriber(new ResourceFormSubscriber());
     }
     
     /**

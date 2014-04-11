@@ -1,5 +1,5 @@
 
-add_import_path "foundation/scss"
+add_import_path "assets/stylesheets"
 
 # Set this to the root of your project when deployed:
 http_path = "/"

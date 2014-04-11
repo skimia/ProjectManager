@@ -7,3 +7,34 @@
         return $scope.result = $scope.array[nb];
     }
 }]);
+
+{{module_var}}.controller('{{base_name}}.BetaController',['$scope', '$rootScope', '$stateParams','$http','$state','$auth',function($scope, $rootScope, $stateParams, $http ,$state, $auth){
+    if($auth.connected){
+        $state.go('spm.homepage');
+    }
+    $scope.key = $stateParams.betaKey;
+    $scope.submit = function(){
+    	$scope.data.spm_registration_key_ = $stateParams.betaKey;
+    	var data = {
+    		fos_user_registration_form : {	
+    			username : $scope.data['spm_registration_username_'],
+    			key : $stateParams.betaKey,
+    			email : $scope.data['spm_registration_email_'],
+    			plainPassword : {
+    				first: $scope.data['spm_registration_plain_password_first_'],
+    				second: $scope.data['spm_registration_plain_password_second_']
+    			}
+    		}
+    	};
+
+    	$http.post('{{ url('fos_user_registration_register') |raw}}', data).
+    		success(function(data, status, headers, config) {
+      			$state.go('spm.homepage');
+      			$scope.login();
+    		}).
+    		error(function(data, status, headers, config) {
+    		  // called asynchronously if an error occurs
+    		  // or server returns response with an error status.
+    		});
+    };
+}]);

@@ -1,57 +1,56 @@
 
-{{module_var}}.controller('{{base_name}}.ListController',['$scope','$repo',function($scope, $repo){
-	$repo.model('Project').query().then(function(data){
+{{module_var}}.controller('{{base_name}}.ListController',['$scope','$repo','$flash',function($scope, $repo, $flash){
+    $repo.model('Project').query(function(data){
         $scope.projects = data;
     });
+    $scope.delete = function(id){
+        $repo.model('Project').delete(id,function(){
+            $flash.add('success','Message success Delete');
+        });
+    }
 }]);
 
-{{module_var}}.controller('{{base_name}}.ShowController',['$scope','$stateParams','$repo',function($scope, $stateParams, $repo){
-    $repo.model('Project').get($stateParams.projectId, function(data){
+{{module_var}}.controller('{{base_name}}.ShowController',['$scope','$stateParams','$repo','$flash',function($scope, $stateParams, $repo, $flash){
+	$repo.model('Project').get($stateParams.projectId, function(data){
         $scope.project = data;
     });
-}]);
-
-{{module_var}}.controller('{{base_name}}.EditController',['$scope','$stateParams', '$state','$repo','mc-service',function($scope, $stateParams, $state,$repo,flash){
-        $scope.data = Projects.get({projectId:$stateParams.projectId},function(){
-            Bundles.query({},function(data){
-                $scope.bundles = data;
-                $scope.projectEditLoaded = true
-            });
-        });        
-        
-
-        $scope.submit = function(){
-            $scope.data.$save(function()
-                {
-                    $state.go('^',$stateParams,{'reload':true});
-                    flash.add('success','Votre projet "'+$scope.data.name+'" est bien modifié !');
-                });
-        }
-}]);
-
-{{module_var}}.controller('{{base_name}}.CreateController',['$scope','$stateParams','$state','$repo','mc-service',function($scope, $stateParams, $state,$repo,flash){
-	Bundles.query({},function(data){
-            $scope.bundles = data;
-            $scope.projectLoaded = true;
+    $scope.delete = function(){
+        $repo.model('Project').delete($stateParams.projectId,function(){
+            $flash.add('success','Message success Delete');
         });
-        $scope.data = {};
+    }
+}]);
 
+{{module_var}}.controller('{{base_name}}.EditController',['$scope','$stateParams', '$state','$repo','$flash',function($scope, $stateParams, $state, $repo,$flash){
+    $repo.model('Project').get($stateParams.projectId,function(data){
+        $scope.data = data.$beginEdit();   
+
+    });
+    $repo.model('Bundle').query(function(bundles){
+        $scope.bundles = bundles;
+    });
+    $scope.submit = function(){
+        $scope.data.$save(function()
+        {
+            $state.go('^',{ projectId:$scope.data.id},{'reload':true});
+            $flash.add('success','Message success Edit');
+        });
+    }
+}]);
+
+{{module_var}}.controller('{{base_name}}.CreateController',['$scope','$stateParams','$state','$repo','$flash',function($scope, $stateParams, $state, $repo, $flash){
+    $scope.data = $repo.model('Project').$beginEdit();
         $scope.submit = function(){
-           var saved = Projects.save($scope.data,function()
+           $scope.data.$save(function(saved)
                 {
-                    $state.go('^.show',{projectId:saved.id});
-                    flash.add('success','Votre projet "'+$scope.data.name+'" est bien posté !');
+                    $state.go('^.show',{ projectId:saved.id});
+                    $flash.add('success','Message success Create');
                 }
             );
         }
-}]);
-
-{{module_var}}.controller('{{base_name}}.DeleteController',['$scope','$stateParams','$state','$repo','mc-service',function($scope, $stateParams, $state, $repo,flash){
-    Projects.delete({projectId:$stateParams.projectId},function()
-                {
-                    $state.go('^.list');
-                    flash.add('success','Projet bien supprimé !');
-                });
+    $repo.model('Bundle').query(function(bundles){
+        $scope.bundles = bundles;
+    });
 }]);
 
 {{module_var}}.controller('{{base_name}}.FilesController', function($scope, $http){

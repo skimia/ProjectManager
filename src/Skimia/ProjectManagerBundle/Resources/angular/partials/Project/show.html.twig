@@ -1,10 +1,10 @@
 {% verbatim %}
 <div class="row">
-	<div class="large-12 columns">
-		<nav class="breadcrumbs">
+	<div class="col-md-12">
+		<ol class="breadcrumb">
 			<li><a href="{{$state.href('spm.project.list')}}">Projects</a></li>
-			<li class="current">{{project.name}}</li>
-		</nav>
+			<li class="active">{{project.name}}</li>
+		</ol>
 
 		<h2><img class="project-icon" src="https://avatars0.githubusercontent.com/u/4041737?s=140"/>{{project.name}}</h2>
 		<div class="e-container">
@@ -16,19 +16,22 @@
 					<li ng-class="{ active: $state.includes('spm.project.show.issues') }"><a href="{{$state.href('spm.project.show.issues',{projectId:$stateParams.projectId})}}">Demandes</a></li>
 					<li ng-class="{ active: $state.includes('spm.project.show.files') }"><a href="{{$state.href('spm.project.show.files',{projectId:$stateParams.projectId})}}">Fichiers</a></li>
 					<li ng-class="{ active: $state.includes('spm.project.show.edit') }"><a href="{{$state.href('spm.project.show.edit',{projectId:$stateParams.projectId})}}">Admin</a></li>
-					<li ng-if="$state.includes('spm.project.show.edit')" class="red"><a href="{{$state.href('spm.project.delete',{projectId:$stateParams.projectId})}}">Supprimer</a></li>
+					<li ng-if="$state.includes('spm.project.show.edit')" class="red"><a ng-click="repoDelete(project,'spm.project.list');">Supprimer</a></li>
 				</ul>
 			</nav>
 	        <div ui-view>
 	        	<div class="row project-overview">
-	        		<div class="large-9 columns">
+	        		<div class="col-md-8">
+	        			<h3>Description</h3>
 						<div markdown="project.description"></div>	
 					</div>
-	        		<div class="large-3 columns">
+	        		<div class="col-md-4">
 	        			<div class="project-side">
 	        				<h4>Bundles</h4>
-
-	        				<p ng-repeat="bundle in project.bundles"><a href="{{$state.href('spm.bundle.show',{bundleId:bundle.id})}}">{{bundle.name}}</a></p>
+							<ul class="nav nav-pills nav-stacked">
+								<li ng-repeat="bundle in project.bundles"><a href="{{$state.href('spm.bundle.show',{bundleId:bundle.id})}}">{{bundle.name}}</a></li>
+							</ul>
+	        				
 	        			</div>
 	        		</div>
 	        	</div>

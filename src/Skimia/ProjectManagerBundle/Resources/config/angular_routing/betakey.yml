@@ -1,0 +1,33 @@
+    #####################
+    ### BETAKEY
+    #####################
+ 
+spm_betakey_list:
+    pattern: /betakey
+    controller: "Betakey.ListController" 
+    view: "@SkimiaProjectManagerBundle:Betakey:list.html.twig"
+    title: "LIST Betakey"
+
+spm_betakey_create:
+    pattern: /betakey/new
+    controller: "Betakey.CreateController" 
+    view: "@SkimiaProjectManagerBundle:Betakey:form.html.twig"
+    title: "CREATE Betakey"
+    
+spm_betakey_show:
+    pattern: /betakey/:betakeyId
+    controller: "Betakey.ShowController" 
+    view: "@SkimiaProjectManagerBundle:Betakey:show.html.twig"
+    title: "SHOW Betakey "
+    
+spm_betakey_edit:
+    pattern: /betakey/:betakeyId/edit
+    controller: "Betakey.EditController" 
+    view: "@SkimiaProjectManagerBundle:Betakey:form.html.twig"
+    title: "EDIT Betakey"
+    
+spm_betakey_delete:
+    pattern: /betakey/:betakeyId/delete
+    controller: "Betakey.DeleteController" 
+    view: "@SkimiaProjectManagerBundle:Betakey:show.html.twig"
+    title: "DELETE Betakey"

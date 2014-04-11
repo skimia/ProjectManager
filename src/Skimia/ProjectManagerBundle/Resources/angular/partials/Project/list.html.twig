@@ -1,20 +1,35 @@
 {% verbatim %}
-<div class="row">
-    <div class="large-9 large-push-3 columns">
-    	<article ng-repeat="project in projects">
-            <h1><a href="#/project/{{project.id}}">{{project.name}}</a></h1>
-      		<div class="panel">
-      			{{project.description}}
-      		</div>
-      	</article>
+<div class="color red first">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="well" ng-show="projects.length == 0">
+        <h2>Aucun Project</h2>
+      </div>
     </div>
-    <div class="large-3 columns large-pull-9">
-      <div class="panel">
-      	<ul class="side-nav">
-          <li class="active">Operations</li>
-          <li><a href="#/project/new">Ajouter</a></li>
+    <div ng-repeat="project in projects" class="col-md-12">
+      <div class="well row marbot-20">
+        <div class="col-md-12">
+          <h3><a href="{{$state.href('spm.project.show',{projectId: project.id})}}">{{project.name}}</a></h3>
+          <ul class="nav nav-pills">
+            <li class="disabled"><a href="{{$state.href('spm.bundle.list')}}">Bundles : </a></li>  
+            <li ng-repeat="bundle in project.bundles"><a href="{{$state.href('spm.bundle.show',{bundleId: bundle.id})}}">{{bundle.name}}</a></li>
+          </ul>
+          <div markdown="project.description| limitTo:666"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="linen">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="well">
+      <h4>Operations</h4>
+        <ul class="nav nav-pills">   
+          <li><a href="{{$state.href('spm.project.create')}}">Creer un Projet</a></li>
         </ul>
       </div>
-      </div>
+    </div>
   </div>
+</div>
 {% endverbatim %}

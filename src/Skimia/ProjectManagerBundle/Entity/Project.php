@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Project
  *
  * @ORM\Table(name="projects")
- * @ORM\Entity(repositoryClass="Skimia\ProjectManagerBundle\Entity\ProjectRepository")
+ * @ORM\Entity()
  */
 class Project
 {
@@ -166,7 +166,13 @@ class Project
     }
 
     public function canDisplay(\Skimia\ProjectManagerBundle\Entity\User $user = null){
-        return $this->getGroup()->canDisplay($user);
+        $grp = $this->getGroup();
+        if(isset($grp)){
+            return $grp->canDisplay($user);
+        }
+        else{
+            return true;
+        }
     }
     
 }

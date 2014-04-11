@@ -13,104 +13,71 @@ use FOS\RestBundle\Util\Codes;
 use JMS\SecurityExtraBundle\Annotation\Secure;
 
 
-class AnnouncementController extends FOSRestController implements ClassResourceInterface {
+class AnnouncementController extends SPMRestController {
 
-    /**
-     * Collection get action
-     * @var Request $request
-     * @return array
-     *
-     * @Rest\View(serializerEnableMaxDepthChecks=true)
-     */
-    public function cgetAction(Request $request) {
+    /***************\
+         CONFIG
+    \***************/
+    protected $_CREATE_ROLE = "ROLE_ADMIN";
+    protected $_EDIT_ROLE = "ROLE_ADMIN";
+    protected $_DELETE_ROLE = "ROLE_ADMIN";
+
+    /***************\
+         UTILITY
+    \***************/
+
+    protected function getRepository(){
+
         $em = $this->getDoctrine()->getManager();
-        $entities = $em->getRepository('SkimiaProjectManagerBundle:Announcement')->findAll();
-        return $entities;
+        return $em->getRepository('SkimiaProjectManagerBundle:Announcement');
     }
 
+    protected function getNewFormInstance(){
+
+        return new AnnouncementType();
+    }
+
+
+    /***************\
+      REST ACTIONS
+    \***************/
+
     /**
-     * Get action
-     * @var integer $id Id of the entity
-     * @return array
-     *
+     * @Rest\View(serializerEnableMaxDepthChecks=true)
+     */
+    public function cgetAction(Request $request){
+
+        return parent::cgetAction($request);
+    }
+
+
+    /**
      * @Rest\View(serializerEnableMaxDepthChecks=true)
      */
     public function getAction($id) {
-        $entity = $this->getEntity($id);
 
-        return $entity;
+        return parent::getAction($id);
     }
 
-    /**
-     * @Secure(roles="ROLE_SUPER_ADMIN")
-     */
     public function cpostAction(Request $request) {
-        $entity = new Announcement();
-        $entity->setUser($this->getUser());
-        $form = $this->createForm(new AnnouncementType(), $entity);
-        $form->bind($request);
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($entity);
-            $em->flush();
 
-            return $entity;
-        }
+        $modifyEntity = function($entity,$form){
+            $entity->setUser($this->getUser());
+        };
+        
+        return parent::cpostActionMethod($request, array(), $modifyEntity);
 
-        return array(
-            'form' => $form,
-        );
     }
 
-    /**
-     * @Secure(roles="ROLE_SUPER_ADMIN")
-     */
     public function postAction(Request $request, $id) {
-        $entity = $this->getEntity($id);
-        $form = $this->createForm(new AnnouncementType(), $entity);
-        $form->bind($request);
 
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($entity);
-            $em->flush();
+        $modifyEntity = function($entity,$form){
+            $entity->setUser($this->getUser());
+        };
+        
+        return parent::postActionMethod($request, $id, $options, $modifyEntity);
 
-            return $this->view(null, Codes::HTTP_NO_CONTENT);
-        }
-
-        return array(
-            'form' => $form,
-        );
     }
 
-    /**
-     * @Secure(roles="ROLE_SUPER_ADMIN")
-     */
-    public function deleteAction($id) {
-        $entity = $this->getEntity($id);
-
-        $em = $this->getDoctrine()->getManager();
-        $em->remove($entity);
-        $em->flush();
-
-        return $this->view(null, Codes::HTTP_NO_CONTENT);
-    }
-
-    /**
-     * Get entity instance
-     * @var integer $id Id of the entity
-     * @return Organisation
-     */
-    protected function getEntity($id) {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('SkimiaProjectManagerBundle:Announcement')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find announcement entity');
-        }
-
-        return $entity;
-    }
 
 }

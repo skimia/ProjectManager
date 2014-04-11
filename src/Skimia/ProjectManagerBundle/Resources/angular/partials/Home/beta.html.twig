@@ -1,0 +1,40 @@
+{%verbatim%}
+<div class="color img first ng-scope">
+  <a target="_blank" href="https://github.com/collectiveip/prerender"><img style="position: absolute; top: 45px; right: 0;border: 0;" src="/ccss/img/beta-ribbon.gif" alt="Participer à la bêta"></a>
+  <div class="row">
+    <div class="col-md-12 animated fadeInTop">
+      <h1 translate="layout.register"></h1>
+    </div>
+    <div class="col-md-12 animated fadeInTop">
+      <div class="well">
+        <h4>Clef : {{key}}</h4>
+      </div>
+    </div>
+    <div class="col-md-12 animated fadeInTop">
+      <div class="well">
+        {%endverbatim%}{{ render_form_service('spm.registration.form.type') }}{%verbatim%}
+        <!--<form>
+          <div class="form-group">
+            <label translate="form.email"></label>
+            <input type="email" required="required">
+          </div>
+
+          <div class="form-group">
+            <label translate="form.username"></label>
+            <input type="text" required="required" maxlength="255" pattern=".{2,}">
+          </div>
+          <div class="form-group">
+            <label translate="form.password"></label>
+            <input type="password" required="required">
+          </div>
+          <div class="form-group">
+            <label translate="form.password_confirmation"></label>
+            <input type="password" required="required">
+          </div>
+          <button type="submit" class="btn btn-success"><i class="fa fa-user"></i> <span translate="layout.register"></span></button>
+        </form>-->
+      </div>
+    </div>
+  </div>
+</div>
+{%endverbatim%}

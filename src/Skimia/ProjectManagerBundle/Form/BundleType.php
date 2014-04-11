@@ -19,12 +19,7 @@ class BundleType extends AbstractType
         $builder
             ->add('name')
             ->add('description')
-            ->add('projects', 'multiselect', array(
-                'label' => 'Projects',
-                'class' => 'SkimiaProjectManagerBundle:Project',
-                'property' => 'name',
-                'hide'=> true
-                ))
+            ->add('namespace')
         ;
         $builder->addEventSubscriber(new ResourceFormSubscriber());
     }

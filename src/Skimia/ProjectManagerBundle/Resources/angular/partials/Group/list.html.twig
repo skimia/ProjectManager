@@ -1,27 +1,20 @@
 {% verbatim %}
 <div class="color red first">
   <div class="row">
-    <div class="large-12 columns" ng-show="!groupLoaded">
-        <div class="loader">
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
-    </div>
-    <div class="large-12 columns" ng-show="groupLoaded">
-      <div class="panel row marbot-20" ng-show="groups.length == 0">
+    <div class="col-md-12">
+      <div class="well" ng-show="groups.length == 0">
         <h2>Aucun Groupe</h2>
       </div>
     </div>
-    <div ng-repeat="group in groups" class="large-12 columns">
-      <div class="panel row marbot-20">
-        <div class="large-12 columns">
+    <div ng-repeat="group in groups" class="col-md-12">
+      <div class="well row marbot-20">
+        <div class="col-md-12">
           <h3>{{group.name}}</h3>
-          <ul class="inline-list" ng-show="user.id == group.main_user.id">
+          <ul class="list-inline" ng-show="user.id == group.main_user.id || user.isGranted('ROLE_SUPER_ADMIN')">
             <li><a href="{{$state.href('spm.group.edit',{groupId: group.id})}}">Editer</a></li>
-            <li><a href="{{$state.href('spm.group.delete',{groupId: group.id})}}">Supprimer</a></li>
+            <li><a ng-click="repoDelete(group);">Supprimer</a></li>
           </ul>
-          <ul class="inline-list">
+          <ul class="list-inline">
             <li ng-show="group.public">Public</li>
             <li ng-show="!group.public">Privé</li>
             <li ng-show="group.openned">Ouvert</li>
@@ -33,10 +26,10 @@
 </div>
 <div class="linen">
   <div class="row">
-    <div class="large-12 columns">
-      <div class="panel">
-        <ul class="side-nav">
-          <li class="active">Operations</li>
+    <div class="col-md-12">
+      <div class="well">
+      <h4>Operations</h4>
+        <ul class="nav nav-pills">   
           <li><a href="{{$state.href('spm.group.create')}}">Creer un groupe</a></li>
         </ul>
       </div>

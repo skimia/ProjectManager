@@ -15,4 +15,16 @@ services:
         class: Skimia\ProjectManagerBundle\Twig\WordTransformerExtension
         tags:
             - { name: twig.extension }
+
+    spm.registration.listener:
+        class: Skimia\ProjectManagerBundle\EventListener\RegisterListener
+        arguments: []
+        tags:
+            - { name: kernel.event_subscriber }
+
+    spm.registration.form.type:
+        class: Skimia\ProjectManagerBundle\Form\RegistrationFormType
+        arguments: [%fos_user.model.user.class%]
+        tags:
+            - { name: form.type, alias: spm_registration }
         

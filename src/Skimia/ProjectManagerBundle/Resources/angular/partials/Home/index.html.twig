@@ -1,52 +1,65 @@
   <div class="color img first">
-    <a target="_blank" href="https://github.com/collectiveip/prerender"><img style="position: absolute; top: 45px; right: 0; border: 0; z-index: 1000;" src="{{ asset('ccss/img/beta-ribbon.gif') }}" alt="Fork me on GitHub"></a>
+    {%verbatim%}<a ng-show="!user.authenticated"  href="{{$state.href('spm.homepage')}}">{%endverbatim%}
+    <img style="position: absolute; top: 45px; right: 0; border: 0;" 
+      src="{{ asset('ccss/img/beta-ribbon.gif') }}" 
+      alt="Participer à la bêta">
+    </a>
+    {%verbatim%}<a ng-show="user.authenticated"  href="{{$state.href('spm.homepage')}}">{%endverbatim%}
+    <img style="position: absolute; top: 45px; right: 0; border: 0;" 
+      src="{{ asset('ccss/img/beta-ribbon-on.gif') }}" 
+      alt="Participer à la bêta">
+    </a>
     <div class="row">
-      <div class="large-12 columns">
+      <div class="col-md-12">
         <h1>Skimia Project Manager</h1>
       </div>
-      <div class="large-6 columns animated fadeInLeft">
-        <div class="panel">
-          <h4>Générateur de Code Symfony2<hr></h4>
+      <div class="col-md-6 columns animated fadeInLeft">
+        <div class="well">
+          <h4><i class="fa fa-wrench"></i> Générateur de Code Symfony2<hr></h4>
           <h5 class="subheader">Pour Symfony grâce a Symfony par Skimia</h5>
         </div>
       </div>
-      <div class="large-6 columns animated fadeInRight">
-        <div class="panel">
+      <div class="col-md-6 columns animated fadeInRight">
+        <div class="well">
           <h4><i class="fa fa-gear"></i> Web Application<hr></h4>
           <h5 class="subheader">Nous utilisons les dernières technologies du web. <br/> AngularJs + RestFull Application = Web Application</h5>
         </div>
       </div>
     </div>
   </div>
-  <div class="color beta-ribbon">
+  <div class="color beta-ribbon" ng-show="!user.authenticated">
     <div class="row">
-      <div class="panel">
-      <h3>Bêta</h3>
-      <p><input type="text" placeholder="Clef Bêta" ng-model="key"><input type="submit" class="button" ng-click="beta()"></p>
+      <div class="well">
+        <h3><i class="fa fa-globe"></i> Bêta</h3>
+        <div class="form-group">
+          <input type="text" placeholder="Clef Bêta" ng-model="key" class="form-control">
+        </div>
+        <div class="form-group">
+          <input type="submit" class="btn btn-primary" ng-click="beta(key)">
+        </div>
       </div>
     </div>
   </div>
   <div class="linen">
-    <a target="_blank" href="https://github.com/collectiveip/prerender"><img style="position: absolute; top: 45px; right: 0; border: 0; z-index: 1000;" src="{{ asset('ccss/img/beta-ribbon.gif') }}" alt="Fork me on GitHub"></a>
     <div class="row">
-      <div class="large-12 columns">
+      <div class="col-md-12">
         <h1>Pourquoi SPM</h1>
       </div>
-      <div class="large-4 columns">
-        <div class="panel">
-          <h4>Code Propre<hr></h4>
+      <div class="col-md-4">
+        <div class="well">
+          <h4><i class="fa fa-magic"></i> Code Propre<hr></h4>
           <h5 class="subheader">Dites oui a un code propre et bien documenté</h5>
         </div>
       </div>
-      <div class="large-4 columns">
-        <div class="panel">
-          <h4>Oubliez la routine<hr></h4>
+      <div class="col-md-4">
+        <div class="well">
+          <h4><i class="fa fa-coffee"></i> Oubliez la routine<hr></h4>
           <h5 class="subheader">Avec SPM vous avez juste besoin générer la structure de votre code et vous êtes prêt a travailler</h5>
         </div>
       </div>
-      <div class="large-4 columns">
-        <div class="panel">
-          <h4>Une erreur ?<hr></h4>
+      <div class="col-md-4">
+        <div class="well">
+          <h4><i class="fa fa-sitemap"></i> Une erreur ?<hr></h4>
           <h5 class="subheader">Rien ne vous enpeche de regenerer votre entité ou votre controlleur avec les nouvelles informations</h5>
         </div>
       </div>

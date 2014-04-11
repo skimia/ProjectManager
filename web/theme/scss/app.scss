@@ -1,5 +1,4 @@
-@import "settings";
-@import "foundation";
+@import "bootstrap";
 @import "compass";
  
 @import "_elements.scss";
@@ -12,20 +11,27 @@
 @import url(http://fonts.googleapis.com/css?family=Ubuntu:400,500);
 
 
+
 //utility
-.row{
-	max-width: 80rem !important;
-}
-.breadcrumbs{
+.breadcrumb{
 	margin-top: 20px;
-	padding: 0 !important;
-	background: none!important;
-	border: none!important;
+	
+	& > .active{
+		a{
+			color: #999 !important;
+		}
+	}
 }
-.spm-container{
+.container{
+
 	a:hover{
 		text-decoration:underline !important;
+
 	}
+}
+//a without href
+a:hover{
+	cursor: pointer;
 }
 textarea {
 	min-height: 10rem !important;
