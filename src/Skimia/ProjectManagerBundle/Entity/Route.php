@@ -4,7 +4,8 @@ namespace Skimia\ProjectManagerBundle\Entity;
  
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
- 
+use Symfony\Component\Validator\Constraints as Assert;
+
 /**
  *
  * @ORM\Entity
@@ -21,14 +22,16 @@ class Route {
     protected $id;
  
     /**
-     *
+     * @Assert\NotBlank()
+     * @Assert\Length(min = "3",max = "255")
      * @var string
      * @ORM\Column(type="string", name="name", length=255)
      */
     protected $name;
  
     /**
-     *
+     * @Assert\NotBlank()
+     * @Assert\Length(min = "3",max = "255")
      * @var string
      * @ORM\Column(type="string", name="pattern", length=255)
      */
@@ -73,6 +76,7 @@ class Route {
      * Constructor
      */
     public function __construct() {
+        $this->defaults = array();
     }
  
     /**

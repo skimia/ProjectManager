@@ -3,14 +3,9 @@
     $repo.model('Announcement').query(function(data){
         $scope.announcements = data;
     });
-    $scope.delete = function(id){
-        $repo.model('Announcement').delete(id,function(){
-            $flash.add('success','Message success Delete');
-        });
-    }
 }]);
 
-{{module_var}}.controller('{{base_name}}.ShowController',['$scope','$stateParams','$repo',function($scope, $stateParams, $repo){
+{{module_var}}.controller('{{base_name}}.ShowController',['$scope','$stateParams','$repo','$flash',function($scope, $stateParams, $repo, $flash){
 	$repo.model('Announcement').get($stateParams.announcementId, function(data){
         $scope.announcement = data;
     });
@@ -20,30 +15,27 @@
     $repo.model('Announcement').get($stateParams.announcementId,function(data){
         $scope.data = data.$beginEdit();         
     });
-    $scope.delete = function(){
-        $repo.model('Announcement').delete($stateParams.announcementId,function(){
-            $state.go('^.list');
-            $flash.add('success','Message success Delete');
-        });
-    }
+    
+
     $scope.submit = function(){
         $scope.data.$save(function()
         {
-            $state.go('^.list');
+            $state.go('^.show',{ announcementId:$scope.data.id},{'reload':true});
             $flash.add('success','Message success Edit');
         });
     }
 }]);
 
 {{module_var}}.controller('{{base_name}}.CreateController',['$scope','$stateParams','$state','$repo','$flash',function($scope, $stateParams, $state, $repo, $flash){
-	$scope.data = $repo.model('Announcement').$beginEdit();
-        $scope.submit = function(){
-           $scope.data.$save(function(saved)
-                {
-                    $state.go('^.list');
-                    $flash.add('success','Message success Create');
-                }
-            );
-        }
+    $scope.data = $repo.model('Announcement').$beginEdit();
+    
+    $scope.submit = function(){
+       $scope.data.$save(function(saved)
+            {
+                $state.go('^.list',{ announcementId:saved.id});
+                $flash.add('success','Message success Create');
+            }
+        );
+    }
 }]);
 

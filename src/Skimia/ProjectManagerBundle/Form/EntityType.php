@@ -28,13 +28,15 @@ class EntityType extends AbstractType {
                     'class' => 'SkimiaProjectManagerBundle:Form',
                     'property' => 'name',
             ))
-            ->add('functions','entity', array(
+            ->add('functions','multiselect', array(
                     'class' => 'SkimiaProjectManagerBundle:SimpleFunction',
                     'property' => 'name',
+                    'label'=> 'Functions'
             ))
-            ->add('lifecycleCallbacks','entity', array(
+            ->add('lifecycleCallbacks','multiselect', array(
                     'class' => 'SkimiaProjectManagerBundle:LifecycleCallback',
                     'property' => 'name',
+                    'label'=> 'Callbacks'
             ))
         ;
     }

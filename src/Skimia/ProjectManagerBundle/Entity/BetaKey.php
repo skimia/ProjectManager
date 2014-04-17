@@ -4,7 +4,8 @@ namespace Skimia\ProjectManagerBundle\Entity;
  
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
- 
+
+use Symfony\Component\Validator\Constraints as Assert;
 /**
  *
  * @ORM\Entity
@@ -21,7 +22,8 @@ class BetaKey {
     protected $id;
  
     /**
-     *
+     * @Assert\NotBlank()
+     * @Assert\Length(min = "10",max = "64")
      * @var string
      * @ORM\Column(type="string", name="key", length=64)
      */
@@ -38,6 +40,7 @@ class BetaKey {
      * Constructor
      */
     public function __construct() {
+        $this->usages = 2;
     }
  
     /**

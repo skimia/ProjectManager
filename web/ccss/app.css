@@ -10258,26 +10258,52 @@ button.close {
   text-align: center;
 }
 
+/* line 13, ../theme/scss/app.scss */
+html {
+  overflow: auto;
+}
+
 /* line 16, ../theme/scss/app.scss */
+.modal.fade.in {
+  overflow: hidden;
+}
+
+/* line 20, ../theme/scss/app.scss */
 .breadcrumb {
   margin-top: 20px;
 }
-/* line 20, ../theme/scss/app.scss */
+/* line 24, ../theme/scss/app.scss */
 .breadcrumb > .active a {
   color: #999 !important;
 }
 
-/* line 27, ../theme/scss/app.scss */
+/* line 31, ../theme/scss/app.scss */
 .container a:hover {
   text-decoration: underline !important;
 }
 
-/* line 33, ../theme/scss/app.scss */
+/* line 37, ../theme/scss/app.scss */
 a:hover {
   cursor: pointer;
 }
 
-/* line 36, ../theme/scss/app.scss */
+/* line 40, ../theme/scss/app.scss */
 textarea {
   min-height: 10rem !important;
+}
+
+/* line 46, ../theme/scss/app.scss */
+form .form-group.has-error label {
+  color: #a94442 !important;
+}
+/* line 49, ../theme/scss/app.scss */
+form .form-group.has-error .fa {
+  color: #a94442 !important;
+  margin-top: 8px;
+}
+/* line 54, ../theme/scss/app.scss */
+form .form-group.has-error input, form .form-group.has-error textarea {
+  border-color: #a94442 !important;
+  border-style: dotted;
+  border-width: 2px;
 }

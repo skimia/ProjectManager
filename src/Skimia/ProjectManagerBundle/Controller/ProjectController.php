@@ -66,7 +66,11 @@ class ProjectController extends FOSRestController implements ClassResourceInterf
             //Security don des droits d'access au main_user
             $aclProvider = $this->get('security.acl.provider');
             $objectIdentity = ObjectIdentity::fromDomainObject($entity);
-            $acl = $aclProvider->createAcl($objectIdentity);
+            try {
+                $acl = $aclProvider->findAcl($objectIdentity);
+            } catch (AclNotFoundException $e) {
+                $acl = $aclProvider->createAcl($objectIdentity);
+            }
 
             $securityContext = $this->get('security.context');
             $securityIdentity = new RoleSecurityIdentity($entity->getGroup()->getRoles()[0]);

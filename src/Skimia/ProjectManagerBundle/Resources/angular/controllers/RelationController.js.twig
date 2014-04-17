@@ -1,36 +1,41 @@
 
-{{module_var}}.controller('{{base_name}}.EditController',['$scope','$stateParams', '$state','Relations','mc-service',function($scope, $stateParams, $state, Relations,flash){
-	$scope.data = {};
-    Relations.get({ relationId:$stateParams.relationId},function(data){
-        $scope.data = data;
-        $scope.relationEditLoaded = true
+{{module_var}}.controller('{{base_name}}.ListController',['$scope','$repo','$flash',function($scope, $repo, $flash){
+    $repo.model('Relation').query(function(data){
+        $scope.relations = data;
     });
+}]);
+
+{{module_var}}.controller('{{base_name}}.ShowController',['$scope','$stateParams','$repo','$flash',function($scope, $stateParams, $repo, $flash){
+	$repo.model('Relation').get($stateParams.relationId, function(data){
+        $scope.relation = data;
+    });
+}]);
+
+{{module_var}}.controller('{{base_name}}.EditController',['$scope','$stateParams', '$state','$repo','$flash',function($scope, $stateParams, $state, $repo,$flash){
+    $repo.model('Relation').get($stateParams.relationId,function(data){
+        $scope.data = data.$beginEdit();         
+    });
+    
+
     $scope.submit = function(){
         $scope.data.$save(function()
-            {
-                $state.go('^.^',{},{reload:true});
-                flash.add('success','Message success Edit');
-            });
+        {
+            $state.go('^.show',{ relationId:$scope.data.id},{'reload':true});
+            $flash.add('success','Message success Edit');
+        });
     }
 }]);
 
-{{module_var}}.controller('{{base_name}}.CreateController',['$scope','$stateParams','$state','Relations','mc-service',function($scope, $stateParams, $state, Relations,flash){
-	$scope.data = {}
-        $scope.submit = function(){
-           var saved = Relations.save($scope.data,function()
-                {
-                    $state.go('^.^',{},{reload:true});
-                    flash.add('success','Message success Create');
-                }
-            );
-        }
-}]);
-
-{{module_var}}.controller('{{base_name}}.DeleteController',['$scope','$stateParams','$state','Relations','mc-service',function($scope, $stateParams, $state, Relations,flash){
-    Relations.delete({ relationId:$stateParams.relationId},function()
-                {
-                    $state.go('^.^');
-                    flash.add('success','Message success Delete');
-                });
+{{module_var}}.controller('{{base_name}}.CreateController',['$scope','$stateParams','$state','$repo','$flash',function($scope, $stateParams, $state, $repo, $flash){
+    $scope.data = $repo.model('Relation').$beginEdit();
+    
+    $scope.submit = function(){
+       $scope.data.$save(function(saved)
+            {
+                $state.go('^.show',{ relationId:saved.id});
+                $flash.add('success','Message success Create');
+            }
+        );
+    }
 }]);
 

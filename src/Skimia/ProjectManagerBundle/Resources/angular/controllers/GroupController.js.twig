@@ -3,14 +3,9 @@
     $repo.model('Group').query(function(data){
         $scope.groups = data;
     });
-        $scope.delete = function(id){
-        $repo.model('Group').delete(id,function(){
-            $flash.add('success','Message success Delete');
-        });
-    }
 }]);
 
-{{module_var}}.controller('{{base_name}}.ShowController',['$scope','$stateParams','$repo',function($scope, $stateParams, $repo){
+{{module_var}}.controller('{{base_name}}.ShowController',['$scope','$stateParams','$repo','$flash',function($scope, $stateParams, $repo, $flash){
 	$repo.model('Group').get($stateParams.groupId, function(data){
         $scope.group = data;
     });
@@ -20,30 +15,27 @@
     $repo.model('Group').get($stateParams.groupId,function(data){
         $scope.data = data.$beginEdit();         
     });
-    $scope.delete = function(){
-        $repo.model('Group').delete($stateParams.groupId,function(){
-            $state.go('^.list');
-            $flash.add('success','Message success Delete');
-        });
-    }
+    
+
     $scope.submit = function(){
         $scope.data.$save(function()
         {
-            $state.go('^.show',{groupId:$scope.data.id},{'reload':true});
+            $state.go('^.show',{ groupId:$scope.data.id},{'reload':true});
             $flash.add('success','Message success Edit');
         });
     }
 }]);
 
 {{module_var}}.controller('{{base_name}}.CreateController',['$scope','$stateParams','$state','$repo','$flash',function($scope, $stateParams, $state, $repo, $flash){
-	$scope.data = $repo.model('Group').$beginEdit();
-        $scope.submit = function(){
-           $scope.data.$save(function(saved)
-                {
-                    $state.go('^.show',{groupId:saved.id});
-                    $flash.add('success','Message success Create');
-                }
-            );
-        }
+    $scope.data = $repo.model('Group').$beginEdit();
+    
+    $scope.submit = function(){
+       $scope.data.$save(function(saved)
+            {
+                $state.go('^.show',{ groupId:saved.id});
+                $flash.add('success','Message success Create');
+            }
+        );
+    }
 }]);
 

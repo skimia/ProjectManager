@@ -28,6 +28,7 @@ class Announcement {
     /**
      * @var string
      * @Assert\NotBlank()
+     * @Assert\Length(min = "10",max = "255")
      * @ORM\Column(name="title", type="string", length=255)
      */
     private $title;
@@ -35,6 +36,7 @@ class Announcement {
     /**
      * @var string
      * @Assert\NotBlank()
+     * @Assert\Length(min = "20")
      * @ORM\Column(name="content", type="text")
      */
     private $content;

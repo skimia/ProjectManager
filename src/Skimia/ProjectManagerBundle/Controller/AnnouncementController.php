@@ -75,7 +75,7 @@ class AnnouncementController extends SPMRestController {
             $entity->setUser($this->getUser());
         };
         
-        return parent::postActionMethod($request, $id, $options, $modifyEntity);
+        return parent::postActionMethod($request, $id, array(), $modifyEntity);
 
     }
 

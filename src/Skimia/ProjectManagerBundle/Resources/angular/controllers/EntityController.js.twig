@@ -9,17 +9,14 @@
 	$repo.model('Entity').get($stateParams.entityId, function(data){
         $scope.entity = data;
     });
-    $scope.delete = function(){
-        $repo.model('Entity').delete($stateParams.entityId,function(){
-            $flash.add('success','Message success Delete');
-        });
-    }
 }]);
 
 {{module_var}}.controller('{{base_name}}.EditController',['$scope','$stateParams', '$state','$repo','$flash',function($scope, $stateParams, $state, $repo,$flash){
     $repo.model('Entity').get($stateParams.entityId,function(data){
         $scope.data = data.$beginEdit();         
     });
+    
+
     $scope.submit = function(){
         $scope.data.$save(function()
         {
@@ -31,16 +28,15 @@
 
 {{module_var}}.controller('{{base_name}}.CreateController',['$scope','$stateParams','$state','$repo','$flash',function($scope, $stateParams, $state, $repo, $flash){
     $scope.data = $repo.model('Entity').$beginEdit();
-        $scope.submit = function(){
-            $repo.model('Bundle').get($stateParams.bundleId,function(bundle){
-                $scope.data.bundle = bundle;
-            });
-            $scope.data.$save(function(saved)
+    
+    $scope.submit = function(){
+        $scope.data.bundle = $scope.bundle;
+        $scope.data.$save(function(saved)
             {
                 $state.go('^.show',{ entityId:saved.id});
                 $flash.add('success','Message success Create');
             }
-            );
-        }
+        );
+    }
 }]);
 

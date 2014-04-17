@@ -4,7 +4,7 @@ namespace Skimia\ProjectManagerBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Project
  *
@@ -25,14 +25,16 @@ class Project
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank()
+     * @Assert\Length(min = "3",max = "255")
      * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank()
+     * @Assert\Length(min = "20")
      * @ORM\Column(name="description", type="text")
      */
     private $description;

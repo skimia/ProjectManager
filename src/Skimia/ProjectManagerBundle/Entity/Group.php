@@ -4,7 +4,7 @@ namespace Skimia\ProjectManagerBundle\Entity;
 
 use FOS\UserBundle\Model\Group as BaseGroup;
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity(repositoryClass="Skimia\ProjectManagerBundle\Entity\GroupRepository")
  * @ORM\Table(name="groups")

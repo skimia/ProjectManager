@@ -1,41 +1,42 @@
 
-{{module_var}}.controller('{{base_name}}.ListController',['$scope','Fields',function($scope, Fields){
-	$scope.fields = Fields.query();
+{{module_var}}.controller('{{base_name}}.ListController',['$scope','$repo','$flash',function($scope, $repo, $flash){
+    $repo.model('Field').query(function(data){
+        $scope.fields = data;
+    });
 }]);
 
-{{module_var}}.controller('{{base_name}}.ShowController',['$scope','$stateParams','Fields',function($scope, $stateParams, Fields){
-	$scope.field = Fields.get({ fieldId:$stateParams.fieldId});
+{{module_var}}.controller('{{base_name}}.ShowController',['$scope','$stateParams','$repo','$flash',function($scope, $stateParams, $repo, $flash){
+	$repo.model('Field').get($stateParams.fieldId, function(data){
+        $scope.field = data;
+    });
 }]);
 
-{{module_var}}.controller('{{base_name}}.EditController',['$scope','$stateParams', '$state','Fields','mc-service',function($scope, $stateParams, $state, Fields,flash){
-	$scope.data = Fields.get({ fieldId:$stateParams.fieldId},function(){$scope.fieldEditLoaded = true});
-        $scope.submit = function(){
-            $scope.data.$save(function()
-                {
-                    $state.go('^.show',{fieldId:$scope.data.id},{'reload':true});
-                    flash.add('success','Message success Edit');
-                });
-        }
+{{module_var}}.controller('{{base_name}}.EditController',['$scope','$stateParams', '$state','$repo','$flash',function($scope, $stateParams, $state, $repo,$flash){
+    $repo.model('Field').get($stateParams.fieldId,function(data){
+        $scope.data = data.$beginEdit();         
+    });
+    
+
+    $scope.submit = function(){
+        $scope.data.$save(function()
+        {
+            $state.go('^.^',{},{reload:true});
+            $flash.add('success','Message success Edit');
+        });
+    }
 }]);
 
-{{module_var}}.controller('{{base_name}}.CreateController',['$scope','$stateParams','$state','Fields','mc-service',function($scope, $stateParams, $state, Fields,flash){
-	$scope.data = {}
-    $scope.data.entity = $stateParams.entityId;
-        $scope.submit = function(){
-           var saved = Fields.save($scope.data,function()
-                {
-                    $state.go('^.^',{fieldId:saved.id}, {reload: true});
-                    flash.add('success','Message success Create');
-                }
-            );
-        }
-}]);
-
-{{module_var}}.controller('{{base_name}}.DeleteController',['$scope','$stateParams','$state','Fields','mc-service',function($scope, $stateParams, $state, Fields,flash){
-    Fields.delete({ fieldId:$stateParams.fieldId},function()
-                {
-                    $state.go('^.list');
-                    flash.add('success','Message success Delete');
-                });
+{{module_var}}.controller('{{base_name}}.CreateController',['$scope','$stateParams','$state','$repo','$flash',function($scope, $stateParams, $state, $repo, $flash){
+    $scope.data = $repo.model('Field').$beginEdit();
+    
+    $scope.submit = function(){
+        $scope.data.entity = $scope.entity;
+        $scope.data.$save(function(saved)
+            {
+                $state.go('^.^',{},{reload:true});
+                $flash.add('success','Message success Create');
+            }
+        );
+    }
 }]);
 

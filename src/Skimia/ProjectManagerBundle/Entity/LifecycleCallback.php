@@ -4,7 +4,8 @@ namespace Skimia\ProjectManagerBundle\Entity;
  
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
- 
+use Symfony\Component\Validator\Constraints as Assert;
+
 /**
  *
  * @ORM\Entity
@@ -22,6 +23,8 @@ class LifecycleCallback {
  
     /**
      *
+     * @Assert\NotBlank()
+     * @Assert\Length(min = "3",max = "255")
      * @var string
      * @ORM\Column(type="string", name="name", length=255)
      */
@@ -36,8 +39,10 @@ class LifecycleCallback {
  
     /**
      *
+     * @Assert\NotBlank()
+     * @Assert\Choice(choices = {"preRemove","postRemove","prePersist","postPersist","preUpdate","postUpdate","postLoad","loadClassMetadata","onFlush"}, message = "Choisissez un type valide.")
      * @var string
-     * @ORM\Column(type="string", name="type", length=255)
+     * @ORM\Column(type="string", name="type", length=20)
      */
     protected $type;
  

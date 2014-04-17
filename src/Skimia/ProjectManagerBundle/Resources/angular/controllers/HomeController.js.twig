@@ -9,7 +9,7 @@
 }]);
 
 {{module_var}}.controller('{{base_name}}.BetaController',['$scope', '$rootScope', '$stateParams','$http','$state','$auth',function($scope, $rootScope, $stateParams, $http ,$state, $auth){
-    if($auth.connected){
+    if($auth.connected()){
         $state.go('spm.homepage');
     }
     $scope.key = $stateParams.betaKey;
@@ -30,7 +30,7 @@
     	$http.post('{{ url('fos_user_registration_register') |raw}}', data).
     		success(function(data, status, headers, config) {
       			$state.go('spm.homepage');
-      			$scope.login();
+      			$rootScope.login();
     		}).
     		error(function(data, status, headers, config) {
     		  // called asynchronously if an error occurs

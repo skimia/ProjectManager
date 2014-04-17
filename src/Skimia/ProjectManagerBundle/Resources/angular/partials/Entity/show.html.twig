@@ -1,19 +1,13 @@
 {% verbatim %}
 
 <div class="row project-bundles">
-  <div class="large-12 columns" ng-show="!entityLoaded">
-    <div class="loader">
-      <span></span>
-      <span></span>
-      <span></span>
-    </div>
-  </div>
-  <div class="large-12 columns" ng-show="entityLoaded">
+  <div class="col-md-12">
     <article class="bundle">
       <h4><a href="{{$state.href('spm.bundle.show.entity.show',{bundleId: $stateParams.bundleId,entityId: $stateParams.entityId})}}">{{entity.name}}</a> ( table={{entity.table_name}} )<hr></h4>
       <div class="row">  
-        <div ui-view class="large-10 columns">
-          <table>
+        <div ui-view class="col-md-12">
+          <div class="table-responsive">
+          <table class="table table-hover">
             <thead>
               <tr>
                 <th>Nom</th>
@@ -33,15 +27,17 @@
                 <td>{{field.description}}</td>
                 <td>{{field.type}}</td>
                 <td>{{field.db_name}}</td>
-                <td>{{field.nullable}}</td>
-                <td>{{field.unique}}</td>
-                <td>{{field.length}}</td>
-                <td>{{field.precision}}</td>
-                <td>{{field.scale}}</td>
+                <td><h5 ng-show="field.options.nullable == true">Nullable</h5></td>
+                <td><h5 ng-show="field.options.unique == true">Unique</h5></td>
+                <td>{{field.options.length}}</td>
+                <td>{{field.options.precision}}</td>
+                <td>{{field.options.scale}}</td>
               </tr>
             </tbody> 
           </table>
-          <table>
+          </div>
+          <div class="table-responsive">
+          <table class="table table-hover">
             <thead>
               <tr>
                 <th>Champ</th>
@@ -65,7 +61,9 @@
               </tr>
             </tbody> 
           </table>
-          <table>
+          </div>
+          <div class="table-responsive">
+          <table class="table table-hover">
             <thead>
               <tr>
                 <th>Champ</th>
@@ -89,10 +87,10 @@
               </tr>
             </tbody> 
           </table>
+          </div>
       </div> 
-      <div class="large-2 columns">
-          <h4>Entitée</h4>
-          <ul class="side-nav">
+      <div class="col-md-12">
+          <ul class="nav nav-pills">
               <li><a href="{{$state.href('spm.bundle.show.entity.show.field.create',{bundleId: $stateParams.bundleId,entityId: $stateParams.entityId})}}">Ajouter un Champ</a></li>
               <li><a href="{{$state.href('spm.bundle.show.entity.show.relation.create',{bundleId: $stateParams.bundleId,entityId: $stateParams.entityId})}}">Ajouter une Relation</a></li>
           </ul>

@@ -4,7 +4,8 @@ namespace Skimia\ProjectManagerBundle\Entity;
  
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
- 
+use Symfony\Component\Validator\Constraints as Assert;
+
 /**
  * Relation Symfony2
  * @ORM\Entity
@@ -23,7 +24,9 @@ class Relation {
     /**
      * Type de relation
      * @var string
-     * @ORM\Column(type="string", name="type", length=255)
+     * @Assert\NotBlank()
+     * @Assert\Choice(choices = {"OneToOne","ManyToOne","ManyToMany"}, message = "Choisissez un type valide.")
+     * @ORM\Column(type="string", name="type", length=11)
      */
     protected $type;
  
@@ -59,6 +62,7 @@ class Relation {
      * Constructor
      */
     public function __construct() {
+        $this->options = array();
     }
  
     /**

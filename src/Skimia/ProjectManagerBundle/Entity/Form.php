@@ -4,7 +4,7 @@ namespace Skimia\ProjectManagerBundle\Entity;
  
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
- 
+use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Form Symfony2
  * @ORM\Entity
@@ -23,6 +23,8 @@ class Form {
     /**
      * Nom du formulaire
      * @var string
+     * @Assert\NotBlank()
+     * @Assert\Length(min = "3",max = "255")
      * @ORM\Column(type="string", name="name", length=255)
      */
     protected $name;

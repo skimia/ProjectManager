@@ -4,7 +4,7 @@ namespace Skimia\ProjectManagerBundle\Entity;
  
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
- 
+use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Bundle Symfony2
  * @ORM\Entity
@@ -23,6 +23,8 @@ class Bundle {
     /**
      * Nom du bundle
      * @var string
+     * @Assert\NotBlank()
+     * @Assert\Length(min = "3",max = "255")
      * @ORM\Column(type="string", name="name", length=255)
      */
     protected $name;
@@ -30,13 +32,17 @@ class Bundle {
     /**
      * Description du bundle
      * @var text
-     * @ORM\Column(type="text", name="description", nullable=true)
+     * @Assert\NotBlank()
+     * @Assert\Length(min = "20")
+     * @ORM\Column(type="text", name="description")
      */
     protected $description;
  
     /**
      * Namespace du bundle
      * @var string
+     * @Assert\NotBlank()
+     * @Assert\Length(min = "3",max = "255")
      * @ORM\Column(type="string", name="namespace", length=255)
      */
     protected $namespace;

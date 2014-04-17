@@ -13,6 +13,13 @@ class FieldType extends AbstractType {
                 ->add('name')
                 ->add('description')
                 ->add('dbName')
+                 ->add('entity','entity', array(
+                    'class' => 'SkimiaProjectManagerBundle:Entity',
+                    'property' => 'name',
+                    'attr'=> array(
+                        'class'=>'hide'
+                        )
+                ))
                 ->add('type', 'choice', array(
                     'choices' => array(
                         'integer' => 'Integer',

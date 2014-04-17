@@ -10,8 +10,12 @@
 
 @import url(http://fonts.googleapis.com/css?family=Ubuntu:400,500);
 
-
-
+html{
+	overflow: auto;
+}
+.modal.fade.in{
+	overflow: hidden;
+}
 //utility
 .breadcrumb{
 	margin-top: 20px;
@@ -35,4 +39,22 @@ a:hover{
 }
 textarea {
 	min-height: 10rem !important;
+}
+
+form{
+	.form-group.has-error{
+		label{
+			color: #a94442 !important;
+		}
+		.fa{
+			color: #a94442 !important;
+			margin-top: 8px;
+		}
+
+		input,textarea{
+			border-color: #a94442!important;
+			border-style:dotted	;
+			border-width:2px;
+		}
+	}
 }

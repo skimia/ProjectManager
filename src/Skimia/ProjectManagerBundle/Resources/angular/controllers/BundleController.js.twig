@@ -15,6 +15,8 @@
     $repo.model('Bundle').get($stateParams.bundleId,function(data){
         $scope.data = data.$beginEdit();         
     });
+    
+
     $scope.submit = function(){
         $scope.data.$save(function()
         {
@@ -26,13 +28,14 @@
 
 {{module_var}}.controller('{{base_name}}.CreateController',['$scope','$stateParams','$state','$repo','$flash',function($scope, $stateParams, $state, $repo, $flash){
     $scope.data = $repo.model('Bundle').$beginEdit();
-        $scope.submit = function(){
-           $scope.data.$save(function(saved)
-                {
-                    $state.go('^.show',{ bundleId:saved.id});
-                    $flash.add('success','Message success Create');
-                }
-            );
-        }
+    
+    $scope.submit = function(){
+       $scope.data.$save(function(saved)
+            {
+                $state.go('^.show',{ bundleId:saved.id});
+                $flash.add('success','Message success Create');
+            }
+        );
+    }
 }]);
 

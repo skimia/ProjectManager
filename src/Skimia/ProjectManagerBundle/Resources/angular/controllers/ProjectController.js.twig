@@ -3,32 +3,20 @@
     $repo.model('Project').query(function(data){
         $scope.projects = data;
     });
-    $scope.delete = function(id){
-        $repo.model('Project').delete(id,function(){
-            $flash.add('success','Message success Delete');
-        });
-    }
 }]);
 
 {{module_var}}.controller('{{base_name}}.ShowController',['$scope','$stateParams','$repo','$flash',function($scope, $stateParams, $repo, $flash){
 	$repo.model('Project').get($stateParams.projectId, function(data){
         $scope.project = data;
     });
-    $scope.delete = function(){
-        $repo.model('Project').delete($stateParams.projectId,function(){
-            $flash.add('success','Message success Delete');
-        });
-    }
 }]);
 
 {{module_var}}.controller('{{base_name}}.EditController',['$scope','$stateParams', '$state','$repo','$flash',function($scope, $stateParams, $state, $repo,$flash){
     $repo.model('Project').get($stateParams.projectId,function(data){
-        $scope.data = data.$beginEdit();   
+        $scope.data = data.$beginEdit();         
+    });
+    
 
-    });
-    $repo.model('Bundle').query(function(bundles){
-        $scope.bundles = bundles;
-    });
     $scope.submit = function(){
         $scope.data.$save(function()
         {
@@ -40,19 +28,16 @@
 
 {{module_var}}.controller('{{base_name}}.CreateController',['$scope','$stateParams','$state','$repo','$flash',function($scope, $stateParams, $state, $repo, $flash){
     $scope.data = $repo.model('Project').$beginEdit();
-        $scope.submit = function(){
-           $scope.data.$save(function(saved)
-                {
-                    $state.go('^.show',{ projectId:saved.id});
-                    $flash.add('success','Message success Create');
-                }
-            );
-        }
-    $repo.model('Bundle').query(function(bundles){
-        $scope.bundles = bundles;
-    });
+    
+    $scope.submit = function(){
+       $scope.data.$save(function(saved)
+            {
+                $state.go('^.show',{ projectId:saved.id});
+                $flash.add('success','Message success Create');
+            }
+        );
+    }
 }]);
-
 {{module_var}}.controller('{{base_name}}.FilesController', function($scope, $http){
     
 });
@@ -64,3 +49,4 @@
 {{module_var}}.controller('{{base_name}}.BundlesController',['$scope', '$http', '$repo', function($scope, $http, $repo){
 
 }]);
+

@@ -32,10 +32,10 @@
     };
 
     var LoginCtrl = function($rootScope, $scope, $repo, $auth, $modalInstance, title){
-        $scope.auth = {};
+        $rootScope.data_login = {};
         $scope.title = title;
         $scope.login = function(){
-            $auth.connect($scope.auth.ident,$scope.auth.password,$scope.auth.remember);
+            $auth.connect($rootScope.data_login.username,$rootScope.data_login.password,$rootScope.data_login.remember);
         };
 
         $scope.$on('event:auth-loginConfirmed', function() {
@@ -107,7 +107,7 @@
     };
     $rootScope.ekonami = false;
     $rootScope.konami = function () {
-        if($auth.connected){
+        if($auth.connected()){
             alert('konami true');
             $rootScope.ekonami = true;
         }else{
