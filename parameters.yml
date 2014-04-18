@@ -1,0 +1,14 @@
+# This file is auto-generated during the composer install
+parameters:
+    database_driver: pdo_mysql
+    database_host: mysql2.alwaysdata.com
+    database_port: null
+    database_name: 56743_spm
+    database_user: 56743_spm
+    database_password: bcq686qhv
+    mailer_transport: mail
+    mailer_host: 127.0.0.1
+    mailer_user: null
+    mailer_password: null
+    locale: fr
+    secret: 4geuhxp2j1mvurgs3e8awykl9lsnxxn0

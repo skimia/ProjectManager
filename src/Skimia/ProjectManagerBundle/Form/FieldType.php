@@ -39,23 +39,23 @@ class FieldType extends AbstractType {
                 ))
                 ->add('options_nullable', 'checkbox', array(
                     'required' => false,
-                    'property_path' => 'options["nullable"]'
+                    'property_path' => 'options[nullable]'
                 ))
                 ->add('options_unique', 'checkbox', array(
                     'required' => false,
-                    'property_path' => 'options["unique"]'
+                    'property_path' => 'options[unique]'
                 ))
                 ->add('options_length', 'integer', array(
                     'required' => false,  
-                    'property_path' => 'options["length"]'
+                    'property_path' => 'options[length]'
                 ))
                 ->add('options_precision', 'integer', array(
                     'required' => false,    
-                    'property_path' => 'options["precision"]'                
+                    'property_path' => 'options[precision]'                
                 ))
                 ->add('options_scale', 'integer', array(
                     'required' => false, 
-                    'property_path' => 'options["scale"]'                   
+                    'property_path' => 'options[scale]'                   
                 ))
         ;
     }
