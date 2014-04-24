@@ -12,7 +12,7 @@
         </div>
         <div class="col-md-9">
           <h3>{{split(revision.commit.message,0)}}</h3>
-          <div markdown="split(revision.commit.message,1)"></div>
+          <div markdown="split(revision.commit.message,1).replace('##Corrections','#### Corrections')"></div>
         </div>
       </div>
     </div>
