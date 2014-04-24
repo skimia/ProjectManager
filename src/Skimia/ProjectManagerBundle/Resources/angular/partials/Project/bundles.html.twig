@@ -15,7 +15,9 @@
         <li ng-repeat="project in bundle.projects">{{project.name}}</li>
       </ul>
     </div>
-    <h4><a href="{{$state.href('spm.bundle.show',{bundleId:bundle.id})}}">{{bundle.name}}</a><hr></h4>
+    <h4><a href="{{$state.href('spm.bundle.show',{bundleId:bundle.id})}}">{{bundle.name}}</a>
+    <span class="pull-right"><button ng-click="repoDelete(bundle);" type="button" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span></button></span>
+    <hr></h4>
     <p>{{bundle.description}}</p>
     <hr>
     <ul class="list-inline icons">

@@ -4,8 +4,8 @@
       <h1>v {{version}}-{%verbatim%}{{rev}}{%endverbatim%}</h1>    
     </div>
     {% verbatim %}
-    <div ng-repeat="revision in commits" class="col-md-12">
-      <div class="well row">
+    <div ng-repeat="revision in commits| reverse" class="col-md-12">
+      <div class="well row marbot-20" ng-if="split(revision.commit.message,1).length > 1">
         <div class="col-md-3 author">
           <img class="avatar" gravatar-src="revision.commit.committer.email" gravatar-size="100"/>
           <h4>{{revision.committer.login}}</h4>
@@ -19,3 +19,7 @@
     {% endverbatim %}
   </div>
 </div>
+<script type="text/javascript">
+
+    
+</script>

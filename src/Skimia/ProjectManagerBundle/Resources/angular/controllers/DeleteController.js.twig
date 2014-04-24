@@ -10,6 +10,7 @@ var DeleteInstanceCtrl = function($scope, $modalInstance, $repo, $flash, $state,
 					$state.go(infos.redirectState, {}, {'reload':true});
 				}
 			}
+			$flash.add('success','Supression terminée');
 			$modalInstance.close(infos.id);
 		});
 	};

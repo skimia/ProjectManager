@@ -3,12 +3,14 @@
     $repo.model('Group').query(function(data){
         $scope.groups = data;
     });
+
 }]);
 
 {{module_var}}.controller('{{base_name}}.ShowController',['$scope','$stateParams','$repo','$flash',function($scope, $stateParams, $repo, $flash){
 	$repo.model('Group').get($stateParams.groupId, function(data){
         $scope.group = data;
     });
+
 }]);
 
 {{module_var}}.controller('{{base_name}}.EditController',['$scope','$stateParams', '$state','$repo','$flash',function($scope, $stateParams, $state, $repo,$flash){
@@ -24,6 +26,7 @@
             $flash.add('success','Message success Edit');
         });
     }
+
 }]);
 
 {{module_var}}.controller('{{base_name}}.CreateController',['$scope','$stateParams','$state','$repo','$flash',function($scope, $stateParams, $state, $repo, $flash){
@@ -37,5 +40,6 @@
             }
         );
     }
+
 }]);
 

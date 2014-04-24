@@ -3,6 +3,7 @@
     $repo.model('Announcement').query(function(data){
         $scope.announcements = data;
     });
+
 }]);
 
 {{module_var}}.controller('{{base_name}}.ShowController',['$scope','$stateParams','$repo','$flash',function($scope, $stateParams, $repo, $flash){
@@ -24,6 +25,7 @@
             $flash.add('success','Message success Edit');
         });
     }
+
 }]);
 
 {{module_var}}.controller('{{base_name}}.CreateController',['$scope','$stateParams','$state','$repo','$flash',function($scope, $stateParams, $state, $repo, $flash){
@@ -37,5 +39,6 @@
             }
         );
     }
+
 }]);
 

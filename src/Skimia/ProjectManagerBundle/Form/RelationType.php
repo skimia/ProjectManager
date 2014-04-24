@@ -19,28 +19,30 @@ class RelationType extends AbstractType {
                         'ManyToMany' => 'Many To Many'
                     ),
                 ))
-                ->add('mainEntity', 'entity', array(
+                ->add('mainEntity', 'singleselect', array(
                     'class' => 'SkimiaProjectManagerBundle:Entity',
                     'property' => 'name',
                 ))
-                ->add('linkedEntity', 'entity', array(
+                ->add('inversedEntity', 'singleselect', array(
                     'class' => 'SkimiaProjectManagerBundle:Entity',
                     'property' => 'name'
                 ))
-                ->add('mainField', 'text', array(
-                    'required' => false
+                
+                ->add('options_mainfield', 'text', array(
+                    'property_path' => 'options[mainfield]'
                 ))
-                ->add('linkedField', 'text', array(
-                    'required' => false
+                ->add('options_inversedfield', 'text', array(
+                    'property_path' => 'options[inversedfield]'
                 ))
-                ->add('bidirectionnal', 'checkbox', array(
-                    'required' => false
+                ->add('options_bidirectionnal', 'checkbox', array(
+                    'required' => false,
+                    'property_path' => 'options[bidirectionnal]'
                 ))
-                ->add('joinColumn', null, array(
-                    'required' => false
+                ->add('options_joincolumn', 'text', array(
+                    'required' => false,
+                    'property_path' => 'options[joincolumn]'
                 ))
         ;
-        $builder->addEventSubscriber(new ResourceFormSubscriber());
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver) {

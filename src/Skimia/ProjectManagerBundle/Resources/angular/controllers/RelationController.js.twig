@@ -20,7 +20,7 @@
     $scope.submit = function(){
         $scope.data.$save(function()
         {
-            $state.go('^.show',{ relationId:$scope.data.id},{'reload':true});
+            $state.go('^.^',{},{reload:true});
             $flash.add('success','Message success Edit');
         });
     }
@@ -32,7 +32,7 @@
     $scope.submit = function(){
        $scope.data.$save(function(saved)
             {
-                $state.go('^.show',{ relationId:saved.id});
+                $state.go('^.^',{},{reload:true});
                 $flash.add('success','Message success Create');
             }
         );

@@ -6,6 +6,8 @@
         $scope.array = string.split('\n\n');
         return $scope.result = $scope.array[nb];
     }
+
+    
 }]);
 
 {{module_var}}.controller('{{base_name}}.BetaController',['$scope', '$rootScope', '$stateParams','$http','$state','$auth',function($scope, $rootScope, $stateParams, $http ,$state, $auth){
@@ -38,3 +40,16 @@
     		});
     };
 }]);
+{{module_var}}.filter('reverse', function() {
+  return function(items) {
+    if(angular.isDefined(items)){
+        var arr = [];
+        angular.forEach(items,function(value){
+            arr.push(value);
+        });
+        return arr.slice();
+    }
+    else
+        return [];
+  };
+});

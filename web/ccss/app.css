@@ -8212,6 +8212,38 @@ button.close {
   display: inline-block;
 }
 
+/* line 170, ../theme/scss/_elements.scss */
+html, body {
+  height: 100% !important;
+}
+
+/* line 171, ../theme/scss/_elements.scss */
+.body {
+  min-height: 100%;
+}
+
+/* line 174, ../theme/scss/_elements.scss */
+.wrapper {
+  overflow: auto;
+  padding-bottom: 50px;
+}
+
+/* line 179, ../theme/scss/_elements.scss */
+.footer {
+  position: relative;
+  margin-top: -50px;
+  /* negative value of footer height */
+  height: 50px;
+  clear: both;
+  background-color: #222222;
+  border-top: 1px solid #090909;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  line-height: 20px;
+  padding-left: 20px;
+  color: #999999;
+}
+
 /* line 6, ../theme/scss/_color_blocks.scss */
 .color {
   padding: 20px;
@@ -8285,7 +8317,7 @@ button.close {
   text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.6);
 }
 
-/* line 59, ../theme/scss/_color_blocks.scss */
+/* line 60, ../theme/scss/_color_blocks.scss */
 .linen {
   background-image: url("img/linen.png");
   padding: 20px;

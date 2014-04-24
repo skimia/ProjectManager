@@ -8,7 +8,10 @@
   </div>
     <div class="col-md-10">
     	<article ng-repeat="entity in entities" class="entity">
-        <h4><a href="{{$state.href('spm.bundle.show.entity.show',{bundleId:bundle.id,entityId:entity.id})}}">{{entity.name}}</a><hr></h4>
+        <h4><a href="{{$state.href('spm.bundle.show.entity.show',{bundleId:bundle.id,entityId:entity.id})}}">{{entity.name}}</a>
+        <span class="pull-right"><button ng-click="repoDelete(entity);" type="button" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span></button></span>
+        <hr></h4>
+
         <div markdown="entity.description"></div>
         <hr>
         <ul class="list-inline icons">

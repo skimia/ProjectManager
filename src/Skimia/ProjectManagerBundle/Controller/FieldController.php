@@ -17,103 +17,17 @@ use FOS\RestBundle\Util\Codes;
  *
  * @author Kessler
  */
-class FieldController extends FOSRestController implements ClassResourceInterface {
+class FieldController extends SPMRestController {
 
-
-    
-    /**
-     * Collection get action
-     * @var Request $request
-     * @return array
-     *
-     * @Rest\View()
-     */
-    public function cgetAction(Request $request) {
-        $em = $this->getDoctrine()->getManager();
-        $entities = $em->getRepository('SkimiaProjectManagerBundle:Field')->findAll();
-        return $entities;
-    }
-
-    /**
-     * Get action
-     * @var integer $id Id of the entity
-     * @return array
-     *
-     * @Rest\View()
-     */
-    public function getAction($id) {
-        $entity = $this->getEntity($id);
-
-        return $entity;
-    }
-
-    public function cpostAction(Request $request) {
-        $field = new Field();
-        $entity = $this->container->get('doctrine')->getRepository('SkimiaProjectManagerBundle:Entity')->find(intval($request->request->get('entity'))); 
-        $request->request->remove('entity');
-        
-        $form = $this->createForm(new FieldType(), $field);
-        $form->bind($request);
-        $field->setEntity($entity);
-        
-        //debug($field); die();
-        
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($field);
-            $em->flush();
-
-            return $field;
-        }
-
-        return array(
-            'form' => $form,
-        );
-    }
-
-    public function postAction(Request $request, $id) {
-        $entity = $this->getEntity($id);
-        $form = $this->createForm(new FieldType(), $entity);
-        $form->bind($request);
-
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($entity);
-            $em->flush();
-
-            return $entity;
-        }
-
-        return array(
-            'form' => $form,
-        );
-    }
-
-    public function deleteAction($id) {
-        $entity = $this->getEntity($id);
+	protected function getRepository(){
 
         $em = $this->getDoctrine()->getManager();
-        $em->remove($entity);
-        $em->flush();
-
-        return $this->view(null, Codes::HTTP_NO_CONTENT);
+        return $em->getRepository('SkimiaProjectManagerBundle:Field');
     }
 
-    /**
-     * Get entity instance
-     * @var integer $id Id of the entity
-     * @return Organisation
-     */
-    protected function getEntity($id) {
-        $em = $this->getDoctrine()->getManager();
+    protected function getNewFormInstance(){
 
-        $entity = $em->getRepository('SkimiaProjectManagerBundle:Field')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find announcement entity');
-        }
-
-        return $entity;
+        return new FieldType();
     }
 
 }

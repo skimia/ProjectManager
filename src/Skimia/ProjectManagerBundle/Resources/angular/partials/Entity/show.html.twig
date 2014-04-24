@@ -19,6 +19,7 @@
                 <th>Length</th>
                 <th>Precision</th>
                 <th>Scale</th>
+                <th></th>
               </tr>
             </thead> 
             <tbody>
@@ -27,11 +28,12 @@
                 <td>{{field.description}}</td>
                 <td>{{field.type}}</td>
                 <td>{{field.db_name}}</td>
-                <td><h5 ng-show="field.options.nullable == true">Nullable</h5></td>
-                <td><h5 ng-show="field.options.unique == true">Unique</h5></td>
+                <td><span ng-show="field.options.nullable == true">Nullable</span></td>
+                <td><span ng-show="field.options.unique == true">Unique</span></td>
                 <td>{{field.options.length}}</td>
                 <td>{{field.options.precision}}</td>
                 <td>{{field.options.scale}}</td>
+                <td><button ng-click="repoDelete(field);" type="button" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span></button></td>
               </tr>
             </tbody> 
           </table>
@@ -46,18 +48,18 @@
                 <th>Type</th>
                 <th>Bidirectionnel</th>
                 <th>Join Column</th>
-                <th>Join Table</th>
+                <th></th>
               </tr>
             </thead> 
             <tbody>
               <tr ng-repeat="relation in entity.main_relations">
-                <td><a href="{{$state.href('spm.bundle.show.entity.show.relation.edit',{bundleId: $stateParams.bundleId,entityId: $stateParams.entityId,relationId: relation.id})}}">{{relation.main_field}}</a></td>
-                <td>{{relation.linked_entity.name}}</td>
-                <td>{{relation.linked_field}}</td>
+                <td><a href="{{$state.href('spm.bundle.show.entity.show.relation.edit',{bundleId: $stateParams.bundleId,entityId: $stateParams.entityId,relationId: relation.id})}}">{{relation.options.mainfield}}</a></td>
+                <td>{{relation.inversed_entity.name}}</td>
+                <td>{{relation.options.invertedfield}}</td>
                 <td>{{relation.type}}</td>
-                <td>{{relation.bidirectionnal}}</td>
-                <td>{{relation.join_column}}</td>
-                <td>{{relation.join_table}}</td>
+                <td>{{relation.options.bidirectionnal}}</td>
+                <td>{{relation.options.joincolumn}}</td>
+                <td><button ng-click="repoDelete(relation);" type="button" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span></button></td>
               </tr>
             </tbody> 
           </table>
@@ -72,18 +74,18 @@
                 <th>Type</th>
                 <th>Bidirectionnel</th>
                 <th>Join Column</th>
-                <th>Join Table</th>
+                <th></th>
               </tr>
             </thead> 
             <tbody>
               <tr ng-repeat="relation in entity.inversed_relations">
-                <td><a href="{{$state.href('spm.bundle.show.entity.show.relation.edit',{bundleId: $stateParams.bundleId,entityId: $stateParams.entityId,relationId: relation.id})}}">{{relation.linked_field}}</a></td>
+                <td><a href="{{$state.href('spm.bundle.show.entity.show.relation.edit',{bundleId: $stateParams.bundleId,entityId: $stateParams.entityId,relationId: relation.id})}}">{{relation.options.inversedfield}}</a></td>
                 <td>{{relation.main_entity.name}}</td>
-                <td>{{relation.main_field}}</td>
+                <td>{{relation.options.mainfield}}</td>
                 <td>{{relation.type}}</td>
-                <td>{{relation.bidirectionnal}}</td>
-                <td>{{relation.join_column}}</td>
-                <td>{{relation.join_table}}</td>
+                <td>{{relation.options.bidirectionnal}}</td>
+                <td>{{relation.options.joincolumn}}</td>
+                <td><button ng-click="repoDelete(relation);" type="button" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span></button></td>
               </tr>
             </tbody> 
           </table>
